@@ -1,6 +1,6 @@
 # Nuxt 3 Minimal Starter
 
-[![Build](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml)
+[![.github/workflows/nuxtjs.yml](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml)
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
