@@ -21,9 +21,12 @@
   },
   "devDependencies": {
     "@nuxt/eslint": "^0.3.9",
+    "@nuxt/image": "^1.7.0",
     "@nuxt/test-utils": "^3.12.1",
+    "@nuxtjs/robots": "^3.0.0",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/test-utils": "^2.4.5",
+    "@vueuse/nuxt": "^10.9.0",
     "eslint": "^9.1.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
