@@ -10,6 +10,38 @@ on:
   workflow_dispatch:
 
 jobs:
+  # lint-check:
+  #   name: Lint
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         fetch-depth: 0
+
+  #     - name: Install Dependencies
+  #       run: yarn install --frozen-lockfile
+
+  #     - name: Lint Check
+  #       run: |
+  #         if yarn lint; then
+  #           echo "Linting passed, no lintfix needed."
+  #         else
+  #           echo "Linting failed, running lintfix..."
+  #           yarn lintfix
+  #           # Check if there are any changes to commit
+  #           if [[ -n $(git status -s) ]]; then
+  #             git config --local user.email "action@github.com"
+  #             git config --local user.name "GitHub Action"
+  #             git add -A
+  #             git commit -m "Fix linting issues"
+  #             git push origin main
+  #           fi
+  #         fi
+
   build_and_publish:
     name: Build and Publish
     runs-on: ubuntu-latest
@@ -51,7 +83,7 @@ jobs:
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ Deployment succeeded for commit ${{ github.sh::6 }}. Access your site at: ${steps.run_tests.outputs.url}. [View build](${BUILD_URL})"
+            -d text="✅ Deployment succeeded for commit ${GITHUB_SHA::6 }. Access your site at: ${steps.run_tests.outputs.url}. [View build](${BUILD_URL})"
 
       - name: Notify Build Status (Failure)
         if: failure()
@@ -59,4 +91,4 @@ jobs:
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
           -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-          -d text="❌ Deployment failed for commit ${{ github.sha::6 }}. [View build](${BUILD_URL})"
+          -d text="❌ Deployment failed for commit ${ GITHUB_SHA::6 }. [View build](${BUILD_URL})"
