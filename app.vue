@@ -6,7 +6,7 @@ export default defineComponent({
     const store = useCounterStore();
     const { increment } = store;
     const { getCount } = storeToRefs(store);
-    return { increment, getCount     };
+    return { increment, getCount };
   },
 });
 </script>
