@@ -1,3 +1,8 @@
+# File: .github/workflows/deploy.yml
+# Name: Deployment
+name: Build and Deployment
+run-name: Building and Deploying by ${{ github.actor }}
+
 on:
   push:
     branches:
@@ -28,10 +33,7 @@ jobs:
           yarn install --frozen-lockfile
           yarn build
           yarn generate
-  publish:
-     runs-on: ubuntu-latest
-     needs: [build]
-     steps:
+
       # Publish step
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
