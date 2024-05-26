@@ -15,8 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: read
-      statuses: write
 
     steps:
       - name: Checkout code
@@ -24,15 +22,27 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Super-linter
-        uses: super-linter/super-linter/slim@v6.5.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          VALIDATE_CHECKOV: false
-          VALIDATE_TYPESCRIPT_ES: false
-          VALIDATE_TYPESCRIPT_STANDARD: false
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
 
-  build:
+      - name: Lint Check
+        run: |
+          if yarn lint; then
+            echo "Linting passed, no lintfix needed."
+          else
+            echo "Linting failed, running lintfix..."
+            yarn lintfix
+            # Check if there are any changes to commit
+            if [[ -n $(git status -s) ]]; then
+              git config --local user.email "action@github.com"
+              git config --local user.name "GitHub Action"
+              git add -A
+              git commit -m "Fix linting issues"
+              git push origin main
+            fi
+          fi
+
+  build_and_publish:
     name: Build and Publish
     runs-on: ubuntu-latest
     needs: [lint-check]
