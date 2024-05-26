@@ -75,3 +75,17 @@ jobs:
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
           branch: main
           wranglerVersion: "3"
+
+      - name: Notify Build Status (Success)
+        if: success()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
+            -d text="✅ Build succeeded for commit ${{ github.sha }}"
+
+      - name: Notify Build Status (Failure)
+        if: failure()
+        run: |
+          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
+            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
+            -d text="❌ Build failed for commit ${{ github.sha }}"
