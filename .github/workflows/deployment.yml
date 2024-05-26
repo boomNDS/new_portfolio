@@ -67,6 +67,7 @@ jobs:
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
+        id: cloudflare
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
@@ -79,13 +80,15 @@ jobs:
       - name: Notify Build Status (Success)
         if: success()
         run: |
+          BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
-            -d text="✅ Build succeeded for commit ${{ github.sha }}"
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="✅ Deployment succeeded for commit ${{ github.sha }}. Access your site at: ${steps.run_tests.outputs.url}. [View build](${BUILD_URL})"
 
       - name: Notify Build Status (Failure)
         if: failure()
         run: |
+          BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
-            -d text="❌ Build failed for commit ${{ github.sha }}"
+          -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          -d text="❌ Deployment failed for commit ${{ github.sha }}. [View build](${BUILD_URL})"
