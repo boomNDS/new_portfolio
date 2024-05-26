@@ -10,38 +10,6 @@ on:
   workflow_dispatch:
 
 jobs:
-  # lint-check:
-  #   name: Lint
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: write
-
-  #   steps:
-  #     - name: Checkout code
-  #       uses: actions/checkout@v4
-  #       with:
-  #         fetch-depth: 0
-
-  #     - name: Install Dependencies
-  #       run: yarn install --frozen-lockfile
-
-  #     - name: Lint Check
-  #       run: |
-  #         if yarn lint; then
-  #           echo "Linting passed, no lintfix needed."
-  #         else
-  #           echo "Linting failed, running lintfix..."
-  #           yarn lintfix
-  #           # Check if there are any changes to commit
-  #           if [[ -n $(git status -s) ]]; then
-  #             git config --local user.email "action@github.com"
-  #             git config --local user.name "GitHub Action"
-  #             git add -A
-  #             git commit -m "Fix linting issues"
-  #             git push origin main
-  #           fi
-  #         fi
-
   build_and_publish:
     name: Build and Publish
     runs-on: ubuntu-latest
