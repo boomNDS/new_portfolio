@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+env:
+  HUSKY: 0
+
 jobs:
   build_and_publish:
     name: Build and Publish
@@ -48,7 +51,7 @@ jobs:
         if: success()
         run: |
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          MESSAGE="✅ Deployment succeeded for commit ${GITHUB_SHA::6}. Access your site at: ${{ steps.cloudflare.outputs.url }}. [View build](${BUILD_URL})"
+          MESSAGE="✅ Deployment succeeded for commit ${GITHUB_SHA::6}.\n Access your site at: ${{ steps.cloudflare.outputs.url }}.\n [View build](${BUILD_URL})"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
             -d text="$MESSAGE"
@@ -57,7 +60,7 @@ jobs:
         if: failure()
         run: |
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          MESSAGE="❌ Deployment failed for commit ${GITHUB_SHA::6}. [View build](${BUILD_URL})"
+          MESSAGE="❌ Deployment failed for commit ${GITHUB_SHA::6}.\n [View build](${BUILD_URL})"
           curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
             -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
             -d text="$MESSAGE"
