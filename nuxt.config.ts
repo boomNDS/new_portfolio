@@ -8,6 +8,7 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/image",
     "@nuxtjs/robots",
+    "@unocss/nuxt",
   ],
   robots: {
     rules: {
