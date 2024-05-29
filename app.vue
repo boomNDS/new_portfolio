@@ -1,17 +1,12 @@
-<script>
-import { useCounterStore } from "@/stores/counter";
+<script setup>
+const store = useCounterStore();
+const { increment } = store;
+const { getCount } = storeToRefs(store);
 
-export default defineComponent({
-  setup() {
-    const store = useCounterStore();
-    const { increment } = store;
-    const { getCount } = storeToRefs(store);
-    return { increment, getCount };
-  },
-});
+throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
 </script>
 
 <template>
-  <p>Counter: {{ getCount }} a</p>
+  <p>Counter: {{ getCount }}</p>
   <button type="button" @click="increment">Plus</button>
 </template>
