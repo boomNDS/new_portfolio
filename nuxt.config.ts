@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@nuxtjs/robots",
     "@unocss/nuxt",
+    "dayjs-nuxt",
   ],
   robots: {
     rules: {
