@@ -1,9 +1,28 @@
-<script setup>
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+
 const store = useCounterStore();
 const { increment } = store;
 const { getCount } = storeToRefs(store);
 
-// throw createError({ statusCode: 404, statusMessage: "Page Not Found" });
+const box = ref<HTMLElement | null>(null);
+
+onMounted(() => {
+  const { $gsap } = useNuxtApp();
+
+  if (box.value) {
+    $gsap.to(box.value, {
+      x: 500,
+      duration: 0.25,
+      scrollTrigger: {
+        trigger: box.value,
+        start: "top center",
+        end: "top 100px",
+        scrub: true,
+      },
+    });
+  }
+});
 </script>
 
 <template>
@@ -40,4 +59,13 @@ const { getCount } = storeToRefs(store);
   >
     Button
   </button>
+  <div ref="box" class="box">Animate Me</div>
 </template>
+<style scoped>
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: red;
+  transition: 0.3s;
+}
+</style>
