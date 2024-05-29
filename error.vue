@@ -1,7 +1,5 @@
 <script setup>
 const error = useError();
-
-const handleError = () => {};
 </script>
 
 <template>
@@ -19,10 +17,7 @@ const handleError = () => {};
         <p>It looks like something broke.</p>
         <p>Sorry about that.</p>
       </template>
-      <p>
-        Go back to your
-        <a href="#" @click.prevent="handleError">dashboard</a>.
-      </p>
+      <p>Go back to your</p>
     </div>
   </NuxtLayout>
 </template>

@@ -4,6 +4,7 @@ export default defineNuxtConfig({
   build: {
     transpile: ["gsap"],
   },
+  // pages: true,
   plugins: ["~/plugins/gsap"],
   modules: [
     "@nuxt/eslint",
