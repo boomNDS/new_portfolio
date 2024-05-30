@@ -3,10 +3,11 @@ import { defineConfig } from "unocss";
 import presetUno from "@unocss/preset-uno";
 import presetIcons from "@unocss/preset-icons";
 import presetAttributify from "@unocss/preset-attributify";
+import presetWebFonts from "@unocss/preset-web-fonts";
 
 export default defineConfig({
   presets: [
-    presetUno(),
+    presetUno({}),
     presetIcons({
       extraProperties: {
         display: "inline-block",
@@ -16,5 +17,28 @@ export default defineConfig({
     presetAttributify({
       /* preset options */
     }),
+    presetWebFonts({
+      provider: "google",
+      fonts: {
+        athiti: {
+          name: "Athiti",
+          weights: ["200", "300", "400", "500", "600", "700"],
+        },
+      },
+    }),
   ],
+  theme: {
+    colors: {
+      blue: "#1fb6ff",
+      purple: "#7e5bef",
+      pink: "#ff49db",
+      orange: "#ff7849",
+      green: "#13ce66",
+      yellow: "#ffc82c",
+      "gray-dark": "#273444",
+      gray: "#8492a6",
+      "gray-light": "#d3dce6",
+      primary: "#7D26CD",
+    },
+  },
 });
