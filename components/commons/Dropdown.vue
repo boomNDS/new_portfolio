@@ -46,6 +46,8 @@ defineProps<{
   list: Array<string>;
 }>();
 
+defineEmits(["on-click"]);
+
 const isActive = ref<boolean>(false);
 
 const onToggle = () => {

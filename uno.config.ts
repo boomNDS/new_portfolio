@@ -39,6 +39,7 @@ export default defineConfig({
       gray: "#8492a6",
       "gray-light": "#d3dce6",
       primary: "#7D26CD",
+      black: "#333333",
     },
   },
 });

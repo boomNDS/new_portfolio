@@ -2,11 +2,11 @@
 
 <template>
   <AppNavbar />
-  <NuxtLayout />
+  <AppIntro />
 </template>
 <style scoped>
 * {
   font-family: "Athiti", sans-serif;
-  color: #33333;
+  color: #333333;
 }
 </style>
