@@ -19,9 +19,10 @@
       <button
         scale="active:92"
         duration="100"
-        text="14px"
+        text="14px black"
         p="2 1"
-        border="4 #33333"
+        border="4 #333333"
+        bg="#f2f2f2"
         class="min-[1045px]:hidden focus:outline-none rounded ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
         @click="isMenuOpen = !isMenuOpen"
       >

@@ -3,11 +3,14 @@
 <template>
   <AppNavbar />
   <AppIntro />
-  <AppExperience />
+  <!-- <AppExperience /> -->
 </template>
 <style scoped>
 * {
   font-family: "Athiti", sans-serif;
   color: #333333;
+}
+body {
+  background: #f2f2f2;
 }
 </style>

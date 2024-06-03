@@ -40,6 +40,7 @@ export default defineConfig({
       "gray-light": "#d3dce6",
       primary: "#7D26CD",
       black: "#333333",
+      white: "#f2f2f2",
     },
   },
 });

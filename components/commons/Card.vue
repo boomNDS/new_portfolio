@@ -21,7 +21,13 @@
         </p>
       </div>
     </div>
-    <div text="left" p="4" mt="0" class="w-full max-w-[534px] break-words">
+    <div
+      font="medium"
+      text="18px left"
+      p="4"
+      mt="0"
+      class="w-full max-w-[534px] break-words"
+    >
       <p class="mb-2 mt-0">
         {{ description }}
       </p>

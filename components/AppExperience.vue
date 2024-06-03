@@ -3,7 +3,7 @@
     <h2 class="text-[1.375rem] min-[1045px]:text-[2.375rem]">
       Talk about Ex-(perience)
     </h2>
-    <section>
+    <section class="relative">
       <div
         v-for="(card, index) in cards"
         :key="index"
@@ -21,12 +21,23 @@
           :list-items="card.listItems"
         />
       </div>
+      <!-- <div class="min-[1279px]:block hidden absolute left-1/2 top-0">
+        <div class="w-5px h-[68rem] absolute right-1/2" bg="#5c5c5c"></div>
+        <div
+          v-for="(top, index) in circlePositions"
+          :key="index"
+          class="absolute rounded-full w-30px h-30px left-[-21px]"
+          :style="{ top }"
+          bg="white"
+          border="solid 5px #5c5c5c"
+        ></div>
+      </div> -->
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-const cards = [
+const cards = ref([
   {
     logoSrc: "/img/company/globish_logo.png",
     logoAlt: "globish logo",
@@ -66,7 +77,9 @@ const cards = [
       "In my role as a Full-Stack developer using Django, I'm responsible for connecting the front-end and back-end functionalities of our",
     listItems: [],
   },
-];
+]);
+// const circlePositions = ref(["0rem", "29rem", "41rem", "57rem"]);
+// const isLargeScreen = useMediaQuery("(min-width: 1045px)");
 </script>
 
 <style scoped></style>
