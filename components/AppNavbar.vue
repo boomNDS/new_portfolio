@@ -12,8 +12,8 @@
         class="absolute transition ease-in-out hover:-translate-y-1"
         src="/img/logo.svg"
         loading="lazy"
-        w="9.25rem"
-        h="3.75rem"
+        w="6rem lg:9.25rem"
+        h="auto lg:3.75rem"
         alt="pachara logo"
       />
       <button
@@ -34,6 +34,7 @@
           :class="`flex items-center justify-center w-full`"
         >
           <ul
+            p="0"
             cursor="pointer"
             space="min-[1045px]:x-[3rem]"
             list="none"

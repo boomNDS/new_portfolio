@@ -1,23 +1,25 @@
 <template>
   <div
-    class="flex min-[1045px]:flex-row flex-col w-full h-500px min-[1045px]:mx-8 mx-0 min-[1045px]:mt-[6rem] mt-[2rem] flex justify-center"
+    class="flex min-[1045px]:flex-row flex-col w-full h-500px min-[1045px]:mx-8 mx-0 min-[1045px]:mt-[6rem] mt-[4rem] flex justify-center"
   >
     <div class="relative min-[1045px]:mx-0 mx-auto">
       <div
-        class="w-[7.125rem] h-[7.125rem] bg-[#ffc107] rounded-full absolute top-[7rem]"
+        h="5rem md:7.125rem"
+        w="5rem md:7.125rem"
+        bg="#ffc107"
+        class="rounded-full absolute top-[7rem]"
       />
-      <div class="relative ml-[2rem]">
+      <div class="relative container">
         <div
-          class="w-[13.994rem] h-[13.994rem] flex-grow-0 bg-[#7d26cd] rounded-full bottom-0 left-[2rem]"
+          class="w-[189px] md:w-[13.994rem] h-[190px] md:h-[13.994rem] flex-grow-0 bg-[#7d26cd] rounded-full bottom-0 left-[2rem]"
         />
         <nuxt-img
-          class="absolute top-[-4.5rem] rounded-full"
+          class="absolute top-[-64px] md:top-[-4.5rem] rounded-full"
           src="/img/me.png"
           loading="lazy"
           alt="me"
           format="webp"
-          w="225px"
-          h="3.299.3px"
+          w="190px md:225px"
           placeholder
         />
         <h4 font="normal" text="22px center" m="b-0">Bangkok, Thailand</h4>
@@ -51,12 +53,18 @@
         </div>
       </div>
     </div>
-    <section p="min-[1045px]:l-[9.063rem] l-[4rem] w-full h-auto relative">
-      <h1 text="min-[1045px]:3.75rem 2rem" m="0">
-        Hello there, I’m <span text="primary">Boom</span>
+    <section
+      text="25px min-[629px]:32px"
+      p="min-[1045px]:l-[8.063rem] l-[1rem]  w-full h-auto relative"
+      m="auto min-[1045px]:0"
+    >
+      <h1 m="0">
+        Hello there,<br class="block sm:hidden" />
+        I’m <span text="primary">Boom</span>
       </h1>
-      <h1 text="min-[1045px]:3.75rem 2rem" m="0">foodie developer</h1>
+      <h1 m="0">foodie developer</h1>
       <nuxt-img
+        v-if="isLargeScreen"
         src="/img/lucide_sparkle.svg"
         loading="lazy"
         class="relative top-[-5.2rem] left-[-2.2rem]"
