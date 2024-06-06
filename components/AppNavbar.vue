@@ -39,7 +39,7 @@
             space="min-[1045px]:x-[3rem]"
             list="none"
             class="flex min-[1045px]:flex-row flex-col"
-            font="md:size-38px size-24px regular"
+            font="lg:size-38px size-24px regular"
           >
             <li
               v-for="item in menuItems"

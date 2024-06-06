@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex min-[1045px]:flex-row flex-col w-full h-500px min-[1045px]:mx-8 mx-0 min-[1045px]:mt-[6rem] mt-[4rem] flex justify-center"
+    class="flex min-[1045px]:flex-row flex-col w-full min-h-450px min-[1045px]:mx-8 mx-0 min-[1045px]:mt-[6rem] mt-[4rem] flex justify-center"
   >
     <div class="relative min-[1045px]:mx-0 mx-auto">
       <div
@@ -64,32 +64,28 @@
       </h1>
       <h1 m="0">foodie developer</h1>
       <nuxt-img
-        v-if="isLargeScreen"
         src="/img/lucide_sparkle.svg"
         loading="lazy"
-        class="relative top-[-5.2rem] left-[-2.2rem]"
+        class="relative top-[-5.2rem] left-[-2.2rem] hidden lg:inline-block"
         alt="sparkle icon"
       />
       <nuxt-img
-        v-if="isLargeScreen"
         src="/img/lucide_sparkle.svg"
         loading="lazy"
-        class="relative top-[-4rem] left-[30rem]"
+        class="relative top-[-4rem] left-[26rem] hidden lg:inline-block"
         alt="sparkle icon"
       />
       <nuxt-img
-        v-if="isLargeScreen"
         src="/img/lucide_sparkle.svg"
         loading="lazy"
-        class="relative top-[-3.2rem] left-[31rem]"
+        class="relative top-[-3.2rem] left-[27rem] hidden lg:inline-block"
         alt="sparkle icon"
         w="20px"
       />
       <nuxt-img
-        v-if="isLargeScreen"
         src="/img/lucide_sparkle.svg"
         loading="lazy"
-        class="relative top-[-2.2rem] left-[28rem]"
+        class="relative top-[-2.2rem] left-[24rem] hidden lg:inline-block"
         alt="sparkle icon"
         w="30px"
       />
@@ -97,8 +93,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-const isLargeScreen = useMediaQuery("(min-width: 1045px)");
-</script>
+<script setup lang="ts"></script>
 
 <style scoped></style>

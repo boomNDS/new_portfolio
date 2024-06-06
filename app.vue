@@ -3,7 +3,7 @@
 <template>
   <AppNavbar />
   <AppIntro />
-  <!-- <AppExperience /> -->
+  <AppExperience />
 </template>
 <style scoped>
 * {

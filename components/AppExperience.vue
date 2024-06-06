@@ -1,18 +1,17 @@
 <template>
-  <div class="container mx-auto px-4">
+  <div class="container mx-auto px-6">
     <h2 class="text-[1.375rem] min-[1045px]:text-[2.375rem]">
       Talk about Ex-(perience)
     </h2>
     <section class="relative">
-      <div
-        v-for="(card, index) in cards"
-        :key="index"
-        :class="{
-          'flex justify-start': index % 2 === 0,
-          'flex justify-end': index % 2 !== 0,
-        }"
-      >
+      <div>isLargeScreen : {{ !isLargeScreen }}</div>
+      <div v-for="(card, index) in cards" :key="index">
         <CommonsCard
+          class="mb-3 flex flex-col"
+          :class="{
+            'items-start': isLargeScreen && index % 2 === 0,
+            'items-end': isLargeScreen && index % 2 !== 0,
+          }"
           :logo-src="card.logoSrc"
           :logo-alt="card.logoAlt"
           :title="card.title"
@@ -21,8 +20,8 @@
           :list-items="card.listItems"
         />
       </div>
-      <!-- <div class="min-[1279px]:block hidden absolute left-1/2 top-0">
-        <div class="w-5px h-[68rem] absolute right-1/2" bg="#5c5c5c"></div>
+      <div class="min-[1280px]:block hidden absolute left-1/2 top-0">
+        <div class="w-5px h-[52rem] absolute right-1/2" bg="#5c5c5c" />
         <div
           v-for="(top, index) in circlePositions"
           :key="index"
@@ -30,13 +29,14 @@
           :style="{ top }"
           bg="white"
           border="solid 5px #5c5c5c"
-        ></div>
-      </div> -->
+        />
+      </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
+const isLargeScreen = useMediaQuery("(min-width: 426px)");
 const cards = ref([
   {
     logoSrc: "/img/company/globish_logo.png",
@@ -78,8 +78,7 @@ const cards = ref([
     listItems: [],
   },
 ]);
-// const circlePositions = ref(["0rem", "29rem", "41rem", "57rem"]);
-// const isLargeScreen = useMediaQuery("(min-width: 1045px)");
+const circlePositions = ref(["0rem", "26rem", "37rem", "50rem"]);
 </script>
 
 <style scoped></style>
