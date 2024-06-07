@@ -43,4 +43,7 @@ export default defineConfig({
       white: "#f2f2f2",
     },
   },
+  shortcuts: {
+    title: "text-[1.375rem] min-[1045px]:text-[2.375rem] font-medium",
+  },
 });

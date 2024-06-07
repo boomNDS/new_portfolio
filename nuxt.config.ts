@@ -21,4 +21,9 @@ export default defineNuxtConfig({
       Disallow: "",
     },
   },
+  router: {
+    options: {
+      scrollBehaviorType: "smooth",
+    },
+  },
 });

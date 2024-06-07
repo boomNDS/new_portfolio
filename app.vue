@@ -1,10 +1,20 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth" });
+  }
+};
+</script>
 
 <template>
-  <AppNavbar />
+  <AppNavbar id="intro" @scroll-to-section="scrollToSection" />
   <AppIntro />
-  <AppExperience />
+  <AppExperience id="experience" />
+  <AppTechStack id="tech_stack" />
+  <AppShowcase id="showcase" />
 </template>
+
 <style scoped>
 * {
   font-family: "Athiti", sans-serif;

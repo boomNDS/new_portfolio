@@ -14,8 +14,10 @@
         loading="lazy"
         w="6rem lg:9.25rem"
         h="auto lg:3.75rem"
+        @click="emitScrollEvent('Intro')"
         alt="pachara logo"
       />
+
       <button
         scale="active:92"
         duration="100"
@@ -49,8 +51,11 @@
               delay="100"
               class="transition ease-in-out hover:-translate-y-1 md:text-left text-center"
               p="x-4"
+              @click="emitScrollEvent(item)"
             >
-              <p p="0" m="0">{{ item }}</p>
+              <NuxtLink p="0" m="0" class="text-black no-underline">
+                {{ item }}</NuxtLink
+              >
             </li>
           </ul>
         </div>
@@ -68,8 +73,35 @@ useHead({
 });
 
 const isMenuOpen = ref(false);
-const menuItems = ["Experience", "Tech stack", "Showcase"];
+const menuItems: Array<"Experience" | "Tech stack" | "Showcase"> = [
+  "Experience",
+  "Tech stack",
+  "Showcase",
+];
 const isLargeScreen = useMediaQuery("(min-width: 1045px)");
+
+const emit = defineEmits<{
+  (
+    e: "scroll-to-section",
+    sectionId: "intro" | "experience" | "tech_stack" | "showcase",
+  ): void;
+}>();
+
+const emitScrollEvent = (
+  item: "Intro" | "Experience" | "Tech stack" | "Showcase",
+) => {
+  const sectionMap: Record<
+    "Intro" | "Experience" | "Tech stack" | "Showcase",
+    "intro" | "experience" | "tech_stack" | "showcase"
+  > = {
+    Intro: "intro",
+    Experience: "experience",
+    "Tech stack": "tech_stack",
+    Showcase: "showcase",
+  };
+  const sectionId = sectionMap[item];
+  emit("scroll-to-section", sectionId);
+};
 </script>
 
 <style scoped>

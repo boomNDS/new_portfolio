@@ -1,16 +1,13 @@
 <template>
   <div class="container mx-auto px-6">
-    <h2 class="text-[1.375rem] min-[1045px]:text-[2.375rem]">
-      Talk about Ex-(perience)
-    </h2>
+    <h2 class="title">Talk about Ex-(perience)</h2>
     <section class="relative">
-      <div>isLargeScreen : {{ !isLargeScreen }}</div>
       <div v-for="(card, index) in cards" :key="index">
         <CommonsCard
           class="mb-3 flex flex-col"
           :class="{
-            'items-start': isLargeScreen && index % 2 === 0,
-            'items-end': isLargeScreen && index % 2 !== 0,
+            'items-start': index % 2 === 0,
+            'items-end': index % 2 !== 0,
           }"
           :logo-src="card.logoSrc"
           :logo-alt="card.logoAlt"
@@ -36,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-const isLargeScreen = useMediaQuery("(min-width: 426px)");
 const cards = ref([
   {
     logoSrc: "/img/company/globish_logo.png",
