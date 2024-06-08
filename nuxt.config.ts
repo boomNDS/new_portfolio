@@ -26,4 +26,8 @@ export default defineNuxtConfig({
       scrollBehaviorType: "smooth",
     },
   },
+  dayjs: {
+    plugins: ["relativeTime", "timezone"],
+    defaultTimezone: "Asia/Bangkok",
+  },
 });

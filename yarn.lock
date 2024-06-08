@@ -713,6 +713,13 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/retry/-/retry-0.3.0.tgz#6d86b8cb322660f03d3f0aa94b99bdd8e172d570"
   integrity sha512-d2CGZR2o7fS6sWB7DG/3a95bGKQyHMACZ5aW8qGkkqQpUoZV6C0X7Pc7l4ZNMZkfNBf4VWNe9E1jRsf0G146Ew==
 
+"@iconify-json/logos@^1.1.43":
+  version "1.1.43"
+  resolved "https://registry.yarnpkg.com/@iconify-json/logos/-/logos-1.1.43.tgz#9e4f08a5c013a65bd926e3713328233e20ff3a2e"
+  integrity sha512-UtvL1yDHUr9dl1Tqihh6K9m5dmbYKOYyLf3i9aKhymSW76QjOCGjpgQc0PQ4GJCAdU1cAMu+WO61TgPxdonrlg==
+  dependencies:
+    "@iconify/types" "*"
+
 "@iconify-json/mdi@^1.1.66":
   version "1.1.66"
   resolved "https://registry.yarnpkg.com/@iconify-json/mdi/-/mdi-1.1.66.tgz#eb48d02d5438ee545519dfb9f265ee1944faeaa9"
@@ -724,6 +731,13 @@
   version "1.1.113"
   resolved "https://registry.yarnpkg.com/@iconify-json/tabler/-/tabler-1.1.113.tgz#1b621dfcb7341bbcfcb71b61ec4714567c7b2eb3"
   integrity sha512-dT34D0gyqxgK2t91+8scQ+U387yZ/zb4r7/3CHqhmvaVMsnOT8DFtX0FhJzdr6ldnVH82pGAp59GGr97IT/UfQ==
+  dependencies:
+    "@iconify/types" "*"
+
+"@iconify-json/vscode-icons@^1.1.35":
+  version "1.1.35"
+  resolved "https://registry.yarnpkg.com/@iconify-json/vscode-icons/-/vscode-icons-1.1.35.tgz#9f77c11ebb07952f2525d345cf318dd5a0442146"
+  integrity sha512-mUootLfDN4M9u5CL+gjJIGoVo/IaTGRo3WnysNTqTf9T5vkoe+EscJkx9aLbLs6gjSPQ+449SyuyTbBaF+nXww==
   dependencies:
     "@iconify/types" "*"
 

@@ -14,8 +14,8 @@
         loading="lazy"
         w="6rem lg:9.25rem"
         h="auto lg:3.75rem"
-        @click="emitScrollEvent('Intro')"
         alt="pachara logo"
+        @click="emitScrollEvent('Intro')"
       />
 
       <button

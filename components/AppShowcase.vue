@@ -1,7 +1,6 @@
 <template>
   <div class="container mx-auto px-6">
     <h2 class="title">Showcase</h2>
-    <section />
   </div>
 </template>
 
