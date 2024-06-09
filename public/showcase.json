@@ -74,6 +74,14 @@
       {
         "type": "link",
         "url": "tonic-url-shortener.web.app"
+      },
+      {
+        "type": "github",
+        "url": "https://github.com/boomNDS/url_shortener_frontend"
+      },
+      {
+        "type": "github",
+        "url": "https://github.com/boomNDS/url_shortener_backend"
       }
     ],
     "img": "url-shortener.png",
@@ -104,77 +112,82 @@
     "name": "MyToyota",
     "detail": "พัฒนา api สำหรับทำงานร่วมกับ App MyToyota",
     "links": [],
-    "img": "nutmor.png",
+    "img": "my-toyota.png",
     "tags": ["opn", "internship", "elixir", "phoenix"]
   },
   {
     "name": "wos donutmatcher",
     "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
     "links": [],
-    "img": "nutmor.png",
+    "img": "discord.webp",
     "tags": ["node", "discord", "wos"]
   },
   {
-    "name": "ttb-line-liff",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "name": "ttb line liff",
+    "detail": "line liff app สำหรับพนังงาน ttb",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["h-lab"]
+    "img": "ttb.jpg",
+    "tags": ["h-lab", "next.js"]
   },
   {
-    "name": "linettb_dashboard",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "name": "linettb dashboard",
+    "detail": "สำหรับตั้งค่าหรือส่งข้อความไปยังผู้ใช้ line liff app",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["h-lab"]
+    "img": "ttb.jpg",
+    "tags": ["h-lab", "next.js"]
   },
   {
-    "name": "allianz-pt-22-front",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "name": "Allianz party",
+    "detail": "กิจกรรมภายในบริษัทรูปแบบของเว็บแอป สร้างเกมจับคู่การ์ดและแข่งกดหน้าจอ",
     "links": [],
-    "img": "nutmor.png",
+    "img": "alianz.jpeg",
     "tags": ["h-lab"]
   },
   {
     "name": "subtar7 website",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
-    "links": [],
-    "img": "nutmor.png",
-    "tags": ["h-lab"]
+    "detail": "จากรายการช่วงโควิดเกิดเป็นไอเดียอยากทำเว็บไซต์ขึ้นมา จึงลองออกแบบ concept ไว้",
+    "links": [
+      {
+        "type": "design",
+        "url": "https://www.figma.com/design/1tY8EFwHZXg7PHbTgJszra/Subdar7---Website"
+      }
+    ],
+    "img": "subtar7.jpeg",
+    "tags": ["design"]
   },
   {
     "name": "globish sale page",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
-    "links": [],
-    "img": "nutmor.png",
+    "detail": "หน้าสำหรับขายคอร์สเรียน เป็นคนสร้างโปรเจ็คและ set flow เบื้องต้น เป็น mono-repo",
+    "links": [{ "type": "link", "url": "https://lp.globish.co.th" }],
+    "img": "globish-sale-page.png",
     "tags": ["globish"]
   },
   {
     "name": "globish admin tool",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "detail": "ระบบจัดการหลังบ้านสำหรับบริษัท globish ทั้งเรื่องห้องเรียน คอร์ส โค้ช นักเรียน ยอดขาย พัฒนาทั้งส่วนของ frontend และ backend",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["globish"]
+    "img": "wh-globish.png",
+    "tags": ["globish", "nuxt.js", "nest.js"]
   },
   {
     "name": "globish coach",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "detail": "ระบบหรับสำหรับโค้ช ในการดูภาพรวม เข้าห้องเรียน หรือการทำ report หลังสอนเสร็จ",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["globish"]
+    "img": "globish-coach.png",
+    "tags": ["globish", "nuxt.js", "nest.js"]
   },
   {
     "name": "globish live classroom",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "detail": "ระบบห้องเรียนออนไลน์ ให้โค้ชและนักเรียนเปิดกล้อง แชร์หน้าจอ พูดคุยกัน",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["globish"]
+    "img": "globish.png",
+    "tags": ["globish", "nuxt.js", "nest.js"]
   },
   {
     "name": "globish student app",
-    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "detail": "ระบบหรับสำหรับนักเรียน ในการดูภาพรวม เข้าห้องเรียน หรือการทำ report หลังเรียนเสร็จ",
     "links": [],
-    "img": "nutmor.png",
-    "tags": ["globish"]
+    "img": "app-globish.png",
+    "tags": ["globish", "nuxt.js", "nest.js"]
   }
 ]

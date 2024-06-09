@@ -1,4 +1,9 @@
 <script setup lang="ts">
+useHead({
+  htmlAttrs: {
+    lang: "en",
+  },
+});
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element) {

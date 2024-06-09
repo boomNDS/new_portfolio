@@ -2,15 +2,14 @@
   <section
     border="4px solid #333333"
     bg="#f2f2f2"
-    m="x-auto"
-    class="rounded max-w-[280px] max-h-[365.5] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+    class="rounded max-w-[280px] max-h-[365.5px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
   >
-    <div class="relative">
+    <div class="w-full flex justify-center relative">
       <nuxt-img
         id="image"
-        class="rounded-[1.5rem] m-auto px-4 py-5"
+        fit="cover"
+        class="rounded-[1.5rem] px-4 py-5 max-w-[80%]"
         :src="`/img/showcase/` + imageSrc"
-        w="196.8px"
         h="161.8px"
         :alt="imageAlt"
       />
@@ -42,7 +41,7 @@
 <script setup lang="ts">
 import type { PropType } from "vue";
 
-interface Link {
+export interface Link {
   type: string;
   url: string;
 }
