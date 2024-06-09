@@ -3,6 +3,9 @@ useHead({
   htmlAttrs: {
     lang: "en",
   },
+  bodyAttrs: {
+    class: "m-0",
+  },
 });
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -18,6 +21,7 @@ const scrollToSection = (sectionId: string) => {
   <AppExperience id="experience" />
   <AppTechStack id="tech_stack" />
   <AppShowcase id="showcase" />
+  <AppFooter id="footer" />
 </template>
 
 <style scoped>

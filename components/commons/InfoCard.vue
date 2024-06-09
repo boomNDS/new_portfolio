@@ -2,7 +2,7 @@
   <section
     border="4px solid #333333"
     bg="#f2f2f2"
-    class="rounded max-w-[280px] max-h-[365.5px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+    class="rounded max-w-[280px] max-h-[365.5px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
   >
     <div class="w-full flex justify-center relative">
       <nuxt-img

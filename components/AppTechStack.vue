@@ -2,7 +2,7 @@
   <div class="container mx-auto px-6">
     <h2 class="title">Tech stack</h2>
     <section
-      class="grid grid-flow-row-dense grid-cols-5 md:grid-cols-6 lg:grid-cols-12 gap-0 md:gap-4 mx-4"
+      class="grid grid-flow-row-dense grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-0 md:gap-4 mx-4"
     >
       <CommonsStackCard
         v-for="(tech, index) in sortedTechStacks"
