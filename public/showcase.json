@@ -1,0 +1,70 @@
+[
+  {
+    "name": "Guidare (น้องมะลิ)",
+    "detail": "โปรเจค Guidare คือโปรเจคที่ได้สร้างรถบังคับเเละอุปกรณ์การบังคับรถโดยใช้ MPU6050 เเละ NRF24L01 Module",
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/compro-itkmitl/guidare"
+      }
+    ],
+    "img": "compro.jpg",
+    "tags": ["arduino", "c++"]
+  },
+  {
+    "name": "Boost life",
+    "detail": "โปรเจค Flutter โดยที่ app ของเราผู้ใช้สามารถนับปริมาณ calories ที่กินไปต่อวันได้ รวมไปถึงการดูร้านอาหารที่อยู่ใกล้ๆ นับการออกกำลังกาย",
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/prapawity/Mobile_Project"
+      }
+    ],
+    "img": "flutter.gif",
+    "tags": ["flutter", "firebase"]
+  },
+  {
+    "name": "Runningthailand",
+    "detail": "โปรเจคที่เราทำเว็บเกี่ยวกับงานวิ่งโดยจะทำเรื่องของการแสดงผลข้อมูลต่าง ๆ เกี่ยวกับงาน โดยเราจะใช้ django เป็นระบบหลังบ้านให้ admin ใช้งานแต่ว่าโปรเจคนี่ยังไม่เสร็จสมบูรณ์ดี",
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/boomNDS/runningv.2"
+      },
+      {
+        "name": "Design",
+        "url": "https://xd.adobe.com/spec/f6995970-0b82-4cd4-60e9-4bf5a12a435f-80a8/screen/8a41127d-6f8e-4ef2-bd0c-02d5ef9f3a5c/Home/?fbclid=IwAR3qm0ZDqK8WAC_kP2Zl9z7F_Eous86Ex3z9h9ALaluGN-2MpW32FtAXY6g"
+      }
+    ],
+    "img": "run.png",
+    "tags": ["django", "vue.js", "design"]
+  },
+  {
+    "name": "vue theater",
+    "detail": "โปรเจคที่ให้เราทำเว็บโรงหนัง ทำในเรื่องของ front-end อย่างเดียวมี requirement มาแล้วว่าต้องมีอะไรบ้าง",
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/boomNDS/vue_theater"
+      },
+      {
+        "name": "Website",
+        "url": "https://vuetheater-94e69.web.app/"
+      }
+    ],
+    "img": "vuetheater.png",
+    "tags": ["vue.js"]
+  },
+  {
+    "name": "pachon-VS-World",
+    "detail": "โปรเจควิชา oop โดยเราเลือกที่จะทำเป็นเกมคล้ายๆกับเกมมาริโอ้",
+    "links": [
+      {
+        "name": "Github",
+        "url": "https://github.com/oop-it-kmitl-61/pachon-VS-World"
+      }
+    ],
+    "img": "game.png",
+    "tags": ["java", "game"]
+  }
+]
