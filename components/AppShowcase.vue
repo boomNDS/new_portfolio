@@ -6,10 +6,11 @@
         v-for="(data, index) in jsonData"
         :key="`showcase-${index}`"
         :image-src="data.img"
-        image-alt="a"
+        :image-alt="`${data.img} image`"
         :title="data.name"
         :description="data.detail"
-        :tags="['iot']"
+        :links="data.links"
+        :tags="data.tags"
       />
     </section>
   </div>

@@ -2,26 +2,30 @@
   <section
     border="4px solid #333333"
     bg="#f2f2f2"
-    class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+    m="x-auto"
+    class="rounded max-w-[280px] max-h-[365.5] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
   >
-    <div
-      class="flex"
-      :style="{
-        background: `linear-gradient(177deg, ${rgbaColor} 0%, rgba(242,242,242,1) 100%)`,
-      }"
-    >
+    <div class="relative">
       <nuxt-img
         id="image"
         class="rounded-[1.5rem] m-auto px-4 py-5"
         :src="`/img/showcase/` + imageSrc"
-        loading="lazy"
-        m="y-auto"
         w="196.8px"
         h="161.8px"
         :alt="imageAlt"
       />
+      <div class="flex flex-col absolute" right="0" top="0" m="t-3 r-2">
+        <NuxtLink
+          v-for="(link, index) in links"
+          :key="`link-${index}`"
+          :to="link.url"
+          target="_blank"
+        >
+          <div m="b-3" text="20px black" :class="getClass(link.type)" />
+        </NuxtLink>
+      </div>
     </div>
-    <div p="x-2 y-1">
+    <div p="x-2 y-1" class="h-[120px]">
       <h3 m="0" p="0" font="medium">{{ title }}</h3>
       <p m="0" p="0" text="14px">
         {{ description }}
@@ -36,7 +40,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps({
+import type { PropType } from "vue";
+
+interface Link {
+  type: string;
+  url: string;
+}
+
+const props = defineProps({
   imageSrc: {
     type: String,
     required: true,
@@ -57,12 +68,24 @@ defineProps({
     type: Array as () => string[],
     required: true,
   },
+  links: {
+    type: Array as PropType<Link[]>,
+    required: true,
+  },
 });
 
 const hexCode = ref("");
-const rgbaColor = computed(() => hexToRgba(hexCode.value));
+// const rgbaColor = computed(() => hexToRgba(hexCode.value));
 
-onMounted(() => {
+const getClass = (type: string): string | null => {
+  return type === "github"
+    ? "i-logos-github-icon"
+    : type === "design"
+      ? "i-logos-figma"
+      : `i-tabler:external-link`;
+};
+
+const updateHexCode = () => {
   const imgEl = document.getElementById("image") as HTMLImageElement;
 
   if (imgEl) {
@@ -71,7 +94,18 @@ onMounted(() => {
       hexCode.value = rgbToHex(rgb);
     };
   }
+};
+
+onMounted(() => {
+  updateHexCode();
 });
+
+watch(
+  () => props.imageSrc,
+  () => {
+    updateHexCode();
+  },
+);
 </script>
 
 <style scoped></style>

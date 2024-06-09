@@ -4,7 +4,7 @@
     "detail": "โปรเจค Guidare คือโปรเจคที่ได้สร้างรถบังคับเเละอุปกรณ์การบังคับรถโดยใช้ MPU6050 เเละ NRF24L01 Module",
     "links": [
       {
-        "name": "Github",
+        "type": "github",
         "url": "https://github.com/compro-itkmitl/guidare"
       }
     ],
@@ -16,7 +16,7 @@
     "detail": "โปรเจค Flutter โดยที่ app ของเราผู้ใช้สามารถนับปริมาณ calories ที่กินไปต่อวันได้ รวมไปถึงการดูร้านอาหารที่อยู่ใกล้ๆ นับการออกกำลังกาย",
     "links": [
       {
-        "name": "Github",
+        "type": "github",
         "url": "https://github.com/prapawity/Mobile_Project"
       }
     ],
@@ -28,11 +28,11 @@
     "detail": "โปรเจคที่เราทำเว็บเกี่ยวกับงานวิ่งโดยจะทำเรื่องของการแสดงผลข้อมูลต่าง ๆ เกี่ยวกับงาน โดยเราจะใช้ django เป็นระบบหลังบ้านให้ admin ใช้งานแต่ว่าโปรเจคนี่ยังไม่เสร็จสมบูรณ์ดี",
     "links": [
       {
-        "name": "Github",
+        "type": "github",
         "url": "https://github.com/boomNDS/runningv.2"
       },
       {
-        "name": "Design",
+        "type": "design",
         "url": "https://xd.adobe.com/spec/f6995970-0b82-4cd4-60e9-4bf5a12a435f-80a8/screen/8a41127d-6f8e-4ef2-bd0c-02d5ef9f3a5c/Home/?fbclid=IwAR3qm0ZDqK8WAC_kP2Zl9z7F_Eous86Ex3z9h9ALaluGN-2MpW32FtAXY6g"
       }
     ],
@@ -44,11 +44,11 @@
     "detail": "โปรเจคที่ให้เราทำเว็บโรงหนัง ทำในเรื่องของ front-end อย่างเดียวมี requirement มาแล้วว่าต้องมีอะไรบ้าง",
     "links": [
       {
-        "name": "Github",
+        "type": "github",
         "url": "https://github.com/boomNDS/vue_theater"
       },
       {
-        "name": "Website",
+        "type": "link",
         "url": "https://vuetheater-94e69.web.app/"
       }
     ],
@@ -60,11 +60,121 @@
     "detail": "โปรเจควิชา oop โดยเราเลือกที่จะทำเป็นเกมคล้ายๆกับเกมมาริโอ้",
     "links": [
       {
-        "name": "Github",
+        "type": "github",
         "url": "https://github.com/oop-it-kmitl-61/pachon-VS-World"
       }
     ],
     "img": "game.png",
     "tags": ["java", "game"]
+  },
+  {
+    "name": "url shortener",
+    "detail": "url-shortener both frontend and backend",
+    "links": [
+      {
+        "type": "link",
+        "url": "tonic-url-shortener.web.app"
+      }
+    ],
+    "img": "url-shortener.png",
+    "tags": ["node", "vite", "vue.js"]
+  },
+  {
+    "name": "DEV DISRUPT HACKATHON",
+    "detail": "โปรเจ็ค HACKATHON match ระหว่างเด็กมหาลัย และบริษัทที่ต้องการเด็กฝึกงาน",
+    "links": [],
+    "img": "dev_disrupt.png",
+    "tags": ["design", "vue.js", "concept"]
+  },
+  {
+    "name": "Ekarko warehouse",
+    "detail": "โปรเจ็คสหกิจระบบบริหารจัดการคลังสินค้า พัฒนาและจัดทำรูปเล่ม",
+    "links": [],
+    "img": "coop-ekarko.png",
+    "tags": ["django", "react"]
+  },
+  {
+    "name": "Nutmor-นัดหมอ",
+    "detail": "โปรเจ็คค้นหาคลินิก / แพทย์ใกล้บ้านคุณ เป็นการพัฒนา phototype frontend เพียงอย่างเดียว",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["tailwind", "nuxt.js"]
+  },
+  {
+    "name": "MyToyota",
+    "detail": "พัฒนา api สำหรับทำงานร่วมกับ App MyToyota",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["opn", "internship", "elixir", "phoenix"]
+  },
+  {
+    "name": "wos donutmatcher",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["node", "discord", "wos"]
+  },
+  {
+    "name": "ttb-line-liff",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["h-lab"]
+  },
+  {
+    "name": "linettb_dashboard",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["h-lab"]
+  },
+  {
+    "name": "allianz-pt-22-front",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["h-lab"]
+  },
+  {
+    "name": "subtar7 website",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["h-lab"]
+  },
+  {
+    "name": "globish sale page",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["globish"]
+  },
+  {
+    "name": "globish admin tool",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["globish"]
+  },
+  {
+    "name": "globish coach",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["globish"]
+  },
+  {
+    "name": "globish live classroom",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["globish"]
+  },
+  {
+    "name": "globish student app",
+    "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
+    "links": [],
+    "img": "nutmor.png",
+    "tags": ["globish"]
   }
 ]
