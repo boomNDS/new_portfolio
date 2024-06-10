@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto px-6">
+  <div class="px-6">
     <h2 class="title">Tech stack</h2>
     <section
-      class="grid grid-flow-row-dense grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-0 md:gap-4 mx-4"
+      class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 px-6 gap-y-3 gap-x-1"
     >
       <CommonsStackCard
         v-for="(tech, index) in sortedTechStacks"

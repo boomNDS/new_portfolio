@@ -1,12 +1,12 @@
 <template>
-  <div w="full" h="225px" bg="#d9d9d9" m="t-[5rem]" p="t-[5rem]">
+  <div w="100%" h="200px" bg="#d9d9d9" m="t-[5rem]" p="t-[5rem]">
     <section class="flex justify-center mx-auto">
       <NuxtLink to="mailto:pachara.sriyodwieng@gmail.com?Subject=Hello%20Boom">
         <button
-          w="199px"
+          w="145px sm:199px"
           scale="active:92"
           duration="100"
-          text="24px black"
+          text="20px sm:24px black"
           p="2 1"
           border="4 #333333"
           bg="#ffc107"
@@ -18,12 +18,12 @@
     </section>
     <section
       m="t-10 x-auto"
-      class="flex justify-center"
-      text="18px"
+      class="flex flex-col sm:flex-row justify-center"
+      text="14px sm:18px center sm:left"
       font="medium"
     >
-      <p>make with 💖 by boomNDS</p>
-      <p class="ml-2">© {{ $dayjs().year() }} All rights reserved.</p>
+      <p class="m-0">make with 💖 by boomNDS</p>
+      <p class="m-0 sm:ml-2">© {{ $dayjs().year() }} All rights reserved.</p>
     </section>
   </div>
 </template>

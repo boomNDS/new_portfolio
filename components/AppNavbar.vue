@@ -1,5 +1,5 @@
 <template>
-  <nav class="mx-8 mt-5">
+  <nav class="my-5 mx-4">
     <div
       class="container mx-auto flex min-[1045px]:flex-row flex-col items-end min-[1045px]:items-center justify-between relative"
     >

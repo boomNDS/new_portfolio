@@ -21,7 +21,7 @@ const scrollToSection = (sectionId: string) => {
   <AppExperience id="experience" />
   <AppTechStack id="tech_stack" />
   <AppShowcase id="showcase" />
-  <!-- <AppFooter id="footer" /> -->
+  <AppFooter id="footer" />
 </template>
 
 <style scoped>

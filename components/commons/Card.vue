@@ -4,7 +4,7 @@
       border="4px solid #333333"
       bg="#d9d9d9"
       space="x-4px md:x-3.3rem"
-      class="flex w-[80%] md:w-full max-w-[534px] rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] pt-7px pb-5px pl-4 pr-1"
+      class="flex w-[90%] md:w-full max-w-[534px] rounded shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] pt-7px pb-5px pl-4 pr-1"
     >
       <nuxt-img
         :src="logoSrc"
