@@ -19,9 +19,11 @@
 </template>
 
 <script setup lang="ts">
+defineEmits(["on-click"]);
 defineProps({
   width: {
     type: String,
+    default: "",
     required: false,
   },
   to: {
