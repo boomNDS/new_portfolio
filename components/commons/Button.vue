@@ -22,9 +22,12 @@
 defineProps({
   width: {
     type: String,
+    required: false,
   },
   to: {
     type: String,
+    default: "",
+    required: false,
   },
   label: {
     type: String,
