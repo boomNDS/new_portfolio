@@ -30,36 +30,35 @@
       >
         Menu
       </button>
-      <Transition>
-        <div
-          v-if="isLargeScreen || isMenuOpen"
-          :class="`flex items-center justify-center w-full`"
+      <div
+        v-if="isLargeScreen || isMenuOpen"
+        :class="`flex items-center justify-center w-full`"
+      >
+        <ul
+          v-auto-animate
+          p="0"
+          cursor="pointer"
+          space="min-[1045px]:x-[3rem]"
+          list="none"
+          class="flex min-[1045px]:flex-row flex-col"
+          font="lg:size-38px size-24px regular"
         >
-          <ul
-            p="0"
-            cursor="pointer"
-            space="min-[1045px]:x-[3rem]"
-            list="none"
-            class="flex min-[1045px]:flex-row flex-col"
-            font="lg:size-38px size-24px regular"
+          <li
+            v-for="item in menuItems"
+            :key="item"
+            scale="hover:110 active:105"
+            duration="120"
+            delay="100"
+            class="transition ease-in-out hover:-translate-y-1 md:text-left text-center"
+            p="x-4"
+            @click="emitScrollEvent(item)"
           >
-            <li
-              v-for="item in menuItems"
-              :key="item"
-              scale="hover:110 active:105"
-              duration="120"
-              delay="100"
-              class="transition ease-in-out hover:-translate-y-1 md:text-left text-center"
-              p="x-4"
-              @click="emitScrollEvent(item)"
+            <NuxtLink p="0" m="0" class="text-black no-underline">
+              {{ item }}</NuxtLink
             >
-              <NuxtLink p="0" m="0" class="text-black no-underline">
-                {{ item }}</NuxtLink
-              >
-            </li>
-          </ul>
-        </div>
-      </Transition>
+          </li>
+        </ul>
+      </div>
     </div>
   </nav>
 </template>

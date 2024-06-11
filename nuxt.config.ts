@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     "@nuxtjs/robots",
     "@unocss/nuxt",
     "dayjs-nuxt",
+    "@formkit/auto-animate",
   ],
   robots: {
     rules: {
