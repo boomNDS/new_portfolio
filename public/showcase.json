@@ -9,7 +9,8 @@
       }
     ],
     "img": "compro.jpg",
-    "tags": ["arduino", "c++"]
+    "tags": ["arduino", "c++"],
+    "category": ["arduino"]
   },
   {
     "name": "Boost life",
@@ -21,7 +22,8 @@
       }
     ],
     "img": "flutter.gif",
-    "tags": ["flutter", "firebase"]
+    "tags": ["flutter", "firebase"],
+    "category": ["app"]
   },
   {
     "name": "Runningthailand",
@@ -37,7 +39,8 @@
       }
     ],
     "img": "run.png",
-    "tags": ["django", "vue.js", "design"]
+    "tags": ["django", "vue.js", "design"],
+    "category": ["frontend"]
   },
   {
     "name": "vue theater",
@@ -53,7 +56,8 @@
       }
     ],
     "img": "vuetheater.png",
-    "tags": ["vue.js"]
+    "tags": ["vue.js"],
+    "category": ["frontend"]
   },
   {
     "name": "pachon-VS-World",
@@ -65,7 +69,8 @@
       }
     ],
     "img": "game.png",
-    "tags": ["java", "game"]
+    "tags": ["java", "game"],
+    "category": ["game"]
   },
   {
     "name": "url shortener",
@@ -85,49 +90,56 @@
       }
     ],
     "img": "url-shortener.png",
-    "tags": ["node", "vite", "vue.js"]
+    "tags": ["node", "vite", "vue.js"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "DEV DISRUPT HACKATHON",
     "detail": "โปรเจ็ค HACKATHON match ระหว่างเด็กมหาลัย และบริษัทที่ต้องการเด็กฝึกงาน",
     "links": [],
     "img": "dev_disrupt.png",
-    "tags": ["design", "vue.js", "concept"]
+    "tags": ["design", "vue.js", "concept"],
+    "category": ["design"]
   },
   {
     "name": "Ekarko warehouse",
     "detail": "โปรเจ็คสหกิจระบบบริหารจัดการคลังสินค้า พัฒนาและจัดทำรูปเล่ม",
     "links": [],
     "img": "coop-ekarko.png",
-    "tags": ["django", "react"]
+    "tags": ["django", "react"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "Nutmor-นัดหมอ",
     "detail": "โปรเจ็คค้นหาคลินิก / แพทย์ใกล้บ้านคุณ เป็นการพัฒนา phototype frontend เพียงอย่างเดียว",
     "links": [],
     "img": "nutmor.png",
-    "tags": ["tailwind", "nuxt.js"]
+    "tags": ["tailwind", "nuxt.js"],
+    "category": ["frontend"]
   },
   {
     "name": "MyToyota",
     "detail": "พัฒนา api สำหรับทำงานร่วมกับ App MyToyota",
     "links": [],
     "img": "my-toyota.png",
-    "tags": ["opn", "internship", "elixir", "phoenix"]
+    "tags": ["opn", "internship", "elixir", "phoenix"],
+    "category": ["backend"]
   },
   {
     "name": "wos donutmatcher",
     "detail": "Discord bot สำหรับใช้ใน server ส่วนตัวทำหน้าที่สุ่มจับคู่คนในห้อง",
     "links": [],
     "img": "discord.webp",
-    "tags": ["node", "discord", "wos"]
+    "tags": ["node", "discord", "wos"],
+    "category": ["backend"]
   },
   {
     "name": "Allianz party",
     "detail": "กิจกรรมภายในบริษัทรูปแบบของเว็บแอป สร้างเกมจับคู่การ์ดและแข่งกดหน้าจอ",
     "links": [],
     "img": "alianz.jpeg",
-    "tags": ["h-lab"]
+    "tags": ["h-lab"],
+    "category": ["frontend"]
   },
   {
     "name": "subtar7 website",
@@ -139,41 +151,47 @@
       }
     ],
     "img": "subtar7.jpeg",
-    "tags": ["design"]
+    "tags": ["design"],
+    "category": ["design"]
   },
   {
     "name": "globish sale page",
     "detail": "หน้าสำหรับขายคอร์สเรียน เป็นคนสร้างโปรเจ็คและ set flow เบื้องต้น เป็น mono-repo",
     "links": [{ "type": "link", "url": "https://lp.globish.co.th" }],
     "img": "globish-sale-page.png",
-    "tags": ["globish"]
+    "tags": ["globish"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "globish admin tool",
     "detail": "ระบบจัดการหลังบ้านสำหรับบริษัท globish ทั้งเรื่องห้องเรียน คอร์ส โค้ช นักเรียน ยอดขาย พัฒนาทั้งส่วนของ frontend และ backend",
     "links": [],
     "img": "wh-globish.png",
-    "tags": ["globish", "nuxt.js", "nest.js"]
+    "tags": ["globish", "nuxt.js", "nest.js"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "globish coach",
     "detail": "ระบบหรับสำหรับโค้ช ในการดูภาพรวม เข้าห้องเรียน หรือการทำ report หลังสอนเสร็จ",
     "links": [],
     "img": "globish-coach.png",
-    "tags": ["globish", "nuxt.js", "nest.js"]
+    "tags": ["globish", "nuxt.js", "nest.js"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "globish live classroom",
     "detail": "ระบบห้องเรียนออนไลน์ ให้โค้ชและนักเรียนเปิดกล้อง แชร์หน้าจอ พูดคุยกัน",
     "links": [],
     "img": "globish.png",
-    "tags": ["globish", "nuxt.js", "nest.js"]
+    "tags": ["globish", "nuxt.js", "nest.js"],
+    "category": ["frontend", "backend"]
   },
   {
     "name": "globish student app",
     "detail": "ระบบหรับสำหรับนักเรียน ในการดูภาพรวม เข้าห้องเรียน หรือการทำ report หลังเรียนเสร็จ",
     "links": [],
     "img": "app-globish.png",
-    "tags": ["globish", "nuxt.js", "nest.js"]
+    "tags": ["globish", "nuxt.js", "nest.js"],
+    "category": ["frontend", "backend"]
   }
 ]
