@@ -123,20 +123,6 @@
     "tags": ["node", "discord", "wos"]
   },
   {
-    "name": "ttb line liff",
-    "detail": "line liff app สำหรับพนังงาน ttb",
-    "links": [],
-    "img": "ttb.jpg",
-    "tags": ["h-lab", "next.js"]
-  },
-  {
-    "name": "linettb dashboard",
-    "detail": "สำหรับตั้งค่าหรือส่งข้อความไปยังผู้ใช้ line liff app",
-    "links": [],
-    "img": "ttb.jpg",
-    "tags": ["h-lab", "next.js"]
-  },
-  {
     "name": "Allianz party",
     "detail": "กิจกรรมภายในบริษัทรูปแบบของเว็บแอป สร้างเกมจับคู่การ์ดและแข่งกดหน้าจอ",
     "links": [],

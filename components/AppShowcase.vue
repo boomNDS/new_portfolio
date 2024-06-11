@@ -1,8 +1,8 @@
 <template>
-  <div class="mx-auto px-[5rem] mb-5">
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5">
     <h2 class="title">Showcase</h2>
     <section
-      class="grid grid-flow-row grid-cols-1 min-[586px]:grid-cols-2 min-[1024px]:grid-cols-3 min-[1282px]:grid-cols-4 gap-8"
+      class="grid grid-flow-row grid-cols-1 min-[586px]:grid-cols-2 min-[900px]:grid-cols-3 xl:grid-cols-4 gap-8"
     >
       <CommonsInfoCard
         v-for="(data, index) in jsonData"

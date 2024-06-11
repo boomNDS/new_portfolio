@@ -1,0 +1,40 @@
+<template>
+  <div>
+    <NuxtLink :to="to">
+      <button
+        :w="width ? width : `145px sm:199px`"
+        scale="active:92"
+        duration="100"
+        text="20px sm:24px black"
+        p="2 1"
+        border="4 #333333"
+        :bg="bg"
+        class="cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+        @click="$emit('on-click')"
+      >
+        {{ label }}
+      </button>
+    </NuxtLink>
+  </div>
+</template>
+
+<script setup lang="ts">
+defineProps({
+  width: {
+    type: String,
+  },
+  to: {
+    type: String,
+  },
+  label: {
+    type: String,
+    required: true,
+  },
+  bg: {
+    type: String,
+    required: true,
+  },
+});
+</script>
+
+<style scoped></style>

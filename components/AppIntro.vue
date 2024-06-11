@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex min-[1045px]:flex-row flex-col w-full min-h-450px min-[1045px]:mx-8 mx-0 min-[1045px]:mt-[6rem] mt-[4rem] flex justify-center"
-  >
+  <div m="t-[3rem]" class="flex flex-col md:flex-row justify-center">
     <div class="relative min-[1045px]:mx-0 mx-auto">
       <div
         h="5rem md:7.125rem"

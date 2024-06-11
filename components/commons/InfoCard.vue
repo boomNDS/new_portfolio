@@ -2,30 +2,29 @@
   <section
     border="4px solid #333333"
     bg="#f2f2f2"
-    class="rounded max-w-[280px] max-h-[365.5px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
+    class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
   >
-    <div class="w-full flex justify-center relative">
+    <div class="flex justify-center">
       <nuxt-img
         id="image"
-        fit="cover"
-        class="rounded-[1.5rem] px-4 py-5 max-w-[80%]"
+        class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
         :src="`/img/showcase/` + imageSrc"
         h="161.8px"
         :alt="imageAlt"
       />
-      <div class="flex flex-col absolute" right="0" top="0" m="t-3 r-2">
+    </div>
+    <div p="x-2 y-1" class="h-[120px]">
+      <div class="flex">
+        <h3 m="0" p="0" font="medium">{{ title }}</h3>
         <NuxtLink
           v-for="(link, index) in links"
           :key="`link-${index}`"
           :to="link.url"
           target="_blank"
         >
-          <div m="b-3" text="20px black" :class="getClass(link.type)" />
+          <div m="l-1" text="20px black" :class="getClass(link.type)" />
         </NuxtLink>
       </div>
-    </div>
-    <div p="x-2 y-1" class="h-[120px]">
-      <h3 m="0" p="0" font="medium">{{ title }}</h3>
       <p m="0" p="0" text="14px">
         {{ description }}
       </p>

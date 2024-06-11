@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-5">
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5">
     <h2 class="title">Talk about Ex-(perience)</h2>
 
     <section class="relative mx-[2rem] md:mx-[4rem] lg:mx-[10rem]">
@@ -18,7 +18,7 @@
           :list-items="card.listItems"
         />
       </div>
-      <!-- <div class="min-[1280px]:block hidden absolute left-1/2 top-0">
+      <div class="min-[1280px]:block hidden absolute left-1/2 top-0">
         <div class="w-5px h-[52rem] absolute right-1/2" bg="#5c5c5c" />
         <div
           v-for="(top, index) in circlePositions"
@@ -28,7 +28,7 @@
           bg="white"
           border="solid 5px #5c5c5c"
         />
-      </div> -->
+      </div>
     </section>
   </div>
 </template>
@@ -75,7 +75,7 @@ const cards = ref([
     listItems: [],
   },
 ]);
-// const circlePositions = ref(["0rem", "26rem", "37rem", "50rem"]);
+const circlePositions = ref(["0rem", "26rem", "37rem", "50rem"]);
 </script>
 
 <style scoped></style>
