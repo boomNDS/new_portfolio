@@ -1,5 +1,6 @@
 <script setup lang="ts">
 useHead({
+  title: "pachara's portfolio",
   htmlAttrs: {
     lang: "en",
   },
@@ -7,6 +8,15 @@ useHead({
     class: "m-0",
   },
 });
+useSeoMeta({
+  title: "pachara's portfolio",
+  ogTitle: "pachara's portfolio",
+  description: "This is pachara's portfolio, let me tell you all about it.",
+  ogDescription: "This is pachara's portfolio, let me tell you all about it.",
+  ogImage: "./public/img/logo.svg",
+  twitterCard: "summary_large_image",
+});
+
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   if (element) {

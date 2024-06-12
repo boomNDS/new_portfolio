@@ -67,10 +67,6 @@
 import { ref } from "vue";
 import { useMediaQuery } from "@vueuse/core";
 
-useHead({
-  title: "pachara's portfolio",
-});
-
 const isMenuOpen = ref(false);
 const menuItems: Array<"Experience" | "Tech stack" | "Showcase"> = [
   "Experience",

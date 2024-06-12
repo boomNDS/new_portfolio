@@ -14,7 +14,6 @@
         <nuxt-img
           class="absolute top-[-64px] md:top-[-4.5rem] rounded-full"
           src="/img/me.png"
-          loading="lazy"
           alt="me"
           format="webp"
           w="190px md:225px"

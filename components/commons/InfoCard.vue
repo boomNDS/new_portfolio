@@ -11,6 +11,7 @@
         :src="`/img/showcase/` + imageSrc"
         h="161.8px"
         :alt="imageAlt"
+        format="webp"
       />
     </div>
     <div p="x-2 y-1" class="h-[120px]">
@@ -22,7 +23,7 @@
           :to="link.url"
           target="_blank"
         >
-          <div m="l-1" text="20px black" :class="getClass(link.type)" />
+          <div class="icon" :class="getIconClass(link.type)" />
         </NuxtLink>
       </div>
       <p m="0" p="0" text="14px">
@@ -75,7 +76,7 @@ const props = defineProps({
 const hexCode = ref("");
 // const rgbaColor = computed(() => hexToRgba(hexCode.value));
 
-const getClass = (type: string): string | null => {
+const getIconClass = (type: string): string | null => {
   return type === "github"
     ? "i-logos-github-icon"
     : type === "design"
