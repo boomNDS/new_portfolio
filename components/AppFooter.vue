@@ -1,7 +1,7 @@
 <template>
-  <div w="100%" h="200px" bg="#d9d9d9" m="t-[5rem]" p="t-[5rem]">
+  <footer w="100%" h="200px" bg="#d9d9d9" m="t-[5rem]" p="t-[5rem]">
     <section class="flex justify-center mx-auto">
-      <NuxtLink to="mailto:pachara.sriyodwieng@gmail.com?Subject=Hello%20Boom">
+      <NuxtLink to="mailto:contact@pachorn.dev?Subject=Hello%20Boom">
         <button
           w="145px sm:199px"
           scale="active:92"
@@ -25,7 +25,7 @@
       <p class="m-0">make with 💖 by boomNDS</p>
       <p class="m-0 sm:ml-2">© {{ $dayjs().year() }} All rights reserved.</p>
     </section>
-  </div>
+  </footer>
 </template>
 
 <script setup lang="ts"></script>

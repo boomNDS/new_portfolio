@@ -27,14 +27,11 @@ const scrollToSection = (sectionId: string) => {
 
 <template>
   <AppNavbar id="intro" @scroll-to-section="scrollToSection" />
-  <AppIntro />
-  <AppExperience id="experience" />
-  <AppTechStack id="tech_stack" />
-  <AppShowcase id="showcase" />
+  <NuxtPage page-key="static" />
   <AppFooter id="footer" />
 </template>
 
-<style scoped>
+<style>
 * {
   font-family: "Athiti", sans-serif;
   color: #333333;

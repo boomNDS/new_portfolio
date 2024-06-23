@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     "@unocss/nuxt",
     "dayjs-nuxt",
     "@formkit/auto-animate",
+    "@nuxt/content",
   ],
   robots: {
     rules: {
@@ -36,5 +37,8 @@ export default defineNuxtConfig({
   dayjs: {
     plugins: ["relativeTime", "timezone"],
     defaultTimezone: "Asia/Bangkok",
+  },
+  content: {
+    contentHead: true,
   },
 });
