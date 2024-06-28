@@ -12,6 +12,7 @@
         h="161.8px"
         :alt="imageAlt"
         format="webp"
+        loading="lazy"
       />
     </div>
     <div p="x-2 y-1" class="h-[120px]">
