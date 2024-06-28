@@ -5,13 +5,12 @@
     class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
   >
     <div class="flex justify-center">
-      <nuxt-img
+      <img
         id="image"
         class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
-        :src="`/img/showcase/` + imageSrc"
-        h="161.8px"
+        :src="`/img/showcase/${imageSrc}`"
+        height="161.8px"
         :alt="imageAlt"
-        format="webp"
       />
     </div>
     <div p="x-2 y-1" class="h-[120px]">

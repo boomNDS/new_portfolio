@@ -9,7 +9,7 @@
     >
       <CommonsInfoCard
         v-for="(data, index) in items"
-        :key="`showcase-${index}-${data.name}`"
+        :key="`showcase-${index}`"
         :image-src="data.img"
         :image-alt="`${data.img} image`"
         :title="data.name"
