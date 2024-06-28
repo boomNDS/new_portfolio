@@ -12,7 +12,6 @@
         h="161.8px"
         :alt="imageAlt"
         format="webp"
-        preload
       />
     </div>
     <div p="x-2 y-1" class="h-[120px]">
