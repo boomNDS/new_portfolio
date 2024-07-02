@@ -5,13 +5,27 @@
     class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
   >
     <div class="flex justify-center">
-      <img
-        id="image"
-        class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
-        :src="`/img/showcase/${imageSrc}`"
-        height="161.8px"
-        :alt="imageAlt"
-      />
+      <template v-if="isVideo">
+        <video
+          id="video"
+          class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
+          :src="`/img/showcase/${imageSrc}`"
+          height="161.8px"
+          :alt="imageAlt"
+          autoplay
+          muted
+          loop
+        />
+      </template>
+      <template v-else>
+        <img
+          id="image"
+          class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
+          :src="`/img/showcase/${imageSrc}`"
+          height="161.8px"
+          :alt="imageAlt"
+        />
+      </template>
     </div>
     <div p="x-2 y-1" class="h-[120px]">
       <div class="flex">
@@ -93,6 +107,10 @@ const updateHexCode = () => {
     };
   }
 };
+
+const isVideo = computed(() => {
+  return /\.(mp4|webm|ogg)$/i.test(props.imageSrc);
+});
 
 onMounted(() => {
   updateHexCode();
