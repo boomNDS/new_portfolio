@@ -53,7 +53,12 @@
             p="x-4"
             @click="emitScrollEvent(item)"
           >
-            <NuxtLink p="0" m="0" class="text-black no-underline">
+            <NuxtLink
+              p="0"
+              m="0"
+              class="text-black no-underline"
+              :prefetch="false"
+            >
               {{ item }}</NuxtLink
             >
           </li>

@@ -15,6 +15,7 @@
           autoplay
           muted
           loop
+          preload="none"
         />
       </template>
       <template v-else>
@@ -24,6 +25,7 @@
           :src="`/img/showcase/${imageSrc}`"
           height="161.8px"
           :alt="imageAlt"
+          loading="lazy"
         />
       </template>
     </div>
@@ -35,6 +37,7 @@
           :key="`link-${index}`"
           :to="link.url"
           target="_blank"
+          :prefetch="false"
         >
           <div class="icon" :class="getIconClass(link.type)" />
         </NuxtLink>

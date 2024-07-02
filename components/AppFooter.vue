@@ -11,6 +11,7 @@
           border="4 #333333"
           bg="#ffc107"
           class="cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+          :prefetch="false"
         >
           Let’s talk
         </button>

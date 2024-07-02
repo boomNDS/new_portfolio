@@ -1,6 +1,6 @@
 <template>
   <div>
-    <NuxtLink :to="to">
+    <NuxtLink :to="to" :prefetch="false">
       <button
         :w="width ? width : `145px sm:199px`"
         scale="active:92"

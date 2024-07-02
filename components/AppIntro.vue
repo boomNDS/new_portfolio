@@ -25,6 +25,7 @@
             target="_blank"
             rel="noreferrer"
             to="https://www.linkedin.com/in/pachara-sriyodwieng-2a9503149"
+            :prefetch="false"
           >
             <div
               text="black"
@@ -38,6 +39,7 @@
             target="_blank"
             rel="noreferrer"
             to="https://github.com/boomNDS"
+            :prefetch="false"
           >
             <div
               text="black"
