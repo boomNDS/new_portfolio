@@ -2,7 +2,6 @@
   <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5">
     <h2 class="title">Tech stack</h2>
     <section
-      v-auto-animate
       class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 px-6 gap-y-3 gap-x-1"
     >
       <CommonsStackCard

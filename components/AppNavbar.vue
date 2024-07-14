@@ -35,7 +35,6 @@
         :class="`flex items-center justify-center w-full`"
       >
         <ul
-          v-auto-animate
           p="0"
           cursor="pointer"
           space="min-[1045px]:x-[3rem]"
