@@ -1,5 +1,22 @@
 [
   {
+    "name": "See.this",
+    "detail": "See.this is a contemplative project centered around observing a rock, it a part of shit8 hackathon by creatorsgarten",
+    "links": [
+      {
+        "type": "github",
+        "url": "https://github.com/KongJen/See.this"
+      },
+      {
+        "type": "link",
+        "url": "https://see-this.vercel.app/"
+      }
+    ],
+    "img": "compro.webp",
+    "tags": ["arduino", "c++"],
+    "category": ["arduino"]
+  },
+  {
     "name": "Guidare (น้องมะลิ)",
     "detail": "โปรเจค Guidare คือโปรเจคที่ได้สร้างรถบังคับเเละอุปกรณ์การบังคับรถโดยใช้ MPU6050 เเละ NRF24L01 Module",
     "links": [
