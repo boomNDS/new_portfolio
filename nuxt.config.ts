@@ -2,11 +2,8 @@ export default defineNuxtConfig({
   app: {
     head: {
       meta: [
-        {
-          name: "viewport",
-          content: "width=device-width, initial-scale=1.0",
-          charset: "utf-8",
-        },
+        { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+        { charset: "utf-8" },
       ],
     },
   },
@@ -23,14 +20,12 @@ export default defineNuxtConfig({
     "@vueuse/motion/nuxt",
   ],
   robots: {
-    rules: {
-      UserAgent: "*",
-      Disallow: "/",
-    },
+    UserAgent: "*",
+    Disallow: "/",
   },
   router: {
     options: {
-      scrollBehaviorType: "smooth",
+      scrollBehavior: () => ({ behavior: "smooth" }),
     },
   },
   dayjs: {
@@ -45,16 +40,8 @@ export default defineNuxtConfig({
       motion: {
         directives: {
           "pop-bottom": {
-            initial: {
-              scale: 0,
-              opacity: 0,
-              y: 100,
-            },
-            visible: {
-              scale: 1,
-              opacity: 1,
-              y: 0,
-            },
+            initial: { scale: 0, opacity: 0, y: 100 },
+            visible: { scale: 1, opacity: 1, y: 0 },
           },
         },
       },

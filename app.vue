@@ -1,42 +1,39 @@
 <script setup lang="ts">
 useHead({
-  title: "pachara's portfolio",
-  htmlAttrs: {
-    lang: "en",
-  },
-  bodyAttrs: {
-    class: "m-0",
-  },
+  title: "Pachara's Portfolio",
+  htmlAttrs: { lang: "en" },
+  bodyAttrs: { class: "m-0" },
 });
+
 useSeoMeta({
-  title: "pachara's portfolio",
-  ogTitle: "pachara's portfolio",
-  description: "This is pachara's portfolio, let me tell you all about it.",
-  ogDescription: "This is pachara's portfolio, let me tell you all about it.",
-  ogImage: "./public/img/logo.svg",
+  title: "Pachara's Portfolio",
+  ogTitle: "Pachara's Portfolio",
+  description: "This is Pachara's portfolio, showcasing projects and skills.",
+  ogDescription: "This is Pachara's portfolio, showcasing projects and skills.",
+  ogImage: "/img/logo.svg",
   twitterCard: "summary_large_image",
 });
 
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
-  if (element) {
-    element.scrollIntoView({ behavior: "smooth" });
-  }
+  element?.scrollIntoView({ behavior: "smooth" });
 };
 </script>
 
 <template>
   <AppNavbar id="intro" @scroll-to-section="scrollToSection" />
-  <NuxtPage page-key="static" />
+  <NuxtPage />
   <AppFooter id="footer" />
 </template>
 
 <style>
-* {
+:root {
   font-family: "Athiti", sans-serif;
   color: #333333;
 }
+
 body {
   background: #f2f2f2;
+  margin: 0;
 }
 </style>

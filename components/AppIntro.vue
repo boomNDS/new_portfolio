@@ -5,21 +5,22 @@
         h="5rem md:7.125rem"
         w="5rem md:7.125rem"
         bg="#ffc107"
-        class="rounded-full absolute top-[7rem]"
+        class="rounded-full absolute top-[7rem] right-0"
       />
       <div class="relative container">
         <div
-          class="w-[189px] md:w-[13.994rem] h-[190px] md:h-[13.994rem] flex-grow-0 bg-[#7d26cd] rounded-full bottom-0 left-[2rem]"
+          class="w-[189px] md:w-[13.994rem] h-[190px] md:h-[13.994rem] flex-grow-0 bg-[#7d26cd] rounded-full absolute bottom-0 left-[2rem]"
         />
-        <nuxt-img
-          class="absolute top-[-64px] md:top-[-4.5rem] rounded-full"
+        <img
           src="/img/me.png"
           alt="me"
-          format="webp"
-          w="190px md:225px"
-          placeholder
+          width="190"
+          height="190"
+          class="absolute top-[-1rem] left-[2rem] md:top-[-2.5rem] md:left-[2rem] rounded-full z-10"
         />
-        <h4 font="normal" text="22px center" m="b-0">Bangkok, Thailand</h4>
+        <h4 font="normal" text="22px center" m="t-[200px] md:t-[220px] b-0">
+          Bangkok, Thailand
+        </h4>
         <div class="flex justify-center" space="x-[0.5rem]">
           <NuxtLink
             target="_blank"
@@ -62,31 +63,33 @@
         I’m <span text="primary">Boom</span>
       </h1>
       <h1 m="0">foodie developer</h1>
-      <nuxt-img
+      <img
         src="/img/lucide_sparkle.svg"
         loading="lazy"
         class="relative top-[-5.2rem] left-[-2.2rem] hidden lg:inline-block"
         alt="sparkle icon"
       />
-      <nuxt-img
+      <img
         src="/img/lucide_sparkle.svg"
         loading="lazy"
         class="relative top-[-4rem] left-[26rem] hidden lg:inline-block"
         alt="sparkle icon"
       />
-      <nuxt-img
+      <img
         src="/img/lucide_sparkle.svg"
         loading="lazy"
         class="relative top-[-3.2rem] left-[27rem] hidden lg:inline-block"
         alt="sparkle icon"
-        w="20px"
+        width="20"
+        height="20"
       />
-      <nuxt-img
+      <img
         src="/img/lucide_sparkle.svg"
         loading="lazy"
         class="relative top-[-2.2rem] left-[24rem] hidden lg:inline-block"
         alt="sparkle icon"
-        w="30px"
+        width="30"
+        height="30"
       />
     </section>
   </div>

@@ -3,48 +3,43 @@
     <h2 class="title">Talk about Ex-(perience)</h2>
 
     <section class="relative mx-[2rem] md:mx-[4rem] lg:mx-[10rem]">
-      <div v-for="(card, index) in cards" :key="index">
-        <CommonsCard
-          class="mb-3 flex flex-col"
-          :class="{
-            'items-start': index % 2 === 0,
-            'items-end': index % 2 !== 0,
-          }"
-          :logo-src="card.logoSrc"
-          :logo-alt="card.logoAlt"
-          :title="card.title"
-          :subtitle="card.subtitle"
-          :description="card.description"
-          :list-items="card.listItems"
-        />
-      </div>
-      <!-- <div class="min-[1280px]:block hidden absolute left-1/2 top-0">
-        <div class="w-5px h-[52rem] absolute right-1/2" bg="#5c5c5c" />
-        <div
-          v-for="(top, index) in circlePositions"
-          :key="index"
-          class="absolute rounded-full w-30px h-30px left-[-21px]"
-          :style="{ top }"
-          bg="white"
-          border="solid 5px #5c5c5c"
-        />
-      </div> -->
+      <CommonsCard
+        v-for="(card, index) in cards"
+        :key="index"
+        class="mb-3 flex flex-col"
+        :class="{
+          'items-start': index % 2 === 0,
+          'items-end': index % 2 !== 0,
+        }"
+        v-bind="card"
+      />
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-const cards = ref([
+import { ref } from "vue";
+
+interface ExperienceCard {
+  logoSrc: string;
+  logoAlt: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  listItems: string[];
+}
+
+const cards = ref<ExperienceCard[]>([
   {
     logoSrc: "/img/company/globish_logo.png",
-    logoAlt: "globish logo",
+    logoAlt: "Globish logo",
     title: "Globish Academia",
     subtitle: "Full-Stack, Sep 2021 - Apr 2024 (Full-Time)",
     description:
-      "Establishing a Nuxt.js project sets the stage for crafting contemporary web applications, leveraging a sturdy framework to streamline development and elevate user experiences. Simultaneously, thorough mapping of task userflows guarantees smooth navigation, maximizing engagement and user satisfaction. In addition, utilizing Next.js for API development enhances backend functionality, further enriching the overall user experience.",
+      "Established Nuxt.js projects for modern web applications, streamlining development and enhancing user experiences. Mapped task userflows for smooth navigation and developed APIs with Next.js to enrich overall functionality.",
     listItems: [
-      "Develop an automated scoring system to streamline summary and report generation for colleagues.",
-      "Revitalize email marketing for an enhanced user experience.",
+      "Developed an automated scoring system for streamlined summary and report generation.",
+      "Revitalized email marketing for an enhanced user experience.",
     ],
   },
   {
@@ -75,7 +70,6 @@ const cards = ref([
     listItems: [],
   },
 ]);
-// const circlePositions = ref(["0rem", "26rem", "37rem", "50rem"]);
 </script>
 
 <style scoped></style>

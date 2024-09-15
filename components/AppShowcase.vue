@@ -5,35 +5,35 @@
       <CommonsNDropdrop v-model="selected" />
     </div>
     <section
-      class="grid grid-flow-row grid-cols-1 min-[586px]:grid-cols-2 min-[900px]:grid-cols-3 xl:grid-cols-4 gap-8"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
     >
       <CommonsInfoCard
         v-for="(data, index) in items"
         :key="`showcase-${index}`"
-        :image-src="data.img"
-        :image-alt="`${data.img} image`"
         :title="data.name"
+        :image-src="data.img"
+        :image-alt="data.name"
         :description="data.detail"
-        :links="data.links as Link[]"
         :tags="data.tags"
+        :links="data.links"
       />
     </section>
     <div v-if="takeItem < filterItems.length" class="mt-5 flex justify-center">
-      <CommonsButton label="show more" bg="#f2f2f2" @on-click="loadMore" />
+      <CommonsButton label="Show more" bg="#f2f2f2" @on-click="loadMore" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
-import jsonData from "~/public/showcase.json";
-import type { Link } from "./commons/InfoCard.vue";
+import { computed } from "vue";
+import { useStorage } from "@vueuse/core";
+import showcaseData from "~/public/showcase.json";
 
-const takeItem = ref(4);
-const selected = ref("all");
+const takeItem = useStorage("takeItem", 4);
+const selected = useStorage("selected", "all");
 
 const filterItems = computed(() => {
-  return jsonData.filter((data) => {
+  return showcaseData.filter((data) => {
     if (selected.value === "all") return true;
     if (selected.value === "other") {
       return !["frontend", "backend", "design"].some((category) =>
