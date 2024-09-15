@@ -1,77 +1,39 @@
-# Nuxt 3 Minimal Starter
+# Boom's Portfolio
 
 [![Build and Deployment](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml)
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+This is my personal portfolio website built with Nuxt 3, showcasing my projects and skills.
 
-## Setup
+## 🚀 Quick Start
 
-Make sure to install the dependencies:
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   yarn install
+   ```
+3. Run the development server:
+   ```bash
+   yarn dev
+   ```
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-```bash
-# npm
-npm install
+## 🛠 Build
 
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
+To build for production:
 
 ```bash
-# npm
-npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
+  yarn build
 ```
 
-## Production
+## 📚 Learn More
 
-Build the application for production:
+- [Nuxt 3 Documentation](https://nuxt.com/docs/getting-started/introduction)
+- [Deployment Guide](https://nuxt.com/docs/getting-started/deployment)
 
-```bash
-# npm
-npm run build
+## 🤝 Contributing
 
-# pnpm
-pnpm run build
+Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](https://github.com/boomNDS/new_portfolio/issues).
 
-# yarn
-yarn build
+## 📝 License
 
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+This project is [MIT](LICENSE) licensed.
