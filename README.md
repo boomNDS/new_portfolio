@@ -1,7 +1,6 @@
 # Nuxt 3 Minimal Starter
 
-[![Super-Linter](https://github.com/<OWNER>/<REPOSITORY>/actions/workflows/<WORKFLOW_FILE_NAME>/badge.svg)](https://github.com/marketplace/actions/super-linter)
-[![.github/workflows/nuxtjs.yml](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/nuxtjs.yml)
+[![Build and Deployment](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml)
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
