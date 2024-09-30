@@ -33,6 +33,7 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGB {
     // Get the image data from the canvas
     data = context.getImageData(0, 0, width, height);
   } catch (e) {
+    console.error(e);
     // Handle security error for images from a different domain
     console.error("Security error: Unable to access image data.");
     return defaultRGB;

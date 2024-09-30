@@ -13,8 +13,6 @@
         class="m-y-auto"
         width="40"
         height="40"
-        :style="{ width: '40px', height: '40px' }"
-        @load="$emit('imageLoaded')"
       />
       <div class="flex flex-col justify-center" leading="6">
         <h3 text="min-[1045px]:1.75rem 1.25rem" m="0">{{ title }}</h3>
