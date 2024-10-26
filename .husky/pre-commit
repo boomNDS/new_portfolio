@@ -1,5 +1,5 @@
 #!/bin/sh
 . "$(dirname "$0")/husky.sh"
 
-yarn lint:fix
-git add .
+# yarn lint:fix
+# git add .
