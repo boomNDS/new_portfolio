@@ -1,13 +1,13 @@
 <template>
   <div m="t-[3rem]" class="flex flex-col md:flex-row justify-center">
     <div class="relative min-[1045px]:mx-0 mx-auto">
-      <div
+      <!-- <div
         h="5rem md:7.125rem"
         w="5rem md:7.125rem"
         bg="#ffc107"
         class="rounded-full absolute top-[7rem] right-0"
-      />
-      <div class="relative container">
+      /> -->
+      <!-- <div class="relative container">
         <div
           class="w-[189px] md:w-[13.994rem] h-[190px] md:h-[13.994rem] flex-grow-0 bg-[#7d26cd] rounded-full absolute bottom-0 left-[2rem]"
         />
@@ -51,7 +51,7 @@
             />
           </NuxtLink>
         </div>
-      </div>
+      </div> -->
     </div>
     <section
       text="25px min-[629px]:32px"

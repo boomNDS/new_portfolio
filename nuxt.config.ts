@@ -7,7 +7,9 @@ export default defineNuxtConfig({
       ],
     },
   },
+
   devtools: { enabled: true },
+
   modules: [
     "@nuxt/eslint",
     "@nuxt/test-utils/module",
@@ -19,22 +21,27 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@vueuse/motion/nuxt",
   ],
+
   robots: {
     UserAgent: "*",
     Disallow: "/",
   },
+
   router: {
     options: {
       scrollBehavior: () => ({ behavior: "smooth" }),
     },
   },
+
   dayjs: {
     plugins: ["relativeTime", "timezone"],
     defaultTimezone: "Asia/Bangkok",
   },
+
   content: {
     contentHead: true,
   },
+
   runtimeConfig: {
     public: {
       motion: {
@@ -47,5 +54,7 @@ export default defineNuxtConfig({
       },
     },
   },
+
   plugins: ["~/plugins/motion-directives.js"],
+  compatibilityDate: "2024-10-26",
 });
