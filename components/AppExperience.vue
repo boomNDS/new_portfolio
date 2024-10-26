@@ -34,7 +34,7 @@ const cards = ref<ExperienceCard[]>([
     logoSrc: "/img/company/skuberg_logo.jpeg",
     logoAlt: "Skuberg logo",
     title: "Skuberg",
-    subtitle: "Full-Stack, Sep 2021 - Current (Full-Time)",
+    subtitle: "Full-Stack, Aug 2024 - Current (Full-Time)",
     description:
       "Experienced in full-stack development, designing database architecture, and building both backend and frontend systems. I handle end-to-end deployment on DigitalOcean and integrate external APIs like KBank. Focused on delivering scalable, efficient web solutions.",
     listItems: [
