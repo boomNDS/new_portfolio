@@ -54,21 +54,25 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           command: pages deploy dist --project-name=new-portfolio
           wranglerVersion: "3"
+        # Capture the deployment URL from the output
+        env:
+          DEPLOYMENT_URL: "https://<YOUR_PROJECT_NAME>.pages.dev"
 
       - name: Notify Build Status (Success)
         if: success()
         run: |
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
-          MESSAGE="✅ Deployment succeeded for commit ${GITHUB_SHA::6}.\n Access your site at: ${{ steps.cloudflare.outputs.url }}.\n [View build](${BUILD_URL})"
-          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
-            -d text="$MESSAGE"
+          DEPLOYMENT_URL="${{ env.DEPLOYMENT_URL }}"
+          MESSAGE="✅ Deployment succeeded for commit ${GITHUB_SHA::6}.\n Access your site at: ${DEPLOYMENT_URL}.\n [View build](${BUILD_URL})"
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_BOT_CHATROOM_ID }}" \
+            -d text="$MESSAGE" || echo "Failed to send Telegram notification"
 
       - name: Notify Build Status (Failure)
         if: failure()
         run: |
           BUILD_URL="https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
           MESSAGE="❌ Deployment failed for commit ${GITHUB_SHA::6}.\n [View build](${BUILD_URL})"
-          curl -s -X POST https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage \
-            -d chat_id=${{ secrets.TELEGRAM_BOT_CHATROOM_ID }} \
-            -d text="$MESSAGE"
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id="${{ secrets.TELEGRAM_BOT_CHATROOM_ID }}" \
+            -d text="$MESSAGE" || echo "Failed to send Telegram notification"
