@@ -1,5 +1,22 @@
 [
   {
+    "name": "Tuk D Ads",
+    "detail": "Tuk D Ads is a landing page website promoting a tuk-tuk advertising service that helps businesses stand out with wide visibility and affordable pricing.",
+    "links": [
+      {
+        "type": "github",
+        "url": "https://github.com/boomNDS/tuk-d-ads"
+      },
+      {
+        "type": "link",
+        "url": "https://tuk-d-ads.vercel.app"
+      }
+    ],
+    "img": "tuk-tuk-ads.webp",
+    "tags": ["advertising", "marketing", "local business"],
+    "category": ["landing page", "web"]
+  },
+  {
     "name": "See.this",
     "detail": "See.this is a contemplative project centered around observing a rock, it a part of shit8 hackathon by creatorsgarten",
     "links": [
