@@ -60,6 +60,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: false,
       routes: ["/"],
+      ignore: ["/__nuxt_content/content/sql_dump.txt"],
     },
   },
 
