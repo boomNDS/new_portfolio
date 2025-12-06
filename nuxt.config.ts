@@ -62,4 +62,22 @@ export default defineNuxtConfig({
       routes: ["/"],
     },
   },
+
+  vite: {
+    plugins: [
+      {
+        name: "strip-unocss-placeholder",
+        enforce: "pre",
+        transform(code, id) {
+          if (id.endsWith(".css") && code.includes("pascalCase(component)")) {
+            return code.replace(
+              /\.m\[pascalCase\(component\)\]\{margin:pascalCase\(component\);\}/g,
+              "",
+            );
+          }
+          return code;
+        },
+      },
+    ],
+  },
 });
