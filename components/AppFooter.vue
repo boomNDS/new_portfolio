@@ -15,7 +15,7 @@
         </button>
       </NuxtLink>
       <NuxtLink
-        to="https://cal.com/boomnds/30min"
+        to="https://cal.com/pachara-sri/30min"
         target="_blank"
         rel="noreferrer"
         :prefetch="false"
