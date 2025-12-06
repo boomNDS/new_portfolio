@@ -24,7 +24,7 @@
       </NuxtLink>
     </section>
     <section
-      class="mt-10 mx-auto flex flex-col sm:flex-row justify-center text-[14px] sm:text-[18px] text-center sm:text-left font-medium"
+      class="mt-10 mx-auto flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-[14px] sm:text-[18px] text-center sm:text-left font-medium"
     >
       <p class="m-0 text-[var(--color-text)]">make with 💖 by boomNDS</p>
       <p class="m-0 sm:ml-2 text-[var(--color-text)]">
