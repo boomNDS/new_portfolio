@@ -5,6 +5,7 @@
       class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative"
     >
       <img
+        ref="logoRef"
         src="/img/logo.svg"
         alt="Pachara logo"
         class="absolute left-0 transition ease-in-out hover:-translate-y-1 cursor-pointer"
@@ -33,12 +34,12 @@
         <li
           v-for="(item, index) in menuItems"
           :key="item"
+          :ref="(el) => setItemRef(el as HTMLElement | null, index)"
           class="transition ease-in-out hover:-translate-y-1 cursor-pointer"
           :class="{
             'scale-110': isItemHovered(item),
             'scale-105': isItemActive(item),
           }"
-          :ref="(el) => setItemRef(el as HTMLElement | null, index)"
           @mouseenter="onItemEnter(index)"
           @mouseleave="onItemLeave(index)"
           @click="emitScrollEvent(item)"
