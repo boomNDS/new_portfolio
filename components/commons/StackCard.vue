@@ -3,7 +3,7 @@
     <div
       :class="[iconSrc]"
       class="hidden md:block text-5xl grayscale hover:grayscale-1 ease-in-out duration-300 mb-2"
-    />
+    ></div>
     <p class="rounded" m="0" p="x-[10px]" bg="#e8e8e8 md:transparent">
       {{ iconTitle }}
     </p>

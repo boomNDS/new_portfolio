@@ -17,7 +17,7 @@
           isActive ? `i-mdi-keyboard-arrow-up` : 'i-mdi-keyboard-arrow-down',
         ]"
         class="ease-in-out text-xl"
-      />
+      ></div>
     </button>
     <ul
       v-show="isActive"
@@ -31,7 +31,7 @@
         :key="`li-` + text"
         bg="hover:[#d9d9d9]"
         class="rounded px-2 py-1"
-        @click="$emit('on-click', text), onToggle()"
+        @click="($emit('on-click', text), onToggle())"
       >
         {{ text }}
       </li>

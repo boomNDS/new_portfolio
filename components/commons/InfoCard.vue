@@ -16,7 +16,7 @@
           muted
           loop
           preload="none"
-        />
+        ></video>
       </template>
       <template v-else>
         <img
@@ -39,7 +39,7 @@
           target="_blank"
           :prefetch="false"
         >
-          <div class="icon" :class="getIconClass(link.type)" />
+          <div class="icon" :class="getIconClass(link.type)"></div>
         </NuxtLink>
       </div>
       <p m="0" p="0" text="14px">
