@@ -3,11 +3,11 @@
     <Transition name="fade-slide">
       <div
         v-if="isVisible"
-        class="cursor-pointer rounded-full border-2 border-[#111] bg-white shadow-[6px_6px_0px_rgba(0,0,0,0.18)] p-3 flex items-center justify-center gap-2 hover:-translate-y-[2px] transition-transform duration-150"
+        class="cursor-pointer rounded-full border-2 border-[var(--color-border)] bg-white shadow-[6px_6px_0px_rgba(0,0,0,0.18)] p-3 flex items-center justify-center gap-2 hover:-translate-y-[2px] transition-transform duration-150"
         aria-label="Scroll to top"
         @click="scrollToTop"
       >
-        <span class="i-tabler:arrow-up text-xl text-[#111]"></span>
+        <span class="i-tabler:arrow-up text-xl text-[var(--color-dark)]"></span>
       </div>
     </Transition>
   </div>

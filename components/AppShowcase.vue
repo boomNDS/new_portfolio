@@ -5,7 +5,7 @@
         <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
           Projects
         </p>
-        <h2 class="title m-0 text-[#111]">Showcase</h2>
+        <h2 class="title m-0 text-[var(--color-dark)]">Showcase</h2>
         <p class="m-0 text-gray-600 text-sm">
           A mix of landing pages, apps, and tools I’ve shipped end-to-end.
         </p>
@@ -31,7 +31,7 @@
     <div v-if="takeItem < filterItems.length" class="mt-6 flex justify-center">
       <CommonsButton
         label="Show more"
-        bg="#111"
+        bg="var(--color-dark)"
         class="text-white"
         @on-click="loadMore"
       />

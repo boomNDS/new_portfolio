@@ -2,7 +2,9 @@
   <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-5xl">
     <div class="mb-6 space-y-2">
       <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
-      <h2 class="title m-0 text-[#111]">Talk about Ex-(perience)</h2>
+      <h2 class="title m-0 text-[var(--color-dark)]">
+        Talk about Ex-(perience)
+      </h2>
       <p class="text-gray-600">
         Highlights from roles where I’ve shipped full-stack products, scaled
         platforms, and refined UX flows.
@@ -21,7 +23,7 @@
           class="relative md:pl-20"
         >
           <div
-            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[#111] bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.12)]"
+            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)]"
           >
             <img
               :src="card.logoSrc"
@@ -32,7 +34,7 @@
           </div>
 
           <div
-            class="rounded-xl border-4 border-[#111] bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,0.12)] p-5"
+            class="rounded-xl border-4 border-[var(--color-border)] bg-white shadow-[var(--shadow-mid)] p-5"
           >
             <div
               class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"
@@ -46,7 +48,9 @@
                 />
                 <div>
                   <div class="flex items-center gap-2 flex-wrap">
-                    <h3 class="m-0 text-xl font-semibold text-[#111]">
+                    <h3
+                      class="m-0 text-xl font-semibold text-[var(--color-dark)]"
+                    >
                       {{ card.title }}
                     </h3>
                     <span
