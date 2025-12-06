@@ -63,8 +63,7 @@ const toggleTheme = () => {
 <style>
 @font-face {
   font-family: "LINE Seed Sans";
-  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSans_Rg.woff2")
-    format("woff2");
+  src: url("/fonts/LINESeedSans_Rg.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -72,8 +71,7 @@ const toggleTheme = () => {
 
 @font-face {
   font-family: "LINE Seed Sans";
-  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSans_Md.woff2")
-    format("woff2");
+  src: url("/fonts/LINESeedSans_Md.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -81,8 +79,7 @@ const toggleTheme = () => {
 
 @font-face {
   font-family: "LINE Seed Sans TH";
-  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSansTH_W_Rg.woff2")
-    format("woff2");
+  src: url("/fonts/LINESeedSansTH_W_Rg.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -90,8 +87,7 @@ const toggleTheme = () => {
 
 @font-face {
   font-family: "LINE Seed Sans TH";
-  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSansTH_W_Md.woff2")
-    format("woff2");
+  src: url("/fonts/LINESeedSansTH_W_Md.woff2") format("woff2");
   font-weight: 600;
   font-style: normal;
   font-display: swap;
