@@ -1,7 +1,7 @@
 <template>
   <section class="px-[1.5rem] md:px-[3rem] lg:px-[5rem] mt-10 mb-6">
     <div
-      class="relative overflow-hidden rounded-3xl border-4 border-[#111] bg-gradient-to-br from-white via-[#f9f9f9] to-[#f4f4f4] shadow-[10px_10px_0px_0px_rgba(0,0,0,0.12)]"
+      class="relative overflow-hidden rounded-3xl border-4 border-[var(--color-border)] shadow-[var(--shadow-strong)] hero-surface"
     >
       <div
         class="absolute inset-0 pointer-events-none opacity-60"
@@ -175,6 +175,20 @@
 <script setup lang="ts"></script>
 
 <style scoped>
+@layer components {
+  .hero-surface {
+    background: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      #f9f9f9 50%,
+      var(--color-light) 100%
+    );
+  }
+  :global([data-theme="dark"]) .hero-surface {
+    background: linear-gradient(135deg, #0f1115 0%, #111827 50%, #0f1115 100%);
+  }
+}
+
 @keyframes float {
   0% {
     transform: translateY(0px);

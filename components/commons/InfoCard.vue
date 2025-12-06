@@ -1,8 +1,6 @@
 <template>
   <section
-    border="4px solid #333333"
-    bg="#f2f2f2"
-    class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto mt-4"
+    class="rounded max-w-[280px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4"
   >
     <div class="flex justify-center">
       <div
@@ -41,7 +39,7 @@
         </template>
       </div>
     </div>
-    <div p="x-2 y-1" class="h-[120px]">
+    <div class="px-2 py-1 h-[120px]">
       <div class="flex">
         <h3 m="0" p="0" font="medium">{{ title }}</h3>
         <NuxtLink
@@ -54,12 +52,12 @@
           <div class="icon" :class="getIconClass(link.type)"></div>
         </NuxtLink>
       </div>
-      <p m="0" p="0" text="14px">
+      <p class="m-0 p-0 text-[14px] text-[var(--color-text)]">
         {{ description }}
       </p>
     </div>
-    <div class="flex" p="x-2 y-1" text="14px" space="x-1">
-      <p v-for="(tag, index) in tags" :key="`tag-${index}`" m="0" p="0">
+    <div class="flex px-2 py-1 text-[14px] space-x-1 text-[var(--color-text)]">
+      <p v-for="(tag, index) in tags" :key="`tag-${index}`" class="m-0 p-0">
         #{{ tag }}
       </p>
     </div>
