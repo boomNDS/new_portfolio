@@ -3,7 +3,9 @@
     <ContentDoc>
       <template #default="slotProps">
         <template v-if="slotProps?.doc">
-          <article class="mx-auto max-w-3xl px-4 py-10 text-[var(--color-text)]">
+          <article
+            class="mx-auto max-w-3xl px-4 py-10 text-[var(--color-text)]"
+          >
             <h1 class="mb-4 text-3xl font-semibold text-[var(--color-dark)]">
               {{ slotProps.doc.title }}
             </h1>
