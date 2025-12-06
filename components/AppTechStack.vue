@@ -1,12 +1,23 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5">
-    <h2 class="title">Tech stack</h2>
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5 max-w-6xl">
+    <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
+      <div>
+        <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
+          Toolkit
+        </p>
+        <h2 class="title m-0 text-[var(--color-dark)]">Tech stack</h2>
+        <p class="m-0 text-gray-600 text-sm text-[var(--color-text)]">
+          The frameworks, platforms, and tools I use most often to ship fast.
+        </p>
+      </div>
+    </div>
     <section
-      class="grid grid-cols-3 sm:grid-cols-5 md:grid-cols-10 px-6 gap-y-3 gap-x-1"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-stretch"
     >
       <CommonsStackCard
         v-for="(tech, index) in sortedTechStacks"
         :key="`tech-${index}-icon`"
+        :ref="(el) => setCardRef(el as HTMLElement | null, index)"
         :icon-src="tech.iconSrc"
         :icon-title="tech.iconTitle"
         :last-used="tech.lastUsed"
@@ -16,7 +27,38 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted, ref, nextTick, computed } from "vue";
 const dayjs = useDayjs();
+const { $motionAnimate, $motionInView } = useNuxtApp();
+const cardRefs = ref<HTMLElement[]>([]);
+
+const setCardRef = (el: HTMLElement | null, index: number) => {
+  if (el) {
+    cardRefs.value[index] = el;
+  }
+};
+
+const animateCards = () => {
+  if (!$motionAnimate || !$motionInView) return;
+  cardRefs.value.forEach((el, index) => {
+    if (!el) return;
+    $motionInView(
+      el,
+      () =>
+        $motionAnimate(
+          el,
+          { opacity: [0, 1], y: [12, 0] },
+          { duration: 0.35, delay: index * 0.04, easing: [0.22, 1, 0.36, 1] },
+        ),
+      { amount: 0.2, once: true },
+    );
+  });
+};
+
+onMounted(() => {
+  nextTick(animateCards);
+});
+
 const techStacks = ref([
   {
     iconSrc: "i-logos-javascript",

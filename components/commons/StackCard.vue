@@ -1,19 +1,24 @@
 <template>
-  <div class="flex flex-col items-center justify-center text-center mb-2">
+  <div
+    class="flex flex-col items-center justify-center text-center mb-2 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-4 shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
+  >
     <div
       :class="[iconSrc]"
-      class="hidden md:block text-5xl grayscale hover:grayscale-1 ease-in-out duration-300 mb-2"
+      class="text-4xl md:text-5xl grayscale hover:grayscale-0 ease-in-out duration-300 mb-2"
     ></div>
-    <p
-      class="rounded m-0 px-[10px] bg-[var(--color-light)] md:bg-transparent text-[var(--color-text)]"
-    >
+    <p class="m-0 font-semibold text-[var(--color-dark)] capitalize">
       {{ iconTitle }}
+    </p>
+    <p class="m-0 text-[12px] text-[var(--color-text)] opacity-80">
+      {{ lastUsedLabel }}
     </p>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps({
+import { computed } from "vue";
+
+const props = defineProps({
   iconSrc: {
     type: String,
     required: true,
@@ -27,6 +32,10 @@ defineProps({
     required: true,
   },
 });
+
+const lastUsedLabel = computed(() =>
+  props.lastUsed ? `Used ${props.lastUsed}` : "",
+);
 </script>
 
 <style scoped></style>
