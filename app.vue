@@ -61,8 +61,44 @@ const toggleTheme = () => {
 </template>
 
 <style>
+@font-face {
+  font-family: "LINE Seed Sans";
+  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSans_Rg.woff2")
+      format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LINE Seed Sans";
+  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSans_Md.woff2")
+      format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LINE Seed Sans TH";
+  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSansTH_W_Rg.woff2")
+      format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "LINE Seed Sans TH";
+  src: url("https://cdn.line-apps.com/line_seed_font/LINESeedSansTH_W_Md.woff2")
+      format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  font-family: "Athiti", sans-serif;
+  font-family: "LINE Seed Sans", "LINE Seed Sans TH", "Athiti", sans-serif;
   color: var(--color-text);
   --color-primary: #7d26cd;
   --color-accent: #f5c243;
