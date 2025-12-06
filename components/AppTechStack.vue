@@ -153,7 +153,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-flutter",
     iconTitle: "flutter",
-    lastUsed: dayjs().to(dayjs("2020-08-31")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-cloudflare-icon",
