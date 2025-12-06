@@ -1,24 +1,96 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5">
-    <h2 class="title">Talk about Ex-(perience)</h2>
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-5xl">
+    <div class="mb-6 space-y-2">
+      <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
+      <h2 class="title m-0">Talk about Ex-(perience)</h2>
+      <p class="text-gray-600">
+        Highlights from roles where I’ve shipped full-stack products, scaled
+        platforms, and refined UI/UX flows.
+      </p>
+    </div>
 
-    <section class="relative mx-[2rem] md:mx-[4rem] lg:mx-[10rem]">
-      <CommonsCard
-        v-for="(card, index) in cards"
-        :key="index"
-        class="mb-3 flex flex-col"
-        :class="{
-          'items-start': index % 2 === 0,
-          'items-end': index % 2 !== 0,
-        }"
-        v-bind="card"
-      />
+    <section class="relative">
+      <div
+        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#7D26CD] via-[#333] to-transparent"
+      ></div>
+
+      <div class="flex flex-col gap-5">
+        <article
+          v-for="(card, index) in displayCards"
+          :key="index"
+          class="relative md:pl-20"
+        >
+          <div
+            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[#111] bg-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.15)]"
+          >
+            <img
+              :src="card.logoSrc"
+              :alt="card.logoAlt"
+              loading="lazy"
+              class="w-10 h-10 object-contain"
+            />
+          </div>
+
+          <div
+            class="rounded-xl border-4 border-[#111] bg-white shadow-[6px_6px_0px_0px_rgba(0,0,0,0.15)] p-5"
+          >
+            <div
+              class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"
+            >
+              <div class="flex items-start gap-3">
+                <img
+                  :src="card.logoSrc"
+                  :alt="card.logoAlt"
+                  loading="lazy"
+                  class="w-12 h-12 object-contain rounded-lg border border-[#e5e7eb] md:hidden"
+                />
+                <div>
+                  <div class="flex items-center gap-2 flex-wrap">
+                    <h3 class="m-0 text-xl font-semibold">{{ card.title }}</h3>
+                    <span
+                      v-if="card.isCurrent"
+                      class="px-2 py-1 rounded-full text-xs font-semibold bg-[#7D26CD]/10 text-[#7D26CD] border border-[#7D26CD]/30"
+                    >
+                      Current
+                    </span>
+                  </div>
+                  <p class="m-0 text-sm text-gray-600">{{ card.role }}</p>
+                  <p class="m-0 text-sm text-gray-500">{{ card.timeframe }}</p>
+                </div>
+              </div>
+              <div
+                v-if="card.employmentType"
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-black text-white uppercase tracking-wide shadow-[3px_3px_0px_rgba(0,0,0,0.2)]"
+              >
+                {{ card.employmentType }}
+              </div>
+            </div>
+
+            <p class="mt-3 mb-0 text-sm text-gray-700 leading-relaxed">
+              {{ card.description }}
+            </p>
+
+            <ul class="mt-3 mb-0 space-y-1 text-sm text-gray-800">
+              <li
+                v-for="(item, idx) in card.listItems"
+                :key="idx"
+                class="flex items-start gap-2"
+              >
+                <span
+                  class="mt-[6px] inline-block w-2 h-2 rounded-full bg-[#7D26CD]"
+                ></span>
+                <span>{{ item }}</span>
+              </li>
+            </ul>
+          </div>
+        </article>
+      </div>
     </section>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 
 interface ExperienceCard {
   logoSrc: string;
@@ -99,6 +171,24 @@ const cards = ref<ExperienceCard[]>([
     listItems: [],
   },
 ]);
+
+const parseSubtitle = (subtitle: string) => {
+  const [rolePart, ...rest] = subtitle.split(",");
+  const timeframe = rest.join(",").trim();
+  const employmentType = subtitle.match(/\(([^)]+)\)/)?.[1] || "";
+  return { role: rolePart?.trim() || subtitle, timeframe, employmentType };
+};
+
+const displayCards = computed(() =>
+  cards.value.map((card) => {
+    const meta = parseSubtitle(card.subtitle);
+    return {
+      ...card,
+      ...meta,
+      isCurrent: /current/i.test(card.subtitle),
+    };
+  }),
+);
 </script>
 
 <style scoped></style>
