@@ -1,21 +1,21 @@
 <template>
   <section class="px-[1.5rem] md:px-[3rem] lg:px-[5rem] mt-10 mb-6">
     <div
-      class="relative overflow-hidden rounded-3xl border-4 border-[#111] bg-gradient-to-br from-white via-[#f7f3ff] to-[#fdf2f8] shadow-[10px_10px_0px_0px_rgba(0,0,0,0.12)]"
+      class="relative overflow-hidden rounded-3xl border-4 border-[#111] bg-gradient-to-br from-white via-[#f9f9f9] to-[#f4f4f4] shadow-[10px_10px_0px_0px_rgba(0,0,0,0.12)]"
     >
       <div
         class="absolute inset-0 pointer-events-none opacity-60"
         style="
           background:
             radial-gradient(
-              600px at 20% 20%,
-              rgba(125, 38, 205, 0.15),
+              620px at 18% 18%,
+              rgba(125, 38, 205, 0.12),
               transparent 40%
             ),
             radial-gradient(
-              500px at 80% 0%,
-              rgba(255, 153, 102, 0.16),
-              transparent 35%
+              460px at 78% 12%,
+              rgba(125, 38, 205, 0.08),
+              transparent 36%
             );
         "
       ></div>
@@ -47,7 +47,7 @@
             <NuxtLink
               to="#showcase"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7D26CD] text-white font-semibold text-sm shadow-[5px_5px_0px_rgba(0,0,0,0.15)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7D26CD] text-white font-semibold text-sm shadow-[5px_5px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150"
             >
               View showcase
               <span class="i-tabler:arrow-right text-lg"></span>
@@ -91,7 +91,7 @@
             class="absolute -left-6 -top-6 w-28 h-28 rounded-full bg-[#7D26CD]/10 blur-2xl animate-float-slow hidden lg:block"
           ></div>
           <div
-            class="absolute -right-4 bottom-0 w-24 h-24 rounded-full bg-[#ff7f50]/20 blur-2xl animate-float hidden lg:block"
+            class="absolute -right-4 bottom-0 w-24 h-24 rounded-full bg-[#7D26CD]/10 blur-2xl animate-float hidden lg:block"
           ></div>
 
           <div class="grid gap-4">
