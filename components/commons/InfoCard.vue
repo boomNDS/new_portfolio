@@ -4,12 +4,12 @@
   >
     <div class="flex justify-center">
       <div
-        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[#0f172a]"
+        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[#0f172a] flex items-center justify-center p-3"
       >
         <template v-if="!mediaError && isVideo">
           <video
             id="video"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
             :src="`/img/showcase/${imageSrc}`"
             :alt="imageAlt"
             autoplay
@@ -22,7 +22,7 @@
         <template v-else-if="!mediaError">
           <img
             id="image"
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
             :src="`/img/showcase/${imageSrc}`"
             :alt="imageAlt"
             loading="lazy"
@@ -31,7 +31,7 @@
         </template>
         <template v-else>
           <img
-            class="w-full h-full object-cover"
+            class="w-full h-full object-contain"
             src="/img/showcase/placeholder.svg"
             alt="Showcase media placeholder"
             loading="lazy"
