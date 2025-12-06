@@ -6,7 +6,7 @@
           Projects
         </p>
         <h2 class="title m-0 text-[var(--color-dark)]">Showcase</h2>
-        <p class="m-0 text-gray-600 text-sm">
+        <p class="m-0 text-gray-600 text-sm text-[var(--color-text)]">
           A mix of landing pages, apps, and tools I’ve shipped end-to-end.
         </p>
       </div>
