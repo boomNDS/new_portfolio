@@ -7,20 +7,20 @@
     >
       <NuxtLink to="mailto:contact@pachorn.dev?Subject=Hello%20Boom">
         <button
-          class="w-[145px] sm:w-[199px] scale-100 active:scale-92 transition duration-100 text-[20px] sm:text-[24px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-primary)] cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] text-white"
+          class="w-[145px] sm:w-[199px] scale-100 active:scale-92 transition duration-100 text-[20px] sm:text-[24px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-accent)] cursor-pointer focus:outline-none rounded-xl ease-in shadow-[6px_6px_0px_0px_rgba(0,0,0,0.22)] flex items-center justify-center gap-2"
           :prefetch="false"
         >
+          <span class="i-tabler:message-circle text-xl"></span>
           Let’s talk
         </button>
       </NuxtLink>
-      <NuxtLink
-        to="https://cal.com/boomnds/30min"
-        target="_blank"
-        rel="noreferrer"
-        :prefetch="false"
-        class="text-[var(--color-dark)] text-sm font-semibold underline decoration-[var(--color-primary)] decoration-2"
-      >
-        Book a meeting
+      <NuxtLink to="https://cal.com/boomnds/30min" target="_blank" rel="noreferrer" :prefetch="false">
+        <button
+          class="w-[170px] sm:w-[199px] scale-100 active:scale-92 transition duration-100 text-[16px] sm:text-[18px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-card)] cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] flex items-center justify-center gap-2 hover:-translate-y-0.5"
+        >
+          <span class="i-tabler:calendar-event text-lg"></span>
+          Book a meeting
+        </button>
       </NuxtLink>
     </section>
     <section

@@ -65,6 +65,7 @@ const toggleTheme = () => {
   font-family: "Athiti", sans-serif;
   color: var(--color-text);
   --color-primary: #7d26cd;
+  --color-accent: #f5c243;
   --color-dark: #111111;
   --color-light: #f4f4f4;
   --color-card: #ffffff;
@@ -77,6 +78,7 @@ const toggleTheme = () => {
 
 [data-theme="dark"] {
   --color-primary: #b488ff;
+  --color-accent: #f2ce63;
   --color-dark: #f7f7f7;
   --color-light: #0f1115;
   --color-card: #111827;
