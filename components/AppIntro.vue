@@ -96,6 +96,9 @@
 
           <div class="grid gap-4">
             <div
+              v-motion
+              :initial="{ opacity: 0, y: 16 }"
+              :enter="{ opacity: 1, y: 0, transition: { delay: 0.05 } }"
               class="rounded-2xl border-4 border-[#111] bg-white/80 backdrop-blur-sm shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div>
@@ -109,6 +112,9 @@
             </div>
 
             <div
+              v-motion
+              :initial="{ opacity: 0, y: 18 }"
+              :enter="{ opacity: 1, y: 0, transition: { delay: 0.12 } }"
               class="rounded-2xl border-4 border-[#111] bg-[#111] text-white shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 space-y-2"
             >
               <div class="flex items-center gap-2">
@@ -139,6 +145,9 @@
             </div>
 
             <div
+              v-motion
+              :initial="{ opacity: 0, y: 20 }"
+              :enter="{ opacity: 1, y: 0, transition: { delay: 0.18 } }"
               class="rounded-2xl border-4 border-[#111] bg-white shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div class="space-y-1">

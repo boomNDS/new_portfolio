@@ -1,17 +1,15 @@
 <template>
   <div class="fixed bottom-6 right-6 z-50">
-    <div
-      v-if="isVisible"
-      v-motion
-      :initial="{ opacity: 0, y: 16, scale: 0.9 }"
-      :enter="{ opacity: 1, y: 0, scale: 1 }"
-      :leave="{ opacity: 0, y: 12, scale: 0.95 }"
-      class="cursor-pointer rounded-full border-2 border-[#111] bg-white shadow-[6px_6px_0px_rgba(0,0,0,0.18)] p-3 flex items-center justify-center gap-2 hover:-translate-y-[2px] transition-transform duration-150"
-      aria-label="Scroll to top"
-      @click="scrollToTop"
-    >
-      <span class="i-tabler:arrow-up text-xl text-[#111]"></span>
-    </div>
+    <Transition name="fade-slide">
+      <div
+        v-if="isVisible"
+        class="cursor-pointer rounded-full border-2 border-[#111] bg-white shadow-[6px_6px_0px_rgba(0,0,0,0.18)] p-3 flex items-center justify-center gap-2 hover:-translate-y-[2px] transition-transform duration-150"
+        aria-label="Scroll to top"
+        @click="scrollToTop"
+      >
+        <span class="i-tabler:arrow-up text-xl text-[#111]"></span>
+      </div>
+    </Transition>
   </div>
 </template>
 
@@ -27,4 +25,14 @@ const scrollToTop = () => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.2s ease;
+}
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(10px) scale(0.95);
+}
+</style>

@@ -7082,6 +7082,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"framer-motion@npm:^12.23.25":
+  version: 12.23.25
+  resolution: "framer-motion@npm:12.23.25"
+  dependencies:
+    motion-dom: "npm:^12.23.23"
+    motion-utils: "npm:^12.23.6"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/cfcc2da1f3ffe50abe6f657e08b61912acbafffc0a0652d2518c1928e1e23a01a580a2e7feeb9234d7c8028e573a9896519b38fa0f570390b2e4624bafdf4063
+  languageName: node
+  linkType: hard
+
 "framesync@npm:6.1.2, framesync@npm:^6.1.2":
   version: 6.1.2
   resolution: "framesync@npm:6.1.2"
@@ -9360,6 +9382,43 @@ __metadata:
   languageName: node
   linkType: hard
 
+"motion-dom@npm:^12.23.23":
+  version: 12.23.23
+  resolution: "motion-dom@npm:12.23.23"
+  dependencies:
+    motion-utils: "npm:^12.23.6"
+  checksum: 10c0/139705731085063519b88f23fcc5b1c13e15707a4ff3365da02ef9a4bf2a2d8ebed9a151c57e7f215ccd9e822365d93c16e28e619fbf25611f61dcff5ee81d75
+  languageName: node
+  linkType: hard
+
+"motion-utils@npm:^12.23.6":
+  version: 12.23.6
+  resolution: "motion-utils@npm:12.23.6"
+  checksum: 10c0/c058e8ba6423b3baa63e985bcc669877ee7d9579d938f5348b4e60c5ea1b4b33dd7f4877434436a4a5807f3cf00370d3fd4079a6fdd6309c5c87aa62b311a897
+  languageName: node
+  linkType: hard
+
+"motion@npm:^12.23.25":
+  version: 12.23.25
+  resolution: "motion@npm:12.23.25"
+  dependencies:
+    framer-motion: "npm:^12.23.25"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    "@emotion/is-prop-valid": "*"
+    react: ^18.0.0 || ^19.0.0
+    react-dom: ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 10c0/75ea92e4690de5a026c49ae6a169644f8ffff5669bf4d147678224b076444abfe6855f1ce7ba312bc02d6230c3524ad21ca14d7dc47b149a07531c1be6c59730
+  languageName: node
+  linkType: hard
+
 "mrmime@npm:^2.0.0":
   version: 2.0.1
   resolution: "mrmime@npm:2.0.1"
@@ -9722,6 +9781,7 @@ __metadata:
     happy-dom: "npm:^20.0.11"
     husky: "npm:^9.1.7"
     jsdom: "npm:^27.2.0"
+    motion: "npm:^12.23.25"
     nuxt: "npm:^4.2.1"
     prettier: "npm:^3.7.4"
     typescript: "npm:^5.9.3"

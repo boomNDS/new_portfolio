@@ -50,18 +50,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
-    public: {
-      motion: {
-        directives: {
-          "pop-bottom": {
-            initial: { scale: 0, opacity: 0, y: 100 },
-            visible: { scale: 1, opacity: 1, y: 0 },
-          },
-        },
-      },
-    },
+    public: {},
   },
 
-  plugins: ["~/plugins/motion-directives.js"],
+  plugins: ["~/plugins/motion.client.ts"],
   compatibilityDate: "2024-12-06",
 });
