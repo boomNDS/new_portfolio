@@ -68,12 +68,12 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-vue",
     iconTitle: "vue.js",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-nuxt-icon",
     iconTitle: "nuxt.js",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-nestjs",
@@ -93,7 +93,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-docker-icon",
     iconTitle: "docker",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-sass",
@@ -103,7 +103,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-tailwindcss-icon",
     iconTitle: "tailwind",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-django-icon",
@@ -113,7 +113,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-figma",
     iconTitle: "figma",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-jira",
@@ -123,32 +123,32 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-atlassian",
     iconTitle: "atlassian",
-    lastUsed: dayjs().to(dayjs("2024-04-31")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-postman-icon",
     iconTitle: "postman",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-redis",
     iconTitle: "redis",
-    lastUsed: dayjs().to(dayjs("2024-04-31")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-git-icon",
     iconTitle: "git",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-google-analytics",
     iconTitle: "google analytics",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-vscode-icons:file-type-vite",
     iconTitle: "vite",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-flutter",
@@ -158,7 +158,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-cloudflare-icon",
     iconTitle: "cloudflare",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-nextjs-icon",
