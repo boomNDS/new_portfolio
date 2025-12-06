@@ -1,6 +1,6 @@
 <template>
   <section
-    class="rounded max-w-[280px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4"
+    class="rounded max-w-[280px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4 flex flex-col h-full"
   >
     <div class="flex justify-center">
       <div
@@ -39,9 +39,11 @@
         </template>
       </div>
     </div>
-    <div class="px-2 py-1 h-[120px]">
-      <div class="flex">
-        <h3 m="0" p="0" font="medium">{{ title }}</h3>
+    <div class="px-2 py-1 flex-1 flex flex-col gap-2">
+      <div class="flex flex-wrap items-start gap-2 justify-between">
+        <h3 class="m-0 p-0 font-medium text-[var(--color-dark)]">
+          {{ title }}
+        </h3>
         <NuxtLink
           v-for="(link, index) in links"
           :key="`link-${index}`"
@@ -52,12 +54,18 @@
           <div class="icon" :class="getIconClass(link.type)"></div>
         </NuxtLink>
       </div>
-      <p class="m-0 p-0 text-[14px] text-[var(--color-text)]">
+      <p class="m-0 p-0 text-[14px] text-[var(--color-text)] desc">
         {{ description }}
       </p>
     </div>
-    <div class="flex px-2 py-1 text-[14px] space-x-1 text-[var(--color-text)]">
-      <p v-for="(tag, index) in tags" :key="`tag-${index}`" class="m-0 p-0">
+    <div
+      class="flex flex-wrap gap-2 px-2 py-1 text-[13px] text-[var(--color-text)]"
+    >
+      <p
+        v-for="(tag, index) in tags"
+        :key="`tag-${index}`"
+        class="m-0 px-2 py-[2px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
+      >
         #{{ tag }}
       </p>
     </div>
@@ -142,4 +150,20 @@ watch(
 );
 </script>
 
-<style scoped></style>
+<style scoped>
+.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.icon {
+  color: var(--color-dark);
+  transition: color 0.15s ease;
+}
+
+.icon:hover {
+  color: var(--color-primary);
+}
+</style>

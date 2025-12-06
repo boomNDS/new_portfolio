@@ -49,7 +49,7 @@
       </ul>
 
       <button
-        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150"
+        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2"
         @click="$emit('toggle-theme')"
       >
         <span
