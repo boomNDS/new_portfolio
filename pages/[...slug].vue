@@ -32,3 +32,7 @@ main {
   min-height: 39vh;
 }
 </style>
+
+<script setup lang="ts">
+import { ContentDoc, ContentRenderer } from "#components";
+</script>
