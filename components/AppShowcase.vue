@@ -29,14 +29,6 @@
       />
     </section>
 
-    <div v-if="takeItem < filterItems.length" class="mt-6 flex justify-center">
-      <CommonsButton
-        label="Show more"
-        bg="var(--color-card)"
-        class="text-[var(--color-dark)] border-[var(--color-border)]"
-        @on-click="loadMore"
-      />
-    </div>
   </div>
 </template>
 
@@ -44,7 +36,6 @@
 import { computed, nextTick, onMounted, watch, ref } from "vue";
 import showcaseData from "~/public/showcase.json";
 
-const takeItem = useState("showcaseTake", () => 4);
 const selected = useState("showcaseFilter", () => "all");
 const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
@@ -61,11 +52,7 @@ const filterItems = computed(() => {
   });
 });
 
-const items = computed(() => filterItems.value.slice(0, takeItem.value));
-
-const loadMore = () => {
-  takeItem.value += 3;
-};
+const items = computed(() => filterItems.value);
 
 const setCardRef = (el: HTMLElement | null, index: number) => {
   if (el) {
