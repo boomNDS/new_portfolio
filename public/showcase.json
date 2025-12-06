@@ -1,5 +1,22 @@
 [
   {
+    "name": "Horange Phuket Town",
+    "detail": "Modern landing page for Horange Phuket Town hostel in Phuket, highlighting vibrant visuals, intuitive navigation, and clear calls-to-action for bookings.",
+    "links": [
+      {
+        "type": "link",
+        "url": "https://horange.getguest.co/"
+      },
+      {
+        "type": "link",
+        "url": "https://lnkd.in/gBTKQsRW"
+      }
+    ],
+    "img": "horange.svg",
+    "tags": ["landing page", "hospitality", "design", "web"],
+    "category": ["landing page", "web"]
+  },
+  {
     "name": "Tuk D Ads",
     "detail": "Tuk D Ads is a landing page website promoting a tuk-tuk advertising service that helps businesses stand out with wide visibility and affordable pricing.",
     "links": [

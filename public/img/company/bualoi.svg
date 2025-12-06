@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200" role="img" aria-labelledby="title desc">
+  <title id="title">BualoiTech</title>
+  <desc id="desc">Placeholder logo for BualoiTech experience entry.</desc>
+  <rect x="10" y="10" width="180" height="180" rx="36" fill="#0f172a"/>
+  <path d="M60 60h32c20 0 32 10 32 28 0 16-10 26-26 28l32 34h-24l-30-32h-8v32H60V60zm24 40h10c8 0 12-4 12-12s-4-12-12-12H84v24z" fill="#f97316"/>
+  <path d="M118 60h22l-6 22h-22l6-22z" fill="#38bdf8"/>
+</svg>

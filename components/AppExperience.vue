@@ -31,6 +31,21 @@ interface ExperienceCard {
 
 const cards = ref<ExperienceCard[]>([
   {
+    logoSrc: "/img/company/bualoi.svg",
+    logoAlt: "BualoiTech logo",
+    title: "BualoiTech",
+    subtitle: "Full-Stack, Aug 2025 - Current (Full-Time)",
+    description:
+      "Building full-stack products and platform capabilities with a focus on modern web stacks, API integrations, and cloud deployments.",
+    listItems: [
+      "Develop and maintain Next.js + TypeScript apps with Tailwind CSS and ShadCN UI.",
+      "Build and scale Python/FastAPI services with RESTful APIs for internal and external consumers.",
+      "Use Firebase and MongoDB for data handling, real-time features, and integrations.",
+      "Lead architecture decisions, code reviews, performance tuning, and CI/CD automation.",
+      "Operate with Docker and cloud platforms (AWS/GCP) for deployment and DevOps workflows.",
+    ],
+  },
+  {
     logoSrc: "/img/company/skuberg_logo.jpeg",
     logoAlt: "Skuberg logo",
     title: "Skuberg",
