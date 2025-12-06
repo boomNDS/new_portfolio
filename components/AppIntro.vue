@@ -23,17 +23,18 @@
       <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 lg:p-10">
         <div class="space-y-4 lg:space-y-5">
           <div
-            class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-black text-white text-xs font-semibold tracking-wide shadow-[4px_4px_0px_rgba(0,0,0,0.18)]"
+            class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--color-dark)] text-white text-xs font-semibold tracking-wide shadow-[4px_4px_0px_rgba(0,0,0,0.18)]"
           >
             <span
-              class="w-2 h-2 rounded-full bg-[#7D26CD] animate-pulse"
+              class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"
             ></span>
             Available for collaborations
           </div>
           <h1 class="m-0 text-3xl md:text-4xl leading-tight">
-            Hello there, I’m <span class="text-primary">Boom</span><br />
+            Hello there, I’m
+            <span class="text-[var(--color-primary)]">Boom</span><br />
             a
-            <span class="bg-[#111] text-white px-2 py-1 rounded-md"
+            <span class="bg-[var(--color-dark)] text-white px-2 py-1 rounded-md"
               >foodie developer</span
             >
           </h1>
@@ -47,7 +48,7 @@
             <NuxtLink
               to="#showcase"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[#7D26CD] text-white font-semibold text-sm shadow-[5px_5px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
             >
               View showcase
               <span class="i-tabler:arrow-right text-lg"></span>
@@ -55,7 +56,7 @@
             <NuxtLink
               to="#experience"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-2 border-[#111] text-[#111] font-semibold text-sm shadow-[5px_5px_0px_rgba(0,0,0,0.08)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
             >
               Experience
               <span class="i-tabler:chart-candle text-lg"></span>
@@ -88,10 +89,10 @@
 
         <div class="relative">
           <div
-            class="absolute -left-6 -top-6 w-28 h-28 rounded-full bg-[#7D26CD]/10 blur-2xl animate-float-slow hidden lg:block"
+            class="absolute -left-6 -top-6 w-28 h-28 rounded-full bg-[var(--color-primary)]/10 blur-2xl animate-float-slow hidden lg:block"
           ></div>
           <div
-            class="absolute -right-4 bottom-0 w-24 h-24 rounded-full bg-[#7D26CD]/10 blur-2xl animate-float hidden lg:block"
+            class="absolute -right-4 bottom-0 w-24 h-24 rounded-full bg-[var(--color-primary)]/10 blur-2xl animate-float hidden lg:block"
           ></div>
 
           <div class="grid gap-4">

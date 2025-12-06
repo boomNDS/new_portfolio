@@ -30,11 +30,20 @@ const scrollToSection = (sectionId: string) => {
 <style>
 :root {
   font-family: "Athiti", sans-serif;
-  color: #333333;
+  color: var(--color-text);
+  --color-primary: #7d26cd;
+  --color-dark: #111111;
+  --color-light: #f4f4f4;
+  --color-card: #ffffff;
+  --color-border: #111111;
+  --color-text: #333333;
+  --shadow-strong: 10px 10px 0px rgba(0, 0, 0, 0.12);
+  --shadow-mid: 8px 8px 0px rgba(0, 0, 0, 0.15);
+  --shadow-soft: 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
 body {
-  background: #f2f2f2;
+  background: var(--color-light);
   margin: 0;
 }
 </style>
