@@ -27,11 +27,16 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
+          cache: "yarn"
+
+      - name: Enable Corepack (Yarn 4)
+        run: corepack enable
 
       - name: Build
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
+          yarn lint
           yarn build
           yarn generate
 
