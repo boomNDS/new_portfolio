@@ -1,36 +1,25 @@
 <template>
   <div>
     <button
-      scale="active:92"
-      duration="100"
-      text="14px"
-      p="2 1"
-      bg="transparent hover:[#e8e8e8]"
-      border="none"
-      class="rounded ease-in"
+      class="rounded ease-in active:scale-92 transition duration-100 text-[14px] px-2 py-1 bg-transparent hover:bg-[#e8e8e8] border-none"
       @click="onToggle"
     >
       {{ modelValue }}
       <div
-        :duration="200"
         :class="[
           isActive ? `i-mdi-keyboard-arrow-up` : 'i-mdi-keyboard-arrow-down',
         ]"
-        class="ease-in-out text-xl"
+        class="ease-in-out text-xl transition duration-200"
       ></div>
     </button>
     <ul
       v-show="isActive"
-      duration="100"
-      bg="#e8e8e8"
-      list="none"
-      class="absolute ease-in-out rounded mt-1 m-0 p-0 w-[65px]"
+      class="absolute ease-in-out rounded mt-1 m-0 p-0 w-[65px] bg-[#e8e8e8] list-none duration-100"
     >
       <li
         v-for="text in list"
         :key="`li-` + text"
-        bg="hover:[#d9d9d9]"
-        class="rounded px-2 py-1"
+        class="rounded px-2 py-1 hover:bg-[#d9d9d9]"
         @click="($emit('on-click', text), onToggle())"
       >
         {{ text }}

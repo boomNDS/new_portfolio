@@ -2,14 +2,11 @@
   <div>
     <NuxtLink :to="to" :prefetch="false">
       <button
-        :w="width ? width : `145px sm:199px`"
-        scale="active:92"
-        duration="100"
-        text="20px sm:24px var(--color-dark)"
-        p="2 1"
-        border="4 var(--color-border)"
-        :bg="bg || 'var(--color-card)'"
-        class="cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)]"
+        :style="{
+          width: width || undefined,
+          background: bg || 'var(--color-card)',
+        }"
+        class="w-[145px] sm:w-[199px] scale-100 active:scale-92 transition duration-100 text-[20px] sm:text-[24px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] rounded-xl cursor-pointer focus:outline-none ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)]"
         @click="$emit('on-click')"
       >
         {{ label }}

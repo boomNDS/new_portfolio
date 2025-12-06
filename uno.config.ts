@@ -2,7 +2,6 @@
 import { defineConfig } from "unocss";
 import presetUno from "@unocss/preset-uno";
 import presetIcons from "@unocss/preset-icons";
-import presetAttributify from "@unocss/preset-attributify";
 import presetWebFonts from "@unocss/preset-web-fonts";
 
 const isTest = process.env.NODE_ENV === "test";
@@ -18,9 +17,6 @@ export default defineConfig({
         display: "inline-block",
         "vertical-align": "middle",
       },
-    }),
-    presetAttributify({
-      /* preset options */
     }),
     ...(!isTest && !disableWebFonts
       ? [
