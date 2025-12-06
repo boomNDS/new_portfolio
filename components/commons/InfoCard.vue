@@ -5,29 +5,41 @@
     class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
   >
     <div class="flex justify-center">
-      <template v-if="isVideo">
-        <video
-          id="video"
-          class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
-          :src="`/img/showcase/${imageSrc}`"
-          height="161.8px"
-          :alt="imageAlt"
-          autoplay
-          muted
-          loop
-          preload="none"
-        ></video>
-      </template>
-      <template v-else>
-        <img
-          id="image"
-          class="rounded-[1.5rem] px-4 py-5 max-w-[85%]"
-          :src="`/img/showcase/${imageSrc}`"
-          height="161.8px"
-          :alt="imageAlt"
-          loading="lazy"
-        />
-      </template>
+      <div
+        class="relative w-full max-w-[90%] aspect-[16/9] rounded-[1.5rem] overflow-hidden bg-[#0f172a]"
+      >
+        <template v-if="!mediaError && isVideo">
+          <video
+            id="video"
+            class="w-full h-full object-cover"
+            :src="`/img/showcase/${imageSrc}`"
+            :alt="imageAlt"
+            autoplay
+            muted
+            loop
+            preload="none"
+            @error="onMediaError"
+          ></video>
+        </template>
+        <template v-else-if="!mediaError">
+          <img
+            id="image"
+            class="w-full h-full object-cover"
+            :src="`/img/showcase/${imageSrc}`"
+            :alt="imageAlt"
+            loading="lazy"
+            @error="onMediaError"
+          />
+        </template>
+        <template v-else>
+          <img
+            class="w-full h-full object-cover"
+            src="/img/showcase/placeholder.svg"
+            alt="Showcase media placeholder"
+            loading="lazy"
+          />
+        </template>
+      </div>
     </div>
     <div p="x-2 y-1" class="h-[120px]">
       <div class="flex">
@@ -90,6 +102,7 @@ const props = defineProps({
 });
 
 const hexCode = ref("");
+const mediaError = ref(false);
 // const rgbaColor = computed(() => hexToRgba(hexCode.value));
 
 const getIconClass = (type: string): string | null => {
@@ -114,6 +127,10 @@ const updateHexCode = () => {
 const isVideo = computed(() => {
   return /\.(mp4|webm|ogg)$/i.test(props.imageSrc);
 });
+
+const onMediaError = () => {
+  mediaError.value = true;
+};
 
 onMounted(() => {
   updateHexCode();

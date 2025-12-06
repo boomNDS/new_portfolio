@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="360" viewBox="0 0 600 360" role="img" aria-labelledby="title desc">
+  <title id="title">Showcase media placeholder</title>
+  <desc id="desc">Neutral gradient placeholder used when showcase media is unavailable.</desc>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#1f2937"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#a855f7" stop-opacity="0.9"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="360" rx="28" fill="url(#grad)"/>
+  <rect x="80" y="120" width="440" height="140" rx="18" fill="#0b1224" stroke="#111827" stroke-width="2"/>
+  <path d="M180 220h160l-70-84-58 70-22-24-40 38z" fill="url(#accent)" opacity="0.5"/>
+  <circle cx="190" cy="170" r="18" fill="#22d3ee" opacity="0.8"/>
+  <circle cx="250" cy="155" r="12" fill="#a855f7" opacity="0.8"/>
+  <rect x="210" y="230" width="180" height="10" rx="5" fill="#1f2937"/>
+  <rect x="260" y="245" width="80" height="10" rx="5" fill="#1f2937"/>
+</svg>
