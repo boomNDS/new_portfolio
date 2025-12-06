@@ -23,6 +23,7 @@ const scrollToSection = (sectionId: string) => {
 <template>
   <AppNavbar id="intro" @scroll-to-section="scrollToSection" />
   <NuxtPage />
+  <ScrollToTop />
   <AppFooter id="footer" />
 </template>
 

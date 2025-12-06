@@ -6,6 +6,8 @@ import presetAttributify from "@unocss/preset-attributify";
 import presetWebFonts from "@unocss/preset-web-fonts";
 
 const isTest = process.env.NODE_ENV === "test";
+const disableWebFonts =
+  process.env.CI === "true" || process.env.DISABLE_WEBFONTS === "true";
 
 export default defineConfig({
   presets: [
@@ -19,7 +21,7 @@ export default defineConfig({
     presetAttributify({
       /* preset options */
     }),
-    ...(!isTest
+    ...(!isTest && !disableWebFonts
       ? [
           presetWebFonts({
             provider: "google",

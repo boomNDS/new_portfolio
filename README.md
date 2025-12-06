@@ -2,6 +2,9 @@
 
 [![Build and Deployment](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml/badge.svg)](https://github.com/boomNDS/new_portfolio/actions/workflows/deployment.yml)
 
+![Node](https://img.shields.io/badge/node-24.x-43853d)
+![Yarn](https://img.shields.io/badge/yarn-4.x-2188b6)
+
 This is my personal portfolio website built with Nuxt 3, showcasing my projects and skills.
 
 ## 🚀 Quick Start
