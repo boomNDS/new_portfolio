@@ -2,11 +2,11 @@
   <section
     border="4px solid #333333"
     bg="#f2f2f2"
-    class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto"
+    class="rounded max-w-[280px] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] mx-auto mt-4"
   >
     <div class="flex justify-center">
       <div
-        class="relative w-full max-w-[90%] aspect-[16/9] rounded-[1.5rem] overflow-hidden bg-[#0f172a]"
+        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[#0f172a]"
       >
         <template v-if="!mediaError && isVideo">
           <video
