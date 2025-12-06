@@ -1,11 +1,20 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-8">
-    <div class="flex items-center justify-between">
-      <h2 class="title">Showcase</h2>
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-6xl">
+    <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
+      <div>
+        <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
+          Projects
+        </p>
+        <h2 class="title m-0 text-[#111]">Showcase</h2>
+        <p class="m-0 text-gray-600 text-sm">
+          A mix of landing pages, apps, and tools I’ve shipped end-to-end.
+        </p>
+      </div>
       <CommonsNDropdrop v-model="selected" />
     </div>
+
     <section
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
     >
       <CommonsInfoCard
         v-for="(data, index) in items"
@@ -18,8 +27,14 @@
         :links="data.links"
       />
     </section>
-    <div v-if="takeItem < filterItems.length" class="mt-5 flex justify-center">
-      <CommonsButton label="Show more" bg="#f2f2f2" @on-click="loadMore" />
+
+    <div v-if="takeItem < filterItems.length" class="mt-6 flex justify-center">
+      <CommonsButton
+        label="Show more"
+        bg="#111"
+        class="text-white"
+        @on-click="loadMore"
+      />
     </div>
   </div>
 </template>
