@@ -19,6 +19,7 @@
       <CommonsInfoCard
         v-for="(data, index) in items"
         :key="`showcase-${index}`"
+        :ref="(el) => setCardRef(el as HTMLElement | null, index)"
         :title="data.name"
         :image-src="data.img"
         :image-alt="data.name"
@@ -40,12 +41,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, nextTick, onMounted, watch, ref } from "vue";
 import { useStorage } from "@vueuse/core";
 import showcaseData from "~/public/showcase.json";
 
 const takeItem = useStorage("takeItem", 4);
 const selected = useStorage("selected", "all");
+const cardRefs = ref<HTMLElement[]>([]);
+const { $motionAnimate, $motionInView } = useNuxtApp();
 
 const filterItems = computed(() => {
   return showcaseData.filter((data) => {
@@ -64,6 +67,41 @@ const items = computed(() => filterItems.value.slice(0, takeItem.value));
 const loadMore = () => {
   takeItem.value += 3;
 };
+
+const setCardRef = (el: HTMLElement | null, index: number) => {
+  if (el) {
+    cardRefs.value[index] = el;
+  }
+};
+
+const animateCards = () => {
+  if (!$motionAnimate || !$motionInView) return;
+  cardRefs.value.forEach((el, index) => {
+    if (!el) return;
+    $motionInView(
+      el,
+      () =>
+        $motionAnimate(
+          el,
+          { opacity: [0, 1], y: [12, 0] },
+          { duration: 0.4, delay: index * 0.05, easing: [0.22, 1, 0.36, 1] },
+        ),
+      { amount: 0.2, once: true },
+    );
+  });
+};
+
+onMounted(() => {
+  nextTick(animateCards);
+});
+
+watch(
+  items,
+  () => {
+    nextTick(animateCards);
+  },
+  { flush: "post" },
+);
 </script>
 
 <style scoped></style>

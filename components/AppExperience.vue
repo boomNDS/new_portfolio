@@ -20,6 +20,7 @@
         <article
           v-for="(card, index) in displayCards"
           :key="index"
+          :ref="(el) => setCardRef(el as HTMLElement | null, index)"
           class="relative md:pl-20"
         >
           <div
@@ -96,7 +97,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from "vue";
+import { computed, nextTick, onMounted, ref, watch } from "vue";
 
 interface ExperienceCard {
   logoSrc: string;
@@ -185,6 +186,9 @@ const parseSubtitle = (subtitle: string) => {
   return { role: rolePart?.trim() || subtitle, timeframe, employmentType };
 };
 
+const cardRefs = ref<HTMLElement[]>([]);
+const { $motionAnimate, $motionInView } = useNuxtApp();
+
 const displayCards = computed(() =>
   cards.value.map((card) => {
     const meta = parseSubtitle(card.subtitle);
@@ -194,6 +198,41 @@ const displayCards = computed(() =>
       isCurrent: /current/i.test(card.subtitle),
     };
   }),
+);
+
+const setCardRef = (el: HTMLElement | null, index: number) => {
+  if (el) {
+    cardRefs.value[index] = el;
+  }
+};
+
+const animateCards = () => {
+  if (!$motionAnimate || !$motionInView) return;
+  cardRefs.value.forEach((el, index) => {
+    if (!el) return;
+    $motionInView(
+      el,
+      () =>
+        $motionAnimate(
+          el,
+          { opacity: [0, 1], y: [14, 0] },
+          { duration: 0.45, delay: index * 0.06, easing: [0.22, 1, 0.36, 1] },
+        ),
+      { amount: 0.2, once: true },
+    );
+  });
+};
+
+onMounted(() => {
+  nextTick(animateCards);
+});
+
+watch(
+  displayCards,
+  () => {
+    nextTick(animateCards);
+  },
+  { flush: "post" },
 );
 </script>
 

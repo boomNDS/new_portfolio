@@ -1,9 +1,9 @@
 <script setup lang="ts">
-useHead({
+useHead(() => ({
   title: "Pachara's Portfolio",
-  htmlAttrs: { lang: "en" },
+  htmlAttrs: { lang: "en", "data-theme": theme.value },
   bodyAttrs: { class: "m-0" },
-});
+}));
 
 useSeoMeta({
   title: "Pachara's Portfolio",
@@ -18,12 +18,43 @@ const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   element?.scrollIntoView({ behavior: "smooth" });
 };
+
+const theme = useState<"light" | "dark">("theme", () => "light");
+
+onMounted(() => {
+  const stored =
+    (localStorage.getItem("theme") as "light" | "dark" | null) ?? "light";
+  theme.value = stored;
+  document.documentElement.dataset.theme = stored;
+});
+
+watch(
+  theme,
+  (val) => {
+    document.documentElement.dataset.theme = val;
+    localStorage.setItem("theme", val);
+  },
+  { immediate: true },
+);
+
+const toggleTheme = () => {
+  theme.value = theme.value === "light" ? "dark" : "light";
+};
 </script>
 
 <template>
-  <AppNavbar id="intro" @scroll-to-section="scrollToSection" />
+  <ClientOnly>
+    <AppNavbar
+      id="intro"
+      :theme="theme"
+      @scroll-to-section="scrollToSection"
+      @toggle-theme="toggleTheme"
+    />
+  </ClientOnly>
   <NuxtPage />
-  <ScrollToTop />
+  <ClientOnly>
+    <ScrollToTop />
+  </ClientOnly>
   <AppFooter id="footer" />
 </template>
 
@@ -42,8 +73,21 @@ const scrollToSection = (sectionId: string) => {
   --shadow-soft: 5px 5px 0px rgba(0, 0, 0, 0.1);
 }
 
+[data-theme="dark"] {
+  --color-primary: #b488ff;
+  --color-dark: #f7f7f7;
+  --color-light: #0f1115;
+  --color-card: #111827;
+  --color-border: #f7f7f7;
+  --color-text: #e5e7eb;
+  --shadow-strong: 10px 10px 0px rgba(0, 0, 0, 0.35);
+  --shadow-mid: 8px 8px 0px rgba(0, 0, 0, 0.3);
+  --shadow-soft: 5px 5px 0px rgba(0, 0, 0, 0.25);
+}
+
 body {
   background: var(--color-light);
   margin: 0;
+  color: var(--color-text);
 }
 </style>

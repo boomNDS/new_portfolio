@@ -39,11 +39,21 @@
           }"
           @click="emitScrollEvent(item)"
         >
-          <NuxtLink class="text-black no-underline" :prefetch="false">
+          <NuxtLink
+            class="text-[var(--color-dark)] no-underline"
+            :prefetch="false"
+          >
             {{ item }}
           </NuxtLink>
         </li>
       </ul>
+
+      <button
+        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150"
+        @click="$emit('toggle-theme')"
+      >
+        {{ theme === "dark" ? "Light" : "Dark" }}
+      </button>
     </div>
   </nav>
 </template>
@@ -61,6 +71,11 @@ type SectionId = "intro" | "experience" | "tech_stack" | "showcase";
 
 const emit = defineEmits<{
   (e: "scroll-to-section", sectionId: SectionId): void;
+  (e: "toggle-theme"): void;
+}>();
+
+defineProps<{
+  theme: "light" | "dark";
 }>();
 
 const emitScrollEvent = (item: MenuItem | "Intro") => {
@@ -73,12 +88,14 @@ const emitScrollEvent = (item: MenuItem | "Intro") => {
   emit("scroll-to-section", sectionMap[item]);
 };
 
-const activeElement = useActiveElement();
+const activeElement = import.meta.client ? useActiveElement() : ref(null);
 const wasRecentlyClicked = ref(false);
 
 const isActiveOrClicked = computed(
   () =>
-    activeElement.value === document.activeElement || wasRecentlyClicked.value,
+    (import.meta.client
+      ? activeElement.value === document.activeElement
+      : false) || wasRecentlyClicked.value,
 );
 
 const handleClick = () => {
@@ -90,11 +107,13 @@ const handleClick = () => {
 };
 
 const logoRef = ref(null);
-const isHovered = useElementHover(logoRef);
+const isHovered = import.meta.client ? useElementHover(logoRef) : ref(false);
 
 const itemRefs = ref(menuItems.map(() => null));
 const itemHoverStates = menuItems.map((_, index) =>
-  useElementHover(computed(() => itemRefs.value[index])),
+  import.meta.client
+    ? useElementHover(computed(() => itemRefs.value[index]))
+    : ref(false),
 );
 
 const isItemHovered = (item: MenuItem) =>

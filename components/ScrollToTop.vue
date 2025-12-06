@@ -17,7 +17,7 @@
 import { computed } from "vue";
 import { useWindowScroll } from "@vueuse/core";
 
-const { y } = useWindowScroll();
+const { y } = import.meta.client ? useWindowScroll() : { y: ref(0) };
 const isVisible = computed(() => y.value > 320);
 
 const scrollToTop = () => {
