@@ -5,7 +5,9 @@
         <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
           Projects
         </p>
-        <h2 class="title m-0 text-[var(--color-dark)]">Showcase</h2>
+        <h2 class="title m-0 text-[var(--color-dark)]">
+          Showcase <span class="text-[var(--color-text)] text-lg">({{ projectCount }} projects)</span>
+        </h2>
         <p class="m-0 text-gray-600 text-sm text-[var(--color-text)]">
           A mix of landing pages, apps, and tools I’ve shipped end-to-end.
         </p>
@@ -60,6 +62,8 @@ const page = useState("showcasePage", () => 1);
 const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
 const pageSize = 8;
+
+const projectCount = computed(() => filterItems.value.length);
 
 const filterItems = computed(() => {
   return showcaseData.filter((data) => {
