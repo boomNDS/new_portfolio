@@ -29,6 +29,25 @@
       />
     </section>
 
+    <div class="mt-6 flex items-center justify-between gap-3">
+      <button
+        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed"
+        :disabled="page === 1"
+        @click="prevPage"
+      >
+        Previous
+      </button>
+      <span class="text-sm text-[var(--color-text)]">
+        Page {{ page }} / {{ totalPages }}
+      </span>
+      <button
+        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed"
+        :disabled="page === totalPages"
+        @click="nextPage"
+      >
+        Next
+      </button>
+    </div>
   </div>
 </template>
 
@@ -37,8 +56,10 @@ import { computed, nextTick, onMounted, watch, ref } from "vue";
 import showcaseData from "~/public/showcase.json";
 
 const selected = useState("showcaseFilter", () => "all");
+const page = useState("showcasePage", () => 1);
 const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
+const pageSize = 8;
 
 const filterItems = computed(() => {
   return showcaseData.filter((data) => {
@@ -52,7 +73,22 @@ const filterItems = computed(() => {
   });
 });
 
-const items = computed(() => filterItems.value);
+const totalPages = computed(() =>
+  Math.max(1, Math.ceil(filterItems.value.length / pageSize)),
+);
+
+const items = computed(() => {
+  const start = (page.value - 1) * pageSize;
+  return filterItems.value.slice(start, start + pageSize);
+});
+
+const nextPage = () => {
+  if (page.value < totalPages.value) page.value += 1;
+};
+
+const prevPage = () => {
+  if (page.value > 1) page.value -= 1;
+};
 
 const setCardRef = (el: HTMLElement | null, index: number) => {
   if (el) {
@@ -85,6 +121,24 @@ watch(
   items,
   () => {
     nextTick(animateCards);
+  },
+  { flush: "post" },
+);
+
+watch(
+  filterItems,
+  () => {
+    page.value = 1;
+  },
+  { flush: "post" },
+);
+
+watch(
+  totalPages,
+  () => {
+    if (page.value > totalPages.value) {
+      page.value = totalPages.value;
+    }
   },
   { flush: "post" },
 );
