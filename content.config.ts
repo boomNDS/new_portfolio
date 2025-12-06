@@ -1,5 +1,7 @@
-import { defineCollection } from "@nuxt/content";
+import { defineContentConfig, defineCollection } from "@nuxt/content";
 
-export default defineCollection({
-  type: "content",
+export default defineContentConfig({
+  collections: {
+    content: defineCollection({ type: "content" }),
+  },
 });
