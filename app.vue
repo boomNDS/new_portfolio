@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const theme = useState<"light" | "dark">("theme", () => "light");
+
 useHead(() => ({
   title: "Pachara's Portfolio",
   htmlAttrs: { lang: "en", "data-theme": theme.value },
@@ -18,8 +20,6 @@ const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
   element?.scrollIntoView({ behavior: "smooth" });
 };
-
-const theme = useState<"light" | "dark">("theme", () => "light");
 
 if (import.meta.client) {
   onMounted(() => {
