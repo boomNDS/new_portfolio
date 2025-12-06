@@ -31,7 +31,7 @@ interface ExperienceCard {
 
 const cards = ref<ExperienceCard[]>([
   {
-    logoSrc: "/img/company/bualoi.svg",
+    logoSrc: "/img/company/bualoi.png",
     logoAlt: "BualoiTech logo",
     title: "BualoiTech",
     subtitle: "Full-Stack, Aug 2025 - Current (Full-Time)",
