@@ -8,6 +8,13 @@ dist
 
 # Node dependencies
 node_modules
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+!.yarn/patches
+!.yarn/sdks
+!.yarn/versions
+.yarn/install-state.gz
 
 # Logs
 logs

@@ -1,8 +1,11 @@
 // @ts-check
 import withNuxt from "./.nuxt/eslint.config.mjs";
 
-// Align linting with Prettier’s self-closing output for void elements.
-export default withNuxt({
+const config = withNuxt();
+
+// Align linting with Prettier’s self-closing output for Vue SFCs only.
+config.append({
+  files: ["**/*.vue"],
   rules: {
     "vue/html-self-closing": [
       "error",
@@ -18,3 +21,5 @@ export default withNuxt({
     ],
   },
 });
+
+export default config;

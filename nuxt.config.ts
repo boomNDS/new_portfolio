@@ -39,7 +39,14 @@ export default defineNuxtConfig({
   },
 
   content: {
-    contentHead: true,
+    _localDatabase: {
+      type: "sqlite",
+      filename: ".data/content/contents.sqlite",
+    },
+    experimental: {
+      // Use built-in Node sqlite to avoid native bindings like better-sqlite3.
+      sqliteConnector: "native",
+    },
   },
 
   runtimeConfig: {
@@ -56,5 +63,5 @@ export default defineNuxtConfig({
   },
 
   plugins: ["~/plugins/motion-directives.js"],
-  compatibilityDate: "2024-10-26",
+  compatibilityDate: "2024-12-06",
 });

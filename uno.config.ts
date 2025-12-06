@@ -5,6 +5,8 @@ import presetIcons from "@unocss/preset-icons";
 import presetAttributify from "@unocss/preset-attributify";
 import presetWebFonts from "@unocss/preset-web-fonts";
 
+const isTest = process.env.NODE_ENV === "test";
+
 export default defineConfig({
   presets: [
     presetUno({}),
@@ -17,15 +19,19 @@ export default defineConfig({
     presetAttributify({
       /* preset options */
     }),
-    presetWebFonts({
-      provider: "google",
-      fonts: {
-        athiti: {
-          name: "Athiti",
-          weights: ["200", "300", "400", "500", "600", "700"],
-        },
-      },
-    }),
+    ...(!isTest
+      ? [
+          presetWebFonts({
+            provider: "google",
+            fonts: {
+              athiti: {
+                name: "Athiti",
+                weights: ["200", "300", "400", "500", "600", "700"],
+              },
+            },
+          }),
+        ]
+      : []),
   ],
   theme: {
     colors: {
