@@ -1,6 +1,7 @@
 <template>
   <nav class="my-5 mx-4">
     <div
+      ref="navRef"
       class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative"
     >
       <img
@@ -30,13 +31,16 @@
         class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-12"
       >
         <li
-          v-for="item in menuItems"
+          v-for="(item, index) in menuItems"
           :key="item"
           class="transition ease-in-out hover:-translate-y-1 cursor-pointer"
           :class="{
             'scale-110': isItemHovered(item),
             'scale-105': isItemActive(item),
           }"
+          :ref="(el) => setItemRef(el as HTMLElement | null, index)"
+          @mouseenter="onItemEnter(index)"
+          @mouseleave="onItemLeave(index)"
           @click="emitScrollEvent(item)"
         >
           <NuxtLink
@@ -63,7 +67,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from "vue";
+import { ref, computed, onMounted, nextTick } from "vue";
 import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
 
 const isMenuOpen = ref(false);
@@ -83,6 +87,9 @@ const emit = defineEmits<{
 defineProps<{
   theme: "light" | "dark";
 }>();
+
+const { $motionAnimate } = useNuxtApp();
+const navRef = ref<HTMLElement | null>(null);
 
 const emitScrollEvent = (item: MenuItem | "Intro") => {
   const sectionMap: Record<MenuItem | "Intro", SectionId> = {
@@ -115,16 +122,47 @@ const handleClick = () => {
 const logoRef = ref(null);
 const isHovered = import.meta.client ? useElementHover(logoRef) : ref(false);
 
-const itemRefs = ref(menuItems.map(() => null));
+const itemRefs = ref<(HTMLElement | null)[]>(menuItems.map(() => null));
 const itemHoverStates = menuItems.map((_, index) => {
   if (!import.meta.client) return ref(false);
   return useElementHover(computed(() => itemRefs.value[index]));
 });
 
+const setItemRef = (el: HTMLElement | null, index: number) => {
+  itemRefs.value[index] = el;
+};
+
 const isItemHovered = (item: MenuItem) =>
   itemHoverStates[menuItems.indexOf(item)].value;
 const isItemActive = (item: MenuItem) =>
   activeElement.value === itemRefs.value[menuItems.indexOf(item)];
+
+const onItemEnter = (index: number) => {
+  const el = itemRefs.value[index];
+  if (!$motionAnimate || !el) return;
+  $motionAnimate(
+    el,
+    { scale: [1, 1.06], opacity: [0.9, 1] },
+    { duration: 0.18 },
+  );
+};
+
+const onItemLeave = (index: number) => {
+  const el = itemRefs.value[index];
+  if (!$motionAnimate || !el) return;
+  $motionAnimate(el, { scale: [1.06, 1] }, { duration: 0.16 });
+};
+
+onMounted(() => {
+  nextTick(() => {
+    if (!$motionAnimate || !navRef.value) return;
+    $motionAnimate(
+      navRef.value,
+      { opacity: [0, 1], y: [-8, 0] },
+      { duration: 0.35, easing: [0.22, 1, 0.36, 1] },
+    );
+  });
+});
 </script>
 
 <style scoped>

@@ -5,7 +5,7 @@
       class="hidden md:block text-5xl grayscale hover:grayscale-1 ease-in-out duration-300 mb-2"
     ></div>
     <p
-      class="rounded m-0 px-[10px] bg-[#e8e8e8] md:bg-transparent text-[var(--color-text)]"
+      class="rounded m-0 px-[10px] bg-[var(--color-light)] md:bg-transparent text-[var(--color-text)]"
     >
       {{ iconTitle }}
     </p>

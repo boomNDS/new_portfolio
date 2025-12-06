@@ -56,7 +56,7 @@
             <NuxtLink
               to="#experience"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
             >
               Experience
               <span class="i-tabler:chart-candle text-lg"></span>
@@ -65,22 +65,22 @@
 
           <div class="flex flex-wrap gap-2 text-sm text-gray-700">
             <span
-              class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
             >
               Nuxt / Next.js
             </span>
             <span
-              class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
             >
               FastAPI / Node
             </span>
             <span
-              class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
             >
               Tailwind / UI motion
             </span>
             <span
-              class="px-3 py-1 rounded-full bg-white border border-[#e5e7eb] shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
             >
               AWS / GCP / CI/CD
             </span>
@@ -100,7 +100,7 @@
               v-motion
               :initial="{ opacity: 0, y: 16 }"
               :enter="{ opacity: 1, y: 0, transition: { delay: 0.05 } }"
-              class="rounded-2xl border-4 border-[#111] bg-white/80 backdrop-blur-sm shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
+              class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-card)]/90 backdrop-blur-sm shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div>
                 <p class="m-0 text-sm text-gray-500">Current</p>
@@ -108,7 +108,7 @@
                 <p class="m-0 text-sm text-gray-600">Aug 2025 - Present</p>
               </div>
               <span
-                class="i-tabler:sparkles text-2xl text-[#7D26CD] animate-pulse"
+                class="i-tabler:sparkles text-2xl text-[var(--color-primary)] animate-pulse"
               ></span>
             </div>
 
@@ -116,11 +116,11 @@
               v-motion
               :initial="{ opacity: 0, y: 18 }"
               :enter="{ opacity: 1, y: 0, transition: { delay: 0.12 } }"
-              class="rounded-2xl border-4 border-[#111] bg-[#111] text-white shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 space-y-2"
+              class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-dark)] text-[var(--color-light)] shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 space-y-2"
             >
               <div class="flex items-center gap-2">
                 <span
-                  class="i-tabler:wave-square text-xl text-[#7D26CD]"
+                  class="i-tabler:wave-square text-xl text-[var(--color-primary)]"
                 ></span>
                 <p
                   class="m-0 text-sm uppercase tracking-[0.18em] text-gray-300"
@@ -138,7 +138,7 @@
                 target="_blank"
                 rel="noreferrer"
                 :prefetch="false"
-                class="inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-[#7D26CD] transition-colors"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-light)] hover:text-[var(--color-primary)] transition-colors"
               >
                 View live
                 <span class="i-tabler:arrow-up-right text-base"></span>
@@ -149,7 +149,7 @@
               v-motion
               :initial="{ opacity: 0, y: 20 }"
               :enter="{ opacity: 1, y: 0, transition: { delay: 0.18 } }"
-              class="rounded-2xl border-4 border-[#111] bg-white shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
+              class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div class="space-y-1">
                 <p class="m-0 text-sm text-gray-500">Latest landing page</p>
@@ -179,13 +179,18 @@
   .hero-surface {
     background: linear-gradient(
       135deg,
-      #ffffff 0%,
-      #f9f9f9 50%,
-      var(--color-light) 100%
+      var(--color-card) 0%,
+      var(--color-light) 50%,
+      var(--color-card) 100%
     );
   }
   :global([data-theme="dark"]) .hero-surface {
-    background: linear-gradient(135deg, #0f1115 0%, #111827 50%, #0f1115 100%);
+    background: linear-gradient(
+      135deg,
+      var(--color-light) 0%,
+      var(--color-card) 50%,
+      var(--color-light) 100%
+    );
   }
 }
 

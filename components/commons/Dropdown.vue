@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="rounded ease-in active:scale-92 transition duration-100 text-[14px] px-2 py-1 bg-transparent hover:bg-[#e8e8e8] border-none"
+      class="rounded ease-in active:scale-92 transition duration-100 text-[14px] px-2 py-1 bg-transparent hover:bg-[var(--color-light)] border-none"
       @click="onToggle"
     >
       {{ modelValue }}
@@ -14,12 +14,12 @@
     </button>
     <ul
       v-show="isActive"
-      class="absolute ease-in-out rounded mt-1 m-0 p-0 w-[65px] bg-[#e8e8e8] list-none duration-100"
+      class="absolute ease-in-out rounded mt-1 m-0 p-0 w-[65px] bg-[var(--color-card)] border border-[var(--color-border)]/15 shadow-[var(--shadow-soft)] list-none duration-100"
     >
       <li
         v-for="text in list"
         :key="`li-` + text"
-        class="rounded px-2 py-1 hover:bg-[#d9d9d9]"
+        class="rounded px-2 py-1 hover:bg-[var(--color-light)]"
         @click="($emit('on-click', text), onToggle())"
       >
         {{ text }}

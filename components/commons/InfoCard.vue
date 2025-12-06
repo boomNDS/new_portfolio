@@ -4,7 +4,7 @@
   >
     <div class="flex justify-center">
       <div
-        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[#0f172a] flex items-center justify-center p-3"
+        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[var(--color-card)] flex items-center justify-center p-3 border border-[var(--color-border)]/20"
       >
         <template v-if="!mediaError && isVideo">
           <video

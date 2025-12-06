@@ -32,9 +32,19 @@
         :tags="data.tags"
         :links="data.links"
       />
+      <div
+        v-if="!items.length"
+        class="col-span-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-6 text-center text-[var(--color-text)] shadow-[var(--shadow-soft)]"
+      >
+        No projects found for this filter. Try another category to explore more
+        work.
+      </div>
     </section>
 
-    <div class="mt-6 flex items-center justify-between gap-3">
+    <div
+      v-if="filterItems.length"
+      class="mt-6 flex items-center justify-between gap-3"
+    >
       <button
         class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed"
         :disabled="page === 1"
@@ -66,8 +76,6 @@ const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
 const pageSize = 8;
 
-const projectCount = computed(() => filterItems.value.length);
-
 const filterItems = computed(() => {
   return showcaseData.filter((data) => {
     if (selected.value === "all") return true;
@@ -79,6 +87,8 @@ const filterItems = computed(() => {
     return data.category.includes(selected.value);
   });
 });
+
+const projectCount = computed(() => filterItems.value.length);
 
 const totalPages = computed(() =>
   Math.max(1, Math.ceil(filterItems.value.length / pageSize)),

@@ -13,7 +13,7 @@
 
     <section class="relative">
       <div
-        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-[#7D26CD] via-[#7D26CD]/40 to-transparent"
+        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-[var(--color-primary)] via-[var(--color-primary)]/40 to-transparent"
       ></div>
 
       <div class="flex flex-col gap-5">
@@ -24,7 +24,7 @@
           class="relative md:pl-20"
         >
           <div
-            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[var(--color-border)] bg-white shadow-[var(--shadow-soft)]"
+            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)]"
           >
             <img
               :src="card.logoSrc"
@@ -35,7 +35,7 @@
           </div>
 
           <div
-            class="rounded-xl border-4 border-[var(--color-border)] bg-white shadow-[var(--shadow-mid)] p-5"
+            class="rounded-xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-5"
           >
             <div
               class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"
@@ -45,7 +45,7 @@
                   :src="card.logoSrc"
                   :alt="card.logoAlt"
                   loading="lazy"
-                  class="w-12 h-12 object-contain rounded-lg border border-[#e5e7eb] md:hidden"
+                  class="w-12 h-12 object-contain rounded-lg border border-[var(--color-border)]/15 md:hidden"
                 />
                 <div>
                   <div class="flex items-center gap-2 flex-wrap">
@@ -56,7 +56,7 @@
                     </h3>
                     <span
                       v-if="card.isCurrent"
-                      class="px-2 py-1 rounded-full text-xs font-semibold bg-[#7D26CD]/10 text-[#7D26CD] border border-[#7D26CD]/30"
+                      class="px-2 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary)]/12 text-[var(--color-primary)] border border-[var(--color-primary)]/30"
                     >
                       Current
                     </span>
@@ -67,7 +67,7 @@
               </div>
               <div
                 v-if="card.employmentType"
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[#7D26CD] text-white uppercase tracking-wide shadow-[3px_3px_0px_rgba(0,0,0,0.16)]"
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary)] text-[var(--color-light)] uppercase tracking-wide shadow-[3px_3px_0px_rgba(0,0,0,0.16)]"
               >
                 {{ card.employmentType }}
               </div>
@@ -84,7 +84,7 @@
                 class="flex items-start gap-2"
               >
                 <span
-                  class="mt-[6px] inline-block w-2 h-2 rounded-full bg-[#7D26CD]"
+                  class="mt-[6px] inline-block w-2 h-2 rounded-full bg-[var(--color-primary)]"
                 ></span>
                 <span>{{ item }}</span>
               </li>
