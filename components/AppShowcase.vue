@@ -32,8 +32,8 @@
     <div v-if="takeItem < filterItems.length" class="mt-6 flex justify-center">
       <CommonsButton
         label="Show more"
-        bg="var(--color-dark)"
-        class="text-white"
+        bg="var(--color-card)"
+        class="text-[var(--color-dark)] border-[var(--color-border)]"
         @on-click="loadMore"
       />
     </div>

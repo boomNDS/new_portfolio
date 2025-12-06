@@ -2,13 +2,7 @@
   <div>
     <select
       v-model="localValue"
-      scale="active:92"
-      duration="100"
-      text="14px black"
-      p="2 1"
-      border="4 #333333"
-      bg="#ffc107"
-      class="focus:outline-none rounded ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+      class="focus:outline-none rounded-full ease-in active:scale-95 transition duration-100 text-[14px] px-3 py-2 border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.12)]"
     >
       <option value="all">All</option>
       <option value="frontend">Frontend</option>
