@@ -63,7 +63,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-javascript",
     iconTitle: "javascript",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-vue",
@@ -88,7 +88,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-typescript-icon",
     iconTitle: "typescript",
-    lastUsed: dayjs().to(dayjs("2024-06-09")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-docker-icon",
@@ -118,7 +118,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-jira",
     iconTitle: "jira",
-    lastUsed: dayjs().to(dayjs("2024-04-31")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-logos-atlassian",
@@ -163,7 +163,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-nextjs-icon",
     iconTitle: "next.js",
-    lastUsed: dayjs().to(dayjs("2021-08-31")),
+    lastUsed: dayjs().to(dayjs()),
   },
   {
     iconSrc: "i-vscode-icons:file-type-elixir",
