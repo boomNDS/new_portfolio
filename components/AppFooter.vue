@@ -14,7 +14,12 @@
           Let’s talk
         </button>
       </NuxtLink>
-      <NuxtLink to="https://cal.com/boomnds/30min" target="_blank" rel="noreferrer" :prefetch="false">
+      <NuxtLink
+        to="https://cal.com/boomnds/30min"
+        target="_blank"
+        rel="noreferrer"
+        :prefetch="false"
+      >
         <button
           class="w-[170px] sm:w-[199px] scale-100 active:scale-92 transition duration-100 text-[16px] sm:text-[18px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-card)] cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] flex items-center justify-center gap-2 hover:-translate-y-0.5"
         >
