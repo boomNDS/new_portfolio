@@ -42,11 +42,10 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, watch, ref } from "vue";
-import { useStorage } from "@vueuse/core";
 import showcaseData from "~/public/showcase.json";
 
-const takeItem = useStorage("takeItem", 4);
-const selected = useStorage("selected", "all");
+const takeItem = useState("showcaseTake", () => 4);
+const selected = useState("showcaseFilter", () => "all");
 const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
 

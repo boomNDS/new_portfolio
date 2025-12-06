@@ -10,6 +10,7 @@ const disableWebFonts =
   process.env.CI === "true" || process.env.DISABLE_WEBFONTS === "true";
 
 export default defineConfig({
+  preflights: [],
   presets: [
     presetUno({}),
     presetIcons({

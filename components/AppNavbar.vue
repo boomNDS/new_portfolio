@@ -64,7 +64,9 @@ import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
 
 const isMenuOpen = ref(false);
 const menuItems = ["Experience", "Tech stack", "Showcase"] as const;
-const isLargeScreen = useMediaQuery("(min-width: 1045px)");
+const isLargeScreen = import.meta.client
+  ? useMediaQuery("(min-width: 1045px)")
+  : ref(false);
 
 type MenuItem = (typeof menuItems)[number];
 type SectionId = "intro" | "experience" | "tech_stack" | "showcase";
@@ -91,12 +93,12 @@ const emitScrollEvent = (item: MenuItem | "Intro") => {
 const activeElement = import.meta.client ? useActiveElement() : ref(null);
 const wasRecentlyClicked = ref(false);
 
-const isActiveOrClicked = computed(
-  () =>
-    (import.meta.client
-      ? activeElement.value === document.activeElement
-      : false) || wasRecentlyClicked.value,
-);
+const isActiveOrClicked = computed(() => {
+  if (!import.meta.client) return wasRecentlyClicked.value;
+  return (
+    activeElement.value === document.activeElement || wasRecentlyClicked.value
+  );
+});
 
 const handleClick = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -110,11 +112,10 @@ const logoRef = ref(null);
 const isHovered = import.meta.client ? useElementHover(logoRef) : ref(false);
 
 const itemRefs = ref(menuItems.map(() => null));
-const itemHoverStates = menuItems.map((_, index) =>
-  import.meta.client
-    ? useElementHover(computed(() => itemRefs.value[index]))
-    : ref(false),
-);
+const itemHoverStates = menuItems.map((_, index) => {
+  if (!import.meta.client) return ref(false);
+  return useElementHover(computed(() => itemRefs.value[index]));
+});
 
 const isItemHovered = (item: MenuItem) =>
   itemHoverStates[menuItems.indexOf(item)].value;

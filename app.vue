@@ -21,21 +21,23 @@ const scrollToSection = (sectionId: string) => {
 
 const theme = useState<"light" | "dark">("theme", () => "light");
 
-onMounted(() => {
-  const stored =
-    (localStorage.getItem("theme") as "light" | "dark" | null) ?? "light";
-  theme.value = stored;
-  document.documentElement.dataset.theme = stored;
-});
+if (import.meta.client) {
+  onMounted(() => {
+    const stored =
+      (localStorage.getItem("theme") as "light" | "dark" | null) ?? "light";
+    theme.value = stored;
+    document.documentElement.dataset.theme = stored;
+  });
 
-watch(
-  theme,
-  (val) => {
-    document.documentElement.dataset.theme = val;
-    localStorage.setItem("theme", val);
-  },
-  { immediate: true },
-);
+  watch(
+    theme,
+    (val) => {
+      document.documentElement.dataset.theme = val;
+      localStorage.setItem("theme", val);
+    },
+    { immediate: true },
+  );
+}
 
 const toggleTheme = () => {
   theme.value = theme.value === "light" ? "dark" : "light";

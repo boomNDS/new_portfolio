@@ -55,4 +55,11 @@ export default defineNuxtConfig({
 
   plugins: ["~/plugins/motion.client.ts"],
   compatibilityDate: "2024-12-06",
+
+  nitro: {
+    prerender: {
+      crawlLinks: false,
+      routes: ["/"],
+    },
+  },
 });

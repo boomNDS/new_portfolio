@@ -1,16 +1,23 @@
 <template>
-  <footer w="100%" h="200px" bg="#d9d9d9" m="t-[5rem]" p="t-[5rem]">
+  <footer
+    w="100%"
+    h="200px"
+    bg="var(--color-light)"
+    m="t-[5rem]"
+    p="t-[5rem]"
+    class="border-t-4 border-[var(--color-border)]"
+  >
     <section class="flex justify-center mx-auto">
       <NuxtLink to="mailto:contact@pachorn.dev?Subject=Hello%20Boom">
         <button
           w="145px sm:199px"
           scale="active:92"
           duration="100"
-          text="20px sm:24px black"
+          text="20px sm:24px var(--color-dark)"
           p="2 1"
-          border="4 #333333"
-          bg="#ffc107"
-          class="cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+          border="4 var(--color-border)"
+          bg="var(--color-primary)"
+          class="cursor-pointer focus:outline-none rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] text-white"
           :prefetch="false"
         >
           Let’s talk
