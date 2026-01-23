@@ -98,13 +98,13 @@
       <p
         v-for="(tag, index) in visibleTags"
         :key="`tag-${index}`"
-        class="m-0 px-2 py-[2px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
+        class="m-0 px-1.5 py-[1px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
       >
         #{{ tag }}
       </p>
       <p
         v-if="hiddenTagCount > 0"
-        class="m-0 px-2 py-[2px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
+        class="m-0 px-1.5 py-[1px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
       >
         +{{ hiddenTagCount }}
       </p>
@@ -114,6 +114,7 @@
 
 <script setup lang="ts">
 import type { PropType } from "vue";
+import { useMediaQuery } from "@vueuse/core";
 
 export interface Link {
   type: string;
@@ -184,7 +185,12 @@ const isVideo = computed(() => {
   return /\.(mp4|webm|ogg)$/i.test(props.imageSrc);
 });
 
-const visibleTags = computed(() => props.tags.slice(0, 3));
+const isSmallScreen = import.meta.client
+  ? useMediaQuery("(max-width: 639px)")
+  : ref(false);
+const visibleTags = computed(() =>
+  props.tags.slice(0, isSmallScreen.value ? 2 : 3),
+);
 const hiddenTagCount = computed(() =>
   Math.max(0, props.tags.length - visibleTags.value.length),
 );
@@ -208,7 +214,7 @@ watch(
 <style scoped>
 .desc {
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }

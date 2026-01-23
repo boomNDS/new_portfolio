@@ -11,7 +11,7 @@
         Highlights from roles where I’ve shipped full-stack products, scaled
         platforms, and refined UX flows.
       </p>
-      <div class="flex flex-wrap items-center gap-2 pt-1">
+      <div class="flex flex-wrap items-baseline gap-2 pt-1">
         <p class="m-0 text-xs uppercase tracking-[0.18em] text-gray-500">
           Teams I’ve worked with
         </p>
@@ -106,7 +106,7 @@
           </div>
 
           <div
-            class="rounded-xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-5"
+            class="rounded-xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4"
           >
             <div
               class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"

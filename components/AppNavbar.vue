@@ -6,7 +6,7 @@
   >
     <div
       ref="navRef"
-      class="w-full max-w-[1200px] mx-auto px-1.5 sm:px-2 md:px-3 lg:px-4 py-3"
+      class="w-full max-w-[1200px] mx-auto px-1.5 sm:px-2 md:px-3 lg:px-4 py-2"
     >
       <div
         class="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 w-full min-w-0"
@@ -24,7 +24,7 @@
             loading="lazy"
             width="64"
             height="64"
-            class="block h-7 sm:h-9 md:h-10 w-auto transition-transform duration-200"
+            class="block h-7 sm:h-8 md:h-9 w-auto transition-transform duration-200"
           />
         </button>
 

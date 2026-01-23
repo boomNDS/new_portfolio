@@ -91,7 +91,7 @@
       }
     ],
     "img": "flutter.mp4",
-    "tags": ["flutter", "firebase"],
+    "tags": ["Flutter", "Firebase"],
     "category": ["app"]
   },
   {
@@ -109,7 +109,7 @@
       }
     ],
     "img": "run.webp",
-    "tags": ["django", "vue.js", "design"],
+    "tags": ["Django", "Vue", "design"],
     "category": ["frontend"]
   },
   {
@@ -127,7 +127,7 @@
       }
     ],
     "img": "vuetheater.webp",
-    "tags": ["vue.js"],
+    "tags": ["Vue"],
     "category": ["frontend"]
   },
   {
@@ -164,7 +164,7 @@
       }
     ],
     "img": "url-shortener.webp",
-    "tags": ["node", "vite", "vue.js"],
+    "tags": ["Node", "vite", "Vue"],
     "category": ["frontend", "backend"]
   },
   {
@@ -173,7 +173,7 @@
     "meta": "Product · 2020",
     "links": [],
     "img": "dev_disrupt.webp",
-    "tags": ["design", "vue.js", "concept"],
+    "tags": ["design", "Vue", "concept"],
     "category": ["design"]
   },
   {
@@ -182,7 +182,7 @@
     "meta": "Full stack · 2022",
     "links": [],
     "img": "coop-ekarko.webp",
-    "tags": ["django", "react"],
+    "tags": ["Django", "React"],
     "category": ["frontend", "backend"]
   },
   {
@@ -191,7 +191,7 @@
     "meta": "Frontend · 2022",
     "links": [],
     "img": "nutmor.webp",
-    "tags": ["tailwind", "nuxt.js"],
+    "tags": ["Tailwind", "Nuxt"],
     "category": ["frontend"]
   },
   {
@@ -210,7 +210,7 @@
     "meta": "Automation · 2022",
     "links": [],
     "img": "discord.webp",
-    "tags": ["node", "discord", "wos"],
+    "tags": ["Node", "discord", "wos"],
     "category": ["backend"]
   },
   {
@@ -241,7 +241,12 @@
     "detail": "Sales landing page for courses; created the project setup and initial flow as a monorepo.",
     "meta": "Frontend + Backend · 2023",
     "result": "Revenue lift",
-    "links": [{ "type": "link", "url": "https://lp.globish.co.th" }],
+    "links": [
+      {
+        "type": "link",
+        "url": "https://lp.globish.co.th"
+      }
+    ],
     "img": "globish-sale-page.webp",
     "tags": ["globish"],
     "category": ["frontend", "backend"]
@@ -253,7 +258,7 @@
     "result": "Ops speed",
     "links": [],
     "img": "wh-globish.webp",
-    "tags": ["globish", "nuxt.js", "nest.js"],
+    "tags": ["globish", "Nuxt", "Nest"],
     "category": ["frontend", "backend"]
   },
   {
@@ -262,7 +267,7 @@
     "meta": "Full stack · 2023",
     "links": [],
     "img": "globish-coach.webp",
-    "tags": ["globish", "nuxt.js", "nest.js"],
+    "tags": ["globish", "Nuxt", "Nest"],
     "category": ["frontend", "backend"]
   },
   {
@@ -271,7 +276,7 @@
     "meta": "Full stack · 2023",
     "links": [],
     "img": "globish.webp",
-    "tags": ["globish", "nuxt.js", "nest.js"],
+    "tags": ["globish", "Nuxt", "Nest"],
     "category": ["frontend", "backend"]
   },
   {
@@ -280,7 +285,7 @@
     "meta": "Full stack · 2023",
     "links": [],
     "img": "app-globish.webp",
-    "tags": ["globish", "nuxt.js", "nest.js"],
+    "tags": ["globish", "Nuxt", "Nest"],
     "category": ["frontend", "backend"]
   }
 ]
