@@ -56,10 +56,36 @@
       >
         <span class="i-tabler:brand-github text-2xl" aria-hidden="true"></span>
       </NuxtLink>
+      <NuxtLink
+        to="https://webring.wonderful.software/#/pachorn.dev"
+        target="_blank"
+        rel="noreferrer"
+        :prefetch="false"
+        class="hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded inline-flex items-center"
+        aria-label="Webring"
+      >
+        <img
+          src="/img/webring.svg"
+          alt="Webring"
+          class="w-6 h-6 webring-icon"
+          loading="lazy"
+          width="24"
+          height="24"
+        />
+      </NuxtLink>
     </section>
   </footer>
 </template>
 
 <script setup lang="ts"></script>
 
-<style scoped></style>
+<style scoped>
+.webring-icon {
+  cursor: pointer;
+  transition: transform 0.25s ease-in-out;
+}
+
+.webring-icon:hover {
+  transform: rotate(30deg) scale(1.05);
+}
+</style>
