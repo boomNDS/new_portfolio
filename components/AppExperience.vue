@@ -2,7 +2,9 @@
   <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-5xl">
     <div class="mb-6 space-y-2">
       <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
-      <h2 class="title m-0 text-[var(--color-dark)]">Professional experience</h2>
+      <h2 class="title m-0 text-[var(--color-dark)]">
+        Professional experience
+      </h2>
       <p class="text-gray-600">
         Highlights from roles where I’ve shipped full-stack products, scaled
         platforms, and refined UX flows.

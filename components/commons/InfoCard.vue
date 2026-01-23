@@ -57,7 +57,11 @@
           :aria-label="`${title} ${link.type} link`"
           class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         >
-          <div class="icon" :class="getIconClass(link.type)" aria-hidden="true"></div>
+          <div
+            class="icon"
+            :class="getIconClass(link.type)"
+            aria-hidden="true"
+          ></div>
         </NuxtLink>
       </div>
       <p class="m-0 p-0 text-[14px] text-[var(--color-text)] desc">

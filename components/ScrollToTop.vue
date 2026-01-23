@@ -32,7 +32,9 @@ const scrollToTop = () => {
 <style scoped>
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 .fade-slide-enter-from,
 .fade-slide-leave-to {

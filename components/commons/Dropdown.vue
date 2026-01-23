@@ -17,11 +17,7 @@
       v-show="isActive"
       class="absolute ease-in-out rounded mt-1 m-0 p-0 w-[65px] bg-[var(--color-card)] border border-[var(--color-border)]/15 shadow-[var(--shadow-soft)] list-none duration-100"
     >
-      <li
-        v-for="text in list"
-        :key="`li-` + text"
-        class="rounded"
-      >
+      <li v-for="text in list" :key="`li-` + text" class="rounded">
         <button
           type="button"
           class="w-full text-left rounded px-2 py-1 hover:bg-[var(--color-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"

@@ -199,10 +199,7 @@ watch(
     };
     const currentFilter = route.query.filter ?? undefined;
     const currentPage = route.query.page ?? undefined;
-    if (
-      currentFilter === nextQuery.filter &&
-      currentPage === nextQuery.page
-    ) {
+    if (currentFilter === nextQuery.filter && currentPage === nextQuery.page) {
       return;
     }
     router.replace({ query: nextQuery });

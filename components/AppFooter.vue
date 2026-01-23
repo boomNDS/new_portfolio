@@ -41,7 +41,10 @@
         class="hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         aria-label="LinkedIn profile"
       >
-        <span class="i-tabler:brand-linkedin text-2xl" aria-hidden="true"></span>
+        <span
+          class="i-tabler:brand-linkedin text-2xl"
+          aria-hidden="true"
+        ></span>
       </NuxtLink>
       <NuxtLink
         to="https://github.com/boomNDS"

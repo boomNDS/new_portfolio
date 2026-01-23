@@ -52,7 +52,10 @@
               class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               Let’s talk
-              <span class="i-tabler:message-circle text-lg" aria-hidden="true"></span>
+              <span
+                class="i-tabler:message-circle text-lg"
+                aria-hidden="true"
+              ></span>
             </NuxtLink>
             <NuxtLink
               to="https://cal.com/pachara-sri/30min"
@@ -62,7 +65,10 @@
               class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               Book a meeting
-              <span class="i-tabler:calendar-event text-lg" aria-hidden="true"></span>
+              <span
+                class="i-tabler:calendar-event text-lg"
+                aria-hidden="true"
+              ></span>
             </NuxtLink>
           </div>
 
@@ -77,7 +83,10 @@
               class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               View showcase
-              <span class="i-tabler:arrow-right text-lg" aria-hidden="true"></span>
+              <span
+                class="i-tabler:arrow-right text-lg"
+                aria-hidden="true"
+              ></span>
             </NuxtLink>
             <NuxtLink
               to="#experience"
@@ -85,7 +94,10 @@
               class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               Experience
-              <span class="i-tabler:chart-candle text-lg" aria-hidden="true"></span>
+              <span
+                class="i-tabler:chart-candle text-lg"
+                aria-hidden="true"
+              ></span>
             </NuxtLink>
           </div>
 
