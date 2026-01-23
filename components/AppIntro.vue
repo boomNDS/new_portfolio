@@ -257,13 +257,6 @@ const prefersReducedMotion = import.meta.client
   : ref<"no-preference" | "reduce">("no-preference");
 
 const totalProjects = computed(() => showcaseData.length);
-const uniqueTags = computed(() => {
-  const tagSet = new Set<string>();
-  showcaseData.forEach((item) => {
-    item.tags?.forEach((tag: string) => tagSet.add(tag));
-  });
-  return tagSet.size;
-});
 const liveDemos = computed(() => {
   let count = 0;
   showcaseData.forEach((item) => {
