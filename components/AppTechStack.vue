@@ -70,17 +70,17 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-javascript",
     iconTitle: "javascript",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-vue",
     iconTitle: "vue.js",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-nuxt-icon",
     iconTitle: "nuxt.js",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-nestjs",
@@ -95,12 +95,12 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-typescript-icon",
     iconTitle: "typescript",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-docker-icon",
     iconTitle: "docker",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-sass",
@@ -110,7 +110,7 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-tailwindcss-icon",
     iconTitle: "tailwind",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-django-icon",
@@ -120,57 +120,77 @@ const techStacks = ref([
   {
     iconSrc: "i-logos-figma",
     iconTitle: "figma",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-jira",
     iconTitle: "jira",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2025-11-01")),
   },
   {
     iconSrc: "i-logos-atlassian",
     iconTitle: "atlassian",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2025-11-01")),
   },
   {
     iconSrc: "i-logos-postman-icon",
-    iconTitle: "postman",
-    lastUsed: dayjs().to(dayjs()),
+    iconTitle: "postman", 
+    lastUsed: dayjs().to(dayjs("2025-11-01")),
   },
   {
     iconSrc: "i-logos-redis",
     iconTitle: "redis",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2025-11-01")),
   },
   {
     iconSrc: "i-logos-git-icon",
     iconTitle: "git",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-google-analytics",
     iconTitle: "google analytics",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-vscode-icons:file-type-vite",
     iconTitle: "vite",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-flutter",
     iconTitle: "flutter",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2025-12-31")),
   },
   {
     iconSrc: "i-logos-cloudflare-icon",
     iconTitle: "cloudflare",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
+  },
+  {
+    iconSrc: "i-logos-aws",
+    iconTitle: "aws",
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
+  },
+  {
+    iconSrc: "i-logos-google-cloud",
+    iconTitle: "google cloud",
+    lastUsed: dayjs().to(dayjs("2025-12-01")),
+  },
+  {
+    iconSrc: "i-logos-digitalocean",
+    iconTitle: "digital ocean",
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
+  },
+  {
+    iconSrc: "i-logos-coolify",
+    iconTitle: "coolify",
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-logos-nextjs-icon",
     iconTitle: "next.js",
-    lastUsed: dayjs().to(dayjs()),
+    lastUsed: dayjs().to(dayjs("2026-01-24")),
   },
   {
     iconSrc: "i-vscode-icons:file-type-elixir",
