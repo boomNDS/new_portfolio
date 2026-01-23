@@ -62,40 +62,11 @@
               target="_blank"
               rel="noreferrer"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+              class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
-              Book a meeting
+              30‑min call
               <span
                 class="i-tabler:calendar-event text-lg"
-                aria-hidden="true"
-              ></span>
-            </NuxtLink>
-          </div>
-
-          <p class="m-0 text-xs sm:text-sm text-gray-600">
-            You’ll get a clear scope, timeline, and next steps within 48 hours.
-          </p>
-
-          <div class="flex flex-wrap gap-3">
-            <NuxtLink
-              to="#showcase"
-              :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-            >
-              View showcase
-              <span
-                class="i-tabler:arrow-right text-lg"
-                aria-hidden="true"
-              ></span>
-            </NuxtLink>
-            <NuxtLink
-              to="#experience"
-              :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-            >
-              Experience
-              <span
-                class="i-tabler:chart-candle text-lg"
                 aria-hidden="true"
               ></span>
             </NuxtLink>
@@ -117,14 +88,9 @@
             >
               Tailwind / UI motion
             </span>
-            <span
-              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
-            >
-              AWS / GCP / CI/CD
-            </span>
           </div>
 
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="grid grid-cols-2 gap-3 sm:hidden">
             <div
               class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
             >
@@ -145,14 +111,27 @@
                 {{ liveDemos }}
               </p>
             </div>
+          </div>
+
+          <div class="hidden sm:grid grid-cols-2 gap-3">
             <div
               class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
             >
               <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
-                Tech tags
+                Projects shipped
               </p>
               <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
-                {{ uniqueTags }}
+                {{ totalProjects }}
+              </p>
+            </div>
+            <div
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+            >
+              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+                Live demos
+              </p>
+              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+                {{ liveDemos }}
               </p>
             </div>
           </div>
