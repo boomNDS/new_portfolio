@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-5xl">
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-16 max-w-5xl pt-6">
     <div class="mb-6 space-y-2">
       <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
       <h2 class="title m-0 text-[var(--color-dark)]">
@@ -9,50 +9,66 @@
         Highlights from roles where I’ve shipped full-stack products, scaled
         platforms, and refined UX flows.
       </p>
-      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <div class="flex flex-wrap items-center gap-2 pt-1">
         <p class="m-0 text-xs uppercase tracking-[0.18em] text-gray-500">
           Teams I’ve worked with
         </p>
-        <div class="flex flex-wrap items-center gap-3">
-          <img
-            src="/img/company/bualoi.png"
-            alt="BualoiTech logo"
-            class="h-8 w-auto object-contain"
-            loading="lazy"
-            width="32"
-            height="32"
-          />
-          <img
-            src="/img/company/skuberg_logo.jpeg"
-            alt="Skuberg logo"
-            class="h-8 w-auto object-contain"
-            loading="lazy"
-            width="32"
-            height="32"
-          />
-          <img
-            src="/img/company/globish_logo.png"
-            alt="Globish Academia logo"
-            class="h-8 w-auto object-contain"
-            loading="lazy"
-            width="32"
-            height="32"
-          />
-          <img
-            src="/img/company/opn_logo.png"
-            alt="OPN logo"
-            class="h-8 w-auto object-contain"
-            loading="lazy"
-            width="32"
-            height="32"
-          />
+        <div class="flex flex-wrap items-center gap-2">
+          <div
+            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
+          >
+            <img
+              src="/img/company/bualoi.png"
+              alt="BualoiTech logo"
+              class="h-7 w-7 object-contain"
+              loading="lazy"
+              width="28"
+              height="28"
+            />
+          </div>
+          <div
+            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
+          >
+            <img
+              src="/img/company/skuberg_logo.jpeg"
+              alt="Skuberg logo"
+              class="h-7 w-7 object-contain"
+              loading="lazy"
+              width="28"
+              height="28"
+            />
+          </div>
+          <div
+            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
+          >
+            <img
+              src="/img/company/globish_logo.png"
+              alt="Globish Academia logo"
+              class="h-7 w-7 object-contain"
+              loading="lazy"
+              width="28"
+              height="28"
+            />
+          </div>
+          <div
+            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
+          >
+            <img
+              src="/img/company/opn_logo.png"
+              alt="OPN logo"
+              class="h-7 w-7 object-contain"
+              loading="lazy"
+              width="28"
+              height="28"
+            />
+          </div>
         </div>
       </div>
     </div>
 
     <section class="relative">
       <div
-        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[3px] bg-gradient-to-b from-[var(--color-primary)] via-[var(--color-primary)]/40 to-transparent"
+        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--color-primary)]/40 via-[var(--color-primary)]/20 to-transparent"
       ></div>
 
       <div class="flex flex-col gap-5">
@@ -120,11 +136,11 @@
               {{ card.description }}
             </p>
 
-            <ul class="mt-3 mb-0 space-y-1 text-sm text-gray-800">
+            <ul class="mt-3 mb-0 space-y-1 text-sm text-gray-800 md:columns-2">
               <li
                 v-for="(item, idx) in card.listItems"
                 :key="idx"
-                class="flex items-start gap-2"
+                class="flex items-start gap-2 break-inside-avoid"
               >
                 <span
                   class="mt-[6px] inline-block w-2 h-2 rounded-full bg-[var(--color-primary)]"
@@ -243,6 +259,7 @@ const displayCards = computed(() =>
     return {
       ...card,
       ...meta,
+      listItems: card.listItems.slice(0, 3),
       isCurrent: /current/i.test(card.subtitle),
     };
   }),

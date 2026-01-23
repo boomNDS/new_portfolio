@@ -50,14 +50,14 @@
         </h3>
         <div
           v-if="result"
-          class="px-2 py-1 rounded-full text-[11px] font-semibold bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/30"
+          class="px-2 py-1 rounded-full text-[11px] font-semibold bg-[var(--color-primary)] text-white border border-[var(--color-primary)] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)]"
         >
           {{ result }}
         </div>
       </div>
       <p
         v-if="meta"
-        class="m-0 text-[12px] uppercase tracking-[0.18em] text-gray-500"
+        class="m-0 text-[12px] uppercase tracking-[0.18em] text-gray-600"
       >
         {{ meta }}
       </p>
@@ -67,7 +67,7 @@
     </div>
     <div
       v-if="links?.length"
-      class="px-3 pb-2 flex flex-wrap items-center gap-2"
+      class="px-3 pb-2 flex flex-wrap items-center gap-2 border-b border-[var(--color-border)]/10"
     >
       <NuxtLink
         v-for="(link, index) in links"
@@ -93,7 +93,7 @@
       </NuxtLink>
     </div>
     <div
-      class="flex flex-wrap gap-2 px-3 py-2 text-[13px] text-[var(--color-text)]"
+      class="flex flex-wrap gap-2 px-3 py-2 text-[12px] text-[var(--color-text)]"
     >
       <p
         v-for="(tag, index) in visibleTags"

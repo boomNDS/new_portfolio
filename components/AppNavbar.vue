@@ -4,12 +4,12 @@
   >
     <div
       ref="navRef"
-      class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative px-4 py-3"
+      class="container mx-auto flex flex-col min-[1045px]:flex-row items-center justify-between gap-3 px-4 py-2"
     >
       <button
         ref="logoRef"
         type="button"
-        class="absolute left-0 transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+        class="transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         :class="{ 'scale-105': isHovered }"
         aria-label="Scroll to top"
         @click="emitScrollEvent('Intro')"
@@ -18,8 +18,8 @@
           src="/img/logo.svg"
           alt="Pachara logo"
           loading="lazy"
-          width="96"
-          height="96"
+          width="72"
+          height="72"
         />
       </button>
 
@@ -39,7 +39,7 @@
       <ul
         v-if="isLargeScreen || isMenuOpen"
         id="site-menu"
-        class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-12"
+        class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-12 min-[1045px]:w-auto"
       >
         <li
           v-for="(item, index) in menuItems"
@@ -72,7 +72,7 @@
       </ul>
 
       <button
-        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+        class="min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
         @click="$emit('toggle-theme')"
       >
         <span
@@ -84,17 +84,17 @@
       </button>
     </div>
     <p
-      class="m-0 px-4 pb-3 text-xs sm:text-sm text-[var(--color-text)] flex flex-wrap gap-x-2 gap-y-1"
+      class="m-0 px-4 pb-3 text-[11px] sm:text-sm text-[var(--color-text)] flex flex-wrap justify-center min-[1045px]:justify-start gap-x-2 gap-y-1"
     >
-      <span class="font-semibold text-[var(--color-dark)]"
-        >Full-stack developer</span
-      >
+      <span class="font-semibold text-[var(--color-dark)]">
+        Full-stack developer
+      </span>
       <span class="opacity-70">·</span>
       <span>Open to remote work</span>
       <span class="opacity-70">·</span>
-      <span class="text-[var(--color-primary)] font-semibold"
-        >Available for collaborations</span
-      >
+      <span class="text-[var(--color-primary)] font-semibold">
+        Available for collaborations
+      </span>
     </p>
   </nav>
 </template>

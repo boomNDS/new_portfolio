@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-10 max-w-6xl">
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-16 max-w-6xl pt-6">
     <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
       <div>
         <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">

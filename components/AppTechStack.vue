@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-5 max-w-6xl">
+  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-16 max-w-6xl pt-6">
     <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
       <div>
         <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <section
-      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-stretch"
+      class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 items-stretch"
     >
       <CommonsStackCard
         v-for="(tech, index) in sortedTechStacks"

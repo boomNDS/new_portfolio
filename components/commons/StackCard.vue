@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col items-center justify-center text-center mb-2 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-4 shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
+    class="flex flex-col items-center justify-center text-center mb-2 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-4 shadow-[var(--shadow-soft)] hover:-translate-y-[2px] hover:shadow-[var(--shadow-mid)] transition duration-150"
   >
     <div
       :class="[iconSrc]"

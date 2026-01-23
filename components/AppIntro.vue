@@ -1,5 +1,5 @@
 <template>
-  <section class="px-[1.5rem] md:px-[3rem] lg:px-[5rem] mt-10 mb-6">
+  <section class="px-[2rem] md:px-[3rem] lg:px-[5rem] mt-10 mb-14 pt-4">
     <div
       class="relative overflow-hidden rounded-3xl border-4 border-[var(--color-border)] shadow-[var(--shadow-strong)] hero-surface"
     >
@@ -39,7 +39,7 @@
               >foodie developer</span
             >
           </h1>
-          <p class="m-0 text-gray-600 text-base md:text-lg leading-relaxed">
+          <p class="m-0 text-gray-600 text-base md:text-lg leading-7">
             I craft full-stack experiences with clean UX, modern frontends, and
             production-ready backends. From Nuxt and Next.js to FastAPI and
             cloud pipelines—shipped end-to-end.
