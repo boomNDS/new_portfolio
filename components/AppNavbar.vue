@@ -62,10 +62,6 @@
                 <NuxtLink
                   :to="menuTo[item]"
                   class="text-[var(--color-dark)] no-underline px-3 py-2 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] hover:bg-[var(--color-light)]/50"
-                  :class="{
-                    'text-[var(--color-primary)] font-semibold bg-[var(--color-primary)]/10':
-                      activeSection === menuTo[item].slice(1),
-                  }"
                   :prefetch="false"
                   :aria-current="
                     activeSection === menuTo[item].slice(1) ? 'page' : undefined
