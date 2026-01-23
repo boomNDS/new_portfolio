@@ -26,6 +26,8 @@
             :src="`/img/showcase/${imageSrc}`"
             :alt="imageAlt"
             loading="lazy"
+            width="240"
+            height="300"
             @error="onMediaError"
           />
         </template>
@@ -35,6 +37,8 @@
             src="/img/showcase/placeholder.svg"
             alt="Showcase media placeholder"
             loading="lazy"
+            width="240"
+            height="300"
           />
         </template>
       </div>
@@ -50,8 +54,10 @@
           :to="link.url"
           target="_blank"
           :prefetch="false"
+          :aria-label="`${title} ${link.type} link`"
+          class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         >
-          <div class="icon" :class="getIconClass(link.type)"></div>
+          <div class="icon" :class="getIconClass(link.type)" aria-hidden="true"></div>
         </NuxtLink>
       </div>
       <p class="m-0 p-0 text-[14px] text-[var(--color-text)] desc">

@@ -46,7 +46,7 @@
       class="mt-6 flex items-center justify-between gap-3"
     >
       <button
-        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed"
+        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
         :disabled="page === 1"
         @click="prevPage"
       >
@@ -56,7 +56,7 @@
         Page {{ page }} / {{ totalPages }}
       </span>
       <button
-        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed"
+        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
         :disabled="page === totalPages"
         @click="nextPage"
       >
@@ -68,13 +68,19 @@
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, watch, ref } from "vue";
+import { usePreferredReducedMotion } from "@vueuse/core";
 import showcaseData from "~/public/showcase.json";
 
 const selected = useState("showcaseFilter", () => "all");
 const page = useState("showcasePage", () => 1);
 const cardRefs = ref<HTMLElement[]>([]);
 const { $motionAnimate, $motionInView } = useNuxtApp();
+const reducedMotion = import.meta.client
+  ? usePreferredReducedMotion()
+  : ref<"no-preference" | "reduce">("no-preference");
 const pageSize = 8;
+const route = useRoute();
+const router = useRouter();
 
 const filterItems = computed(() => {
   return showcaseData.filter((data) => {
@@ -114,6 +120,7 @@ const setCardRef = (el: HTMLElement | null, index: number) => {
 };
 
 const animateCards = () => {
+  if (reducedMotion.value === "reduce") return;
   if (!$motionAnimate || !$motionInView) return;
   cardRefs.value.forEach((el, index) => {
     if (!el) return;
@@ -132,6 +139,13 @@ const animateCards = () => {
 
 onMounted(() => {
   nextTick(animateCards);
+  if (route.query.filter) {
+    selected.value = String(route.query.filter);
+  }
+  if (route.query.page) {
+    const parsed = Number(route.query.page);
+    page.value = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+  }
 });
 
 watch(
@@ -156,6 +170,42 @@ watch(
     if (page.value > totalPages.value) {
       page.value = totalPages.value;
     }
+  },
+  { flush: "post" },
+);
+
+watch(
+  () => route.query,
+  (query) => {
+    if (query.filter && query.filter !== selected.value) {
+      selected.value = String(query.filter);
+    }
+    if (query.page) {
+      const parsed = Number(query.page);
+      const nextPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
+      if (nextPage !== page.value) page.value = nextPage;
+    }
+  },
+  { deep: true },
+);
+
+watch(
+  [selected, page],
+  ([nextFilter, nextPage]) => {
+    const nextQuery = {
+      ...route.query,
+      filter: nextFilter !== "all" ? nextFilter : undefined,
+      page: nextPage > 1 ? String(nextPage) : undefined,
+    };
+    const currentFilter = route.query.filter ?? undefined;
+    const currentPage = route.query.page ?? undefined;
+    if (
+      currentFilter === nextQuery.filter &&
+      currentPage === nextQuery.page
+    ) {
+      return;
+    }
+    router.replace({ query: nextQuery });
   },
   { flush: "post" },
 );

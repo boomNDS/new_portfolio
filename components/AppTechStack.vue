@@ -28,9 +28,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref, nextTick, computed } from "vue";
+import { usePreferredReducedMotion } from "@vueuse/core";
 const dayjs = useDayjs();
 const { $motionAnimate, $motionInView } = useNuxtApp();
 const cardRefs = ref<HTMLElement[]>([]);
+const reducedMotion = import.meta.client
+  ? usePreferredReducedMotion()
+  : ref<"no-preference" | "reduce">("no-preference");
 
 const setCardRef = (el: HTMLElement | null, index: number) => {
   if (el) {
@@ -39,6 +43,7 @@ const setCardRef = (el: HTMLElement | null, index: number) => {
 };
 
 const animateCards = () => {
+  if (reducedMotion.value === "reduce") return;
   if (!$motionAnimate || !$motionInView) return;
   cardRefs.value.forEach((el, index) => {
     if (!el) return;

@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <main id="main">
     <AppIntro />
     <AppExperience id="experience" />
     <AppTechStack id="tech_stack" />
     <AppShowcase id="showcase" />
-  </div>
+  </main>
 </template>
 
 <script setup lang="ts"></script>
 
 <style scoped>
-div {
+main {
   min-height: 39vh;
 }
 </style>

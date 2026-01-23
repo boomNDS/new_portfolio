@@ -2,7 +2,8 @@
   <div>
     <select
       v-model="localValue"
-      class="focus:outline-none rounded-full ease-in active:scale-95 transition duration-100 text-[14px] px-3 py-2 border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.12)]"
+      aria-label="Filter projects"
+      class="rounded-full ease-in active:scale-95 transition duration-100 text-[14px] px-3 py-2 border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.12)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
     >
       <option value="all">All</option>
       <option value="frontend">Frontend</option>

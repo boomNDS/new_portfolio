@@ -8,7 +8,10 @@
         aria-label="Scroll to top"
         @click="scrollToTop"
       >
-        <span class="i-tabler:arrow-up text-xl text-[var(--color-dark)]"></span>
+        <span
+          class="i-tabler:arrow-up text-xl text-[var(--color-dark)]"
+          aria-hidden="true"
+        ></span>
       </button>
     </Transition>
   </div>
@@ -29,7 +32,7 @@ const scrollToTop = () => {
 <style scoped>
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .fade-slide-enter-from,
 .fade-slide-leave-to {

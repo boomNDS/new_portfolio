@@ -1,8 +1,10 @@
 <template>
-  <nav class="my-5 mx-4">
+  <nav
+    class="sticky top-0 z-50 mx-4 mt-5 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 border-2 border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-soft)]"
+  >
     <div
       ref="navRef"
-      class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative"
+      class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative px-4 py-3"
     >
       <button
         ref="logoRef"
@@ -17,7 +19,7 @@
           alt="Pachara logo"
           loading="lazy"
           width="96"
-          height="auto"
+          height="96"
         />
       </button>
 
@@ -54,7 +56,14 @@
           <NuxtLink
             :to="menuTo[item]"
             class="text-[var(--color-dark)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+            :class="{
+              'text-[var(--color-primary)] underline underline-offset-8':
+                activeSection === menuTo[item].slice(1),
+            }"
             :prefetch="false"
+            :aria-current="
+              activeSection === menuTo[item].slice(1) ? 'page' : undefined
+            "
             @click="handleMenuSelect(item)"
           >
             {{ item }}
@@ -69,15 +78,29 @@
         <span
           :class="theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon'"
           class="text-base"
+          aria-hidden="true"
         ></span>
         {{ theme === "dark" ? "Light" : "Dark" }}
       </button>
     </div>
+    <p
+      class="m-0 px-4 pb-3 text-xs sm:text-sm text-[var(--color-text)] flex flex-wrap gap-x-2 gap-y-1"
+    >
+      <span class="font-semibold text-[var(--color-dark)]"
+        >Full-stack developer</span
+      >
+      <span class="opacity-70">·</span>
+      <span>Open to remote work</span>
+      <span class="opacity-70">·</span>
+      <span class="text-[var(--color-primary)] font-semibold"
+        >Available for collaborations</span
+      >
+    </p>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, computed, onMounted, nextTick, onBeforeUnmount } from "vue";
 import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
 
 const isMenuOpen = ref(false);
@@ -100,6 +123,8 @@ defineProps<{
 
 const { $motionAnimate } = useNuxtApp();
 const navRef = ref<HTMLElement | null>(null);
+const activeSection = ref<SectionId>("intro");
+let sectionObserver: IntersectionObserver | null = null;
 
 const emitScrollEvent = (item: MenuItem | "Intro") => {
   const sectionMap: Record<MenuItem | "Intro", SectionId> = {
@@ -185,6 +210,28 @@ onMounted(() => {
       { duration: 0.35, easing: [0.22, 1, 0.36, 1] },
     );
   });
+  if (!import.meta.client) return;
+  const sections = ["intro", "experience", "tech_stack", "showcase"]
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => Boolean(el));
+  if (!sections.length) return;
+  sectionObserver = new IntersectionObserver(
+    (entries) => {
+      const visible = entries
+        .filter((entry) => entry.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+      if (visible[0]?.target?.id) {
+        activeSection.value = visible[0].target.id as SectionId;
+      }
+    },
+    { rootMargin: "-20% 0px -60% 0px", threshold: [0.2, 0.4, 0.6] },
+  );
+  sections.forEach((section) => sectionObserver?.observe(section));
+});
+
+onBeforeUnmount(() => {
+  sectionObserver?.disconnect();
+  sectionObserver = null;
 });
 
 if (import.meta.client) {

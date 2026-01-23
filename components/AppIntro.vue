@@ -27,6 +27,7 @@
           >
             <span
               class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"
+              aria-hidden="true"
             ></span>
             Available for collaborations
           </div>
@@ -46,20 +47,45 @@
 
           <div class="flex flex-wrap gap-3">
             <NuxtLink
+              to="mailto:contact@pachorn.dev?Subject=Hello%20Boom"
+              :prefetch="false"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+            >
+              Let’s talk
+              <span class="i-tabler:message-circle text-lg" aria-hidden="true"></span>
+            </NuxtLink>
+            <NuxtLink
+              to="https://cal.com/pachara-sri/30min"
+              target="_blank"
+              rel="noreferrer"
+              :prefetch="false"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+            >
+              Book a meeting
+              <span class="i-tabler:calendar-event text-lg" aria-hidden="true"></span>
+            </NuxtLink>
+          </div>
+
+          <p class="m-0 text-xs sm:text-sm text-gray-600">
+            You’ll get a clear scope, timeline, and next steps within 48 hours.
+          </p>
+
+          <div class="flex flex-wrap gap-3">
+            <NuxtLink
               to="#showcase"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-primary)] text-white font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               View showcase
-              <span class="i-tabler:arrow-right text-lg"></span>
+              <span class="i-tabler:arrow-right text-lg" aria-hidden="true"></span>
             </NuxtLink>
             <NuxtLink
               to="#experience"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150"
+              class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
             >
               Experience
-              <span class="i-tabler:chart-candle text-lg"></span>
+              <span class="i-tabler:chart-candle text-lg" aria-hidden="true"></span>
             </NuxtLink>
           </div>
 
@@ -85,6 +111,39 @@
               AWS / GCP / CI/CD
             </span>
           </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+            >
+              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+                Projects shipped
+              </p>
+              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+                {{ totalProjects }}
+              </p>
+            </div>
+            <div
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+            >
+              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+                Live demos
+              </p>
+              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+                {{ liveDemos }}
+              </p>
+            </div>
+            <div
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+            >
+              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+                Tech tags
+              </p>
+              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+                {{ uniqueTags }}
+              </p>
+            </div>
+          </div>
         </div>
 
         <div class="relative">
@@ -98,8 +157,14 @@
           <div class="grid gap-4">
             <div
               v-motion
-              :initial="{ opacity: 0, y: 16 }"
-              :enter="{ opacity: 1, y: 0, transition: { delay: 0.05 } }"
+              :initial="
+                prefersReducedMotion === 'reduce' ? {} : { opacity: 0, y: 16 }
+              "
+              :enter="
+                prefersReducedMotion === 'reduce'
+                  ? {}
+                  : { opacity: 1, y: 0, transition: { delay: 0.05 } }
+              "
               class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-card)]/90 backdrop-blur-sm shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div>
@@ -109,18 +174,26 @@
               </div>
               <span
                 class="i-tabler:sparkles text-2xl text-[var(--color-primary)] animate-pulse"
+                aria-hidden="true"
               ></span>
             </div>
 
             <div
               v-motion
-              :initial="{ opacity: 0, y: 18 }"
-              :enter="{ opacity: 1, y: 0, transition: { delay: 0.12 } }"
+              :initial="
+                prefersReducedMotion === 'reduce' ? {} : { opacity: 0, y: 18 }
+              "
+              :enter="
+                prefersReducedMotion === 'reduce'
+                  ? {}
+                  : { opacity: 1, y: 0, transition: { delay: 0.12 } }
+              "
               class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-dark)] text-[var(--color-light)] shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 space-y-2"
             >
               <div class="flex items-center gap-2">
                 <span
                   class="i-tabler:wave-square text-xl text-[var(--color-primary)]"
+                  aria-hidden="true"
                 ></span>
                 <p
                   class="m-0 text-sm uppercase tracking-[0.18em] text-gray-300"
@@ -138,17 +211,26 @@
                 target="_blank"
                 rel="noreferrer"
                 :prefetch="false"
-                class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-light)] hover:text-[var(--color-primary)] transition-colors"
+                class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-light)] hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-dark)] rounded"
               >
                 View live
-                <span class="i-tabler:arrow-up-right text-base"></span>
+                <span
+                  class="i-tabler:arrow-up-right text-base"
+                  aria-hidden="true"
+                ></span>
               </NuxtLink>
             </div>
 
             <div
               v-motion
-              :initial="{ opacity: 0, y: 20 }"
-              :enter="{ opacity: 1, y: 0, transition: { delay: 0.18 } }"
+              :initial="
+                prefersReducedMotion === 'reduce' ? {} : { opacity: 0, y: 20 }
+              "
+              :enter="
+                prefersReducedMotion === 'reduce'
+                  ? {}
+                  : { opacity: 1, y: 0, transition: { delay: 0.18 } }
+              "
               class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div class="space-y-1">
@@ -163,6 +245,8 @@
                 alt="sparkle icon"
                 class="w-10 h-10 animate-float-slow"
                 loading="lazy"
+                width="40"
+                height="40"
               />
             </div>
           </div>
@@ -172,7 +256,33 @@
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, computed } from "vue";
+import { usePreferredReducedMotion } from "@vueuse/core";
+import showcaseData from "~/public/showcase.json";
+
+const prefersReducedMotion = import.meta.client
+  ? usePreferredReducedMotion()
+  : ref<"no-preference" | "reduce">("no-preference");
+
+const totalProjects = computed(() => showcaseData.length);
+const uniqueTags = computed(() => {
+  const tagSet = new Set<string>();
+  showcaseData.forEach((item) => {
+    item.tags?.forEach((tag: string) => tagSet.add(tag));
+  });
+  return tagSet.size;
+});
+const liveDemos = computed(() => {
+  let count = 0;
+  showcaseData.forEach((item) => {
+    item.links?.forEach((link: { type: string; url: string }) => {
+      if (link.url && link.type !== "design") count += 1;
+    });
+  });
+  return count;
+});
+</script>
 
 <style scoped>
 @layer components {
@@ -224,5 +334,12 @@
 
 .animate-float-slow {
   animation: float-slow 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-slow {
+    animation: none;
+  }
 }
 </style>

@@ -6,7 +6,7 @@ const { data: doc } = await useAsyncData(() =>
 </script>
 
 <template>
-  <main>
+  <main id="main">
     <article
       v-if="doc"
       class="mx-auto max-w-3xl px-4 py-10 text-[var(--color-text)]"

@@ -45,6 +45,7 @@ const toggleTheme = () => {
 </script>
 
 <template>
+  <a href="#main" class="skip-link">Skip to content</a>
   <ClientOnly>
     <AppNavbar
       id="intro"
@@ -109,6 +110,7 @@ const toggleTheme = () => {
 }
 
 [data-theme="dark"] {
+  color-scheme: dark;
   --color-primary: #b488ff;
   --color-accent: #f2ce63;
   --color-dark: #f7f7f7;
@@ -125,5 +127,23 @@ body {
   background: var(--color-light);
   margin: 0;
   color: var(--color-text);
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 999;
+  padding: 0.5rem 0.75rem;
+  background: var(--color-dark);
+  color: var(--color-light);
+  border-radius: 0.5rem;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
 }
 </style>

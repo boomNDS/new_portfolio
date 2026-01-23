@@ -1,7 +1,7 @@
 <template>
   <div>
     <button
-      class="rounded ease-in active:scale-92 transition duration-100 text-[14px] px-2 py-1 bg-transparent hover:bg-[var(--color-light)] border-none"
+      class="rounded ease-in active:scale-92 transition duration-100 text-[14px] px-2 py-1 bg-transparent hover:bg-[var(--color-light)] border-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
       @click="onToggle"
     >
       {{ modelValue }}
@@ -10,6 +10,7 @@
           isActive ? `i-mdi-keyboard-arrow-up` : 'i-mdi-keyboard-arrow-down',
         ]"
         class="ease-in-out text-xl transition duration-200"
+        aria-hidden="true"
       ></div>
     </button>
     <ul
@@ -19,10 +20,15 @@
       <li
         v-for="text in list"
         :key="`li-` + text"
-        class="rounded px-2 py-1 hover:bg-[var(--color-light)]"
-        @click="($emit('on-click', text), onToggle())"
+        class="rounded"
       >
-        {{ text }}
+        <button
+          type="button"
+          class="w-full text-left rounded px-2 py-1 hover:bg-[var(--color-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+          @click="($emit('on-click', text), onToggle())"
+        >
+          {{ text }}
+        </button>
       </li>
     </ul>
   </div>
