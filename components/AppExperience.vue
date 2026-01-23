@@ -1,5 +1,7 @@
 <template>
-  <div class="mx-auto px-[2rem] lg:px-[5rem] mb-16 max-w-5xl pt-6">
+  <div
+    class="mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 mb-16 max-w-5xl pt-6 overflow-x-hidden"
+  >
     <div class="mb-6 space-y-2">
       <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
       <h2 class="title m-0 text-[var(--color-dark)]">

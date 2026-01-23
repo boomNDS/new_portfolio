@@ -1,107 +1,123 @@
 <template>
   <nav
-    class="sticky top-3 z-50 mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 rounded-2xl shadow-[var(--shadow-soft)]"
+    class="sticky top-3 z-50 mx-2 sm:mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--color-border)]/20 relative overflow-x-hidden"
+    role="navigation"
+    aria-label="Main navigation"
   >
     <div
       ref="navRef"
-      class="container mx-auto flex items-center justify-between gap-3 px-4 py-2"
+      class="w-full mx-auto px-1.5 sm:px-2 md:px-3 lg:px-4 py-3"
     >
-      <button
-        ref="logoRef"
-        type="button"
-        class="flex items-center transition ease-in-out hover:-translate-y-1 cursor-pointer rounded"
-        :class="{ 'scale-105': isHovered }"
-        aria-label="Scroll to top"
-        @click="emitScrollEvent('Intro')"
+      <div
+        class="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 w-full min-w-0"
       >
-        <img
-          src="/img/logo.svg"
-          alt="Pachara logo"
-          loading="lazy"
-          width="64"
-          height="64"
-          class="block h-10 w-auto"
-        />
-      </button>
-      <div class="hidden lg:inline-flex items-center gap-2 text-xs">
-        <span
-          class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"
-          aria-hidden="true"
-        ></span>
-        <span class="font-semibold text-[var(--color-dark)]">
-          Available for collaborations
-        </span>
-      </div>
-
-      <button
-        v-if="!isLargeScreen"
-        class="rounded ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        :class="{
-          'scale-92': isActiveOrClicked,
-        }"
-        :aria-expanded="isMenuOpen"
-        aria-controls="site-menu"
-        @click="handleClick"
-      >
-        Menu
-      </button>
-
-      <Transition name="menu-slide" @after-enter="markMenuOpened">
-        <ul
-          v-if="isLargeScreen || isMenuOpen"
-          id="site-menu"
-          class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-10 min-[1045px]:w-auto"
-          :class="{
-            'mt-2 w-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-3 shadow-[var(--shadow-soft)]':
-              !isLargeScreen,
-          }"
+        <button
+          ref="logoRef"
+          type="button"
+          class="flex items-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 cursor-pointer rounded-lg border-none bg-transparent p-0.5 sm:p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] flex-shrink-0"
+          aria-label="Scroll to top"
+          @click="emitScrollEvent('Intro')"
         >
-          <li
-            v-for="(item, index) in menuItems"
-            :key="item"
-            :ref="(el) => setItemRef(el as HTMLElement | null, index)"
-            class="transition ease-in-out hover:-translate-y-1 cursor-pointer"
-            :class="{
-              'scale-110': isItemHovered(item),
-              'scale-105': isItemActive(item),
-              'menu-item': !isLargeScreen && !menuOpenedOnce,
-            }"
-            :style="{
-              '--menu-delay': `${index * 60}ms`,
-            }"
-            @mouseenter="onItemEnter(index)"
-            @mouseleave="onItemLeave(index)"
-          >
-            <NuxtLink
-              :to="menuTo[item]"
-              class="text-[var(--color-dark)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
-              :class="{
-                'text-[var(--color-primary)] underline underline-offset-8':
-                  activeSection === menuTo[item].slice(1),
-              }"
-              :prefetch="false"
-              :aria-current="
-                activeSection === menuTo[item].slice(1) ? 'page' : undefined
-              "
-              @click="handleMenuSelect(item)"
-            >
-              {{ item }}
-            </NuxtLink>
-          </li>
-        </ul>
-      </Transition>
+          <img
+            src="/img/logo.svg"
+            alt="Pachara logo"
+            loading="lazy"
+            width="64"
+            height="64"
+            class="block h-7 sm:h-9 md:h-10 w-auto transition-transform duration-200"
+          />
+        </button>
 
-      <button
-        class="min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        @click="$emit('toggle-theme')"
-      >
-        <span
-          :class="theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon'"
-          class="text-base"
-          aria-hidden="true"
-        ></span>
-        {{ theme === "dark" ? "Light" : "Dark" }}
-      </button>
+        <div
+          class="flex items-center gap-0.5 sm:gap-1 md:gap-2 flex-1 justify-end min-[1045px]:justify-center min-w-0 overflow-hidden"
+        >
+          <Transition name="menu-slide" @after-enter="markMenuOpened">
+            <ul
+              v-if="isLargeScreen || isMenuOpen"
+              id="site-menu"
+              class="flex flex-col min-[1045px]:flex-row items-center list-none p-0 space-x-0 min-[1045px]:space-x-8 gap-2 min-[1045px]:gap-0"
+              :class="{
+                'absolute top-full left-2 right-2 sm:left-4 sm:right-4 mt-3 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 shadow-[var(--shadow-soft)] z-50':
+                  !isLargeScreen,
+              }"
+              role="menubar"
+            >
+              <li
+                v-for="(item, index) in menuItems"
+                :key="item"
+                :ref="(el) => setItemRef(el, index)"
+                class="transition-all duration-200 ease-out hover:-translate-y-0.5 cursor-pointer"
+                :class="{
+                  'scale-105': isItemHovered(item),
+                  'scale-103': isItemActive(item),
+                  'menu-item': !isLargeScreen && !menuOpenedOnce,
+                }"
+                :style="{
+                  '--menu-delay': `${index * 60}ms`,
+                }"
+                role="none"
+                @mouseenter="onItemEnter(index)"
+                @mouseleave="onItemLeave(index)"
+              >
+                <NuxtLink
+                  :to="menuTo[item]"
+                  class="text-[var(--color-dark)] no-underline px-3 py-2 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] hover:bg-[var(--color-light)]/50"
+                  :class="{
+                    'text-[var(--color-primary)] font-semibold bg-[var(--color-primary)]/10':
+                      activeSection === menuTo[item].slice(1),
+                  }"
+                  :prefetch="false"
+                  :aria-current="
+                    activeSection === menuTo[item].slice(1) ? 'page' : undefined
+                  "
+                  role="menuitem"
+                  @click="handleMenuSelect(item)"
+                >
+                  {{ item }}
+                </NuxtLink>
+              </li>
+            </ul>
+          </Transition>
+        </div>
+
+        <div
+          class="flex items-center gap-0.5 sm:gap-1 md:gap-2 flex-shrink-0 mr-3 sm:mr-4 md:mr-0"
+        >
+          <button
+            v-if="!isLargeScreen"
+            type="button"
+            class="px-1.5 sm:px-2.5 md:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-xs sm:text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] active:translate-y-0 active:shadow-[1px_1px_0px_rgba(0,0,0,0.12)] transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] whitespace-nowrap flex-shrink-0"
+            :class="{
+              'scale-95': isActiveOrClicked,
+            }"
+            :aria-expanded="isMenuOpen"
+            aria-controls="site-menu"
+            aria-label="Toggle navigation menu"
+            @click="handleClick"
+          >
+            {{ isMenuOpen ? "Close" : "Menu" }}
+          </button>
+
+          <button
+            type="button"
+            class="px-1.5 sm:px-2.5 md:px-3 lg:px-4 py-1.5 sm:py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-xs sm:text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] active:translate-y-0 active:shadow-[1px_1px_0px_rgba(0,0,0,0.12)] transition-all duration-150 ease-out inline-flex items-center justify-center gap-0.5 sm:gap-1 md:gap-1.5 lg:gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] whitespace-nowrap flex-shrink-0"
+            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+            @click="$emit('toggle-theme')"
+          >
+            <span
+              :class="[
+                theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon',
+                'text-xs sm:text-sm md:text-base transition-transform duration-200 flex-shrink-0',
+                { 'rotate-90': theme === 'dark' },
+              ]"
+              aria-hidden="true"
+            ></span>
+            <span class="hidden md:inline">{{
+              theme === "dark" ? "Light" : "Dark"
+            }}</span>
+          </button>
+        </div>
+      </div>
     </div>
   </nav>
 </template>
@@ -172,7 +188,7 @@ const handleClick = () => {
   wasRecentlyClicked.value = true;
   setTimeout(() => {
     wasRecentlyClicked.value = false;
-  }, 200); // Reset after 200ms
+  }, 150); // Reset after 150ms for snappier feel
 };
 
 const markMenuOpened = () => {
@@ -189,7 +205,6 @@ const handleMenuSelect = (item: MenuItem) => {
 };
 
 const logoRef = ref(null);
-const isHovered = import.meta.client ? useElementHover(logoRef) : ref(false);
 
 const itemRefs = ref<(HTMLElement | null)[]>(menuItems.map(() => null));
 const itemHoverStates = menuItems.map((_, index) => {
@@ -197,8 +212,8 @@ const itemHoverStates = menuItems.map((_, index) => {
   return useElementHover(computed(() => itemRefs.value[index]));
 });
 
-const setItemRef = (el: HTMLElement | null, index: number) => {
-  itemRefs.value[index] = el;
+const setItemRef = (el: HTMLElement | null | Element, index: number) => {
+  itemRefs.value[index] = el as HTMLElement | null;
 };
 
 const isItemHovered = (item: MenuItem) =>
@@ -211,15 +226,19 @@ const onItemEnter = (index: number) => {
   if (!$motionAnimate || !el) return;
   $motionAnimate(
     el,
-    { scale: [1, 1.06], opacity: [0.9, 1] },
-    { duration: 0.18 },
+    { scale: [1, 1.05], opacity: [0.95, 1] },
+    { duration: 0.2, easing: [0.22, 1, 0.36, 1] },
   );
 };
 
 const onItemLeave = (index: number) => {
   const el = itemRefs.value[index];
   if (!$motionAnimate || !el) return;
-  $motionAnimate(el, { scale: [1.06, 1] }, { duration: 0.16 });
+  $motionAnimate(
+    el,
+    { scale: [1.05, 1], opacity: [1, 0.95] },
+    { duration: 0.18, easing: [0.22, 1, 0.36, 1] },
+  );
 };
 
 onMounted(() => {
@@ -265,7 +284,7 @@ if (import.meta.client) {
 
 watch(
   () => isMenuOpen.value,
-  (open) => {
+  (open: boolean) => {
     if (open) {
       menuOpenedOnce.value = false;
     }
@@ -277,20 +296,20 @@ watch(
 .menu-slide-enter-active,
 .menu-slide-leave-active {
   transition:
-    opacity 0.2s ease,
-    transform 0.2s ease;
+    opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .menu-slide-enter-from,
 .menu-slide-leave-to {
   opacity: 0;
-  transform: translateY(-6px);
+  transform: translateY(-8px);
 }
 
 .menu-item {
   opacity: 0;
   transform: translateY(-4px);
-  animation: menu-fade 0.24s ease forwards;
+  animation: menu-fade 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   animation-delay: var(--menu-delay, 0ms);
 }
 
@@ -299,5 +318,20 @@ watch(
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+/* Improve focus visibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: 0.5rem;
+}
+
+/* Smooth transitions for all interactive elements */
+button,
+a {
+  transition-property: transform, box-shadow, background-color, color;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 </style>

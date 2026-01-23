@@ -1,5 +1,7 @@
 <template>
-  <section class="px-[2rem] md:px-[3rem] lg:px-[5rem] mt-10 mb-14 pt-4">
+  <section
+    class="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 mt-10 mb-14 pt-4 max-w-full overflow-x-hidden"
+  >
     <div
       class="relative overflow-hidden rounded-3xl border-4 border-[var(--color-border)] shadow-[var(--shadow-strong)] hero-surface"
     >
@@ -21,16 +23,26 @@
       ></div>
 
       <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 lg:p-10">
-        <div class="space-y-4 lg:space-y-5">
-          <h1 class="m-0 text-3xl md:text-4xl leading-tight">
+        <div class="space-y-5 lg:space-y-6">
+          <h1
+            class="m-0 text-3xl md:text-4xl lg:text-5xl leading-tight font-bold"
+          >
             Hello there, I’m
-            <span class="text-[var(--color-primary)]">Boom</span><br />
-            a
-            <span class="bg-[var(--color-dark)] text-white px-2 py-1 rounded-md"
-              >foodie developer</span
-            >
+            <span
+              class="text-[var(--color-primary)] transition-colors duration-200"
+              >Boom</span
+            ><br />
+            <span class="inline-flex items-center gap-2 mt-2">
+              a
+              <span
+                class="bg-[var(--color-dark)] text-white px-3 py-1.5 rounded-full font-semibold text-lg md:text-xl shadow-[4px_4px_0px_rgba(0,0,0,0.12)]"
+                >foodie developer</span
+              >
+            </span>
           </h1>
-          <p class="m-0 text-gray-600 text-base md:text-lg leading-7">
+          <p
+            class="m-0 text-[var(--color-text)]/80 text-base md:text-lg lg:text-xl leading-relaxed max-w-2xl"
+          >
             I craft full-stack experiences with clean UX, modern frontends, and
             production-ready backends. From Nuxt and Next.js to FastAPI and
             cloud pipelines—shipped end-to-end.
@@ -44,7 +56,7 @@
             >
               Let’s talk
               <span
-                class="i-tabler:message-circle text-lg"
+                class="i-tabler:message-circle text-lg transition-transform duration-200 group-hover:scale-110"
                 aria-hidden="true"
               ></span>
             </NuxtLink>
@@ -53,29 +65,30 @@
               target="_blank"
               rel="noreferrer"
               :prefetch="false"
-              class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-soft)] hover:-translate-y-[2px] transition-transform duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+              class="group inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold text-sm shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] hover:bg-[var(--color-light)]/50 active:translate-y-0 active:shadow-[1px_1px_0px_rgba(0,0,0,0.12)] transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+              aria-label="Schedule a 30 minute call"
             >
-              30‑min call
+              <span>30‑min call</span>
               <span
-                class="i-tabler:calendar-event text-lg"
+                class="i-tabler:calendar-event text-lg transition-transform duration-200 group-hover:scale-110"
                 aria-hidden="true"
               ></span>
             </NuxtLink>
           </div>
 
-          <div class="flex flex-wrap gap-2 text-sm text-gray-700">
+          <div class="flex flex-wrap gap-2.5">
             <span
-              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-4 py-2 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/20 text-[var(--color-dark)] text-sm font-medium shadow-[3px_3px_0px_rgba(0,0,0,0.08)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-150 ease-out"
             >
               Nuxt / Next.js
             </span>
             <span
-              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-4 py-2 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/20 text-[var(--color-dark)] text-sm font-medium shadow-[3px_3px_0px_rgba(0,0,0,0.08)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-150 ease-out"
             >
               FastAPI / Node
             </span>
             <span
-              class="px-3 py-1 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[3px_3px_0px_rgba(0,0,0,0.06)]"
+              class="px-4 py-2 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/20 text-[var(--color-dark)] text-sm font-medium shadow-[3px_3px_0px_rgba(0,0,0,0.08)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.08)] hover:-translate-y-0.5 transition-all duration-150 ease-out"
             >
               Tailwind / UI motion
             </span>
@@ -83,22 +96,30 @@
 
           <div class="grid grid-cols-2 gap-3 sm:hidden">
             <div
-              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] transition-shadow duration-200"
             >
-              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+              <p
+                class="m-0 text-xs uppercase tracking-[0.16em] text-[var(--color-text)]/60 mb-1"
+              >
                 Projects shipped
               </p>
-              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+              <p
+                class="m-0 text-xl font-bold text-[var(--color-dark)] tabular-nums"
+              >
                 {{ totalProjects }}
               </p>
             </div>
             <div
-              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] transition-shadow duration-200"
             >
-              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+              <p
+                class="m-0 text-xs uppercase tracking-[0.16em] text-[var(--color-text)]/60 mb-1"
+              >
                 Live demos
               </p>
-              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+              <p
+                class="m-0 text-xl font-bold text-[var(--color-dark)] tabular-nums"
+              >
                 {{ liveDemos }}
               </p>
             </div>
@@ -106,22 +127,30 @@
 
           <div class="hidden sm:grid grid-cols-2 gap-3">
             <div
-              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] transition-shadow duration-200"
             >
-              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+              <p
+                class="m-0 text-xs uppercase tracking-[0.16em] text-[var(--color-text)]/60 mb-1"
+              >
                 Projects shipped
               </p>
-              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+              <p
+                class="m-0 text-xl font-bold text-[var(--color-dark)] tabular-nums"
+              >
                 {{ totalProjects }}
               </p>
             </div>
             <div
-              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-2 shadow-[var(--shadow-soft)]"
+              class="rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-3 shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] transition-shadow duration-200"
             >
-              <p class="m-0 text-xs uppercase tracking-[0.16em] text-gray-500">
+              <p
+                class="m-0 text-xs uppercase tracking-[0.16em] text-[var(--color-text)]/60 mb-1"
+              >
                 Live demos
               </p>
-              <p class="m-0 text-lg font-semibold text-[var(--color-dark)]">
+              <p
+                class="m-0 text-xl font-bold text-[var(--color-dark)] tabular-nums"
+              >
                 {{ liveDemos }}
               </p>
             </div>
@@ -193,11 +222,12 @@
                 target="_blank"
                 rel="noreferrer"
                 :prefetch="false"
-                class="inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-light)] hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-dark)] rounded"
+                class="group inline-flex items-center gap-2 text-sm font-semibold text-[var(--color-light)] hover:text-[var(--color-primary)] transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-dark)] rounded-lg px-2 py-1 hover:bg-[var(--color-primary)]/10"
+                aria-label="View SayonStream live demo"
               >
-                View live
+                <span>View live</span>
                 <span
-                  class="i-tabler:arrow-up-right text-base"
+                  class="i-tabler:arrow-up-right text-base transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
                   aria-hidden="true"
                 ></span>
               </NuxtLink>

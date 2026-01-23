@@ -123,10 +123,17 @@ const toggleTheme = () => {
   --shadow-soft: 5px 5px 0px rgba(0, 0, 0, 0.25);
 }
 
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
 body {
   background: var(--color-light);
   margin: 0;
   color: var(--color-text);
+  width: 100%;
 }
 
 .skip-link {
