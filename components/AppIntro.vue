@@ -22,15 +22,6 @@
 
       <div class="relative grid grid-cols-1 lg:grid-cols-2 gap-8 p-8 lg:p-10">
         <div class="space-y-4 lg:space-y-5">
-          <div
-            class="inline-flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--color-dark)] text-white text-xs font-semibold tracking-wide shadow-[4px_4px_0px_rgba(0,0,0,0.18)]"
-          >
-            <span
-              class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"
-              aria-hidden="true"
-            ></span>
-            Available for collaborations
-          </div>
           <h1 class="m-0 text-3xl md:text-4xl leading-tight">
             Hello there, I’m
             <span class="text-[var(--color-primary)]">Boom</span><br />

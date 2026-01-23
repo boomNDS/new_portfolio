@@ -9,7 +9,7 @@
       <button
         ref="logoRef"
         type="button"
-        class="flex items-center transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+        class="flex items-center transition ease-in-out hover:-translate-y-1 cursor-pointer rounded"
         :class="{ 'scale-105': isHovered }"
         aria-label="Scroll to top"
         @click="emitScrollEvent('Intro')"
