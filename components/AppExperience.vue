@@ -9,7 +9,7 @@
         Highlights from roles where I’ve shipped full-stack products, scaled
         platforms, and refined UX flows.
       </p>
-        <div class="flex flex-wrap items-center gap-2 pt-1">
+      <div class="flex flex-wrap items-center gap-2 pt-1">
         <p class="m-0 text-xs uppercase tracking-[0.18em] text-gray-500">
           Teams I’ve worked with
         </p>

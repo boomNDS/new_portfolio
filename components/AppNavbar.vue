@@ -111,7 +111,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick, onBeforeUnmount, watch } from "vue";
+import {
+  ref,
+  computed,
+  onMounted,
+  nextTick,
+  onBeforeUnmount,
+  watch,
+} from "vue";
 import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
 
 const isMenuOpen = ref(false);
@@ -273,7 +280,9 @@ watch(
 <style scoped>
 .menu-slide-enter-active,
 .menu-slide-leave-active {
-  transition: opacity 0.2s ease, transform 0.2s ease;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 .menu-slide-enter-from,
