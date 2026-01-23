@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="sticky top-3 z-50 mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 border-2 border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-soft)]"
+    class="sticky top-3 z-50 mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 rounded-2xl shadow-[var(--shadow-soft)]"
   >
     <div
       ref="navRef"
@@ -23,6 +23,15 @@
           class="block h-10 w-auto"
         />
       </button>
+      <div class="hidden lg:inline-flex items-center gap-2 text-xs">
+        <span
+          class="w-2 h-2 rounded-full bg-[var(--color-primary)] animate-pulse"
+          aria-hidden="true"
+        ></span>
+        <span class="font-semibold text-[var(--color-dark)]">
+          Available for collaborations
+        </span>
+      </div>
 
       <button
         v-if="!isLargeScreen"
@@ -94,19 +103,6 @@
         {{ theme === "dark" ? "Light" : "Dark" }}
       </button>
     </div>
-    <p
-      class="m-0 px-4 pb-3 text-sm text-[var(--color-text)] hidden md:flex flex-wrap justify-start gap-x-2 gap-y-1"
-    >
-      <span class="font-semibold text-[var(--color-dark)]">
-        Full-stack developer
-      </span>
-      <span class="opacity-70">·</span>
-      <span>Open to remote work</span>
-      <span class="opacity-70">·</span>
-      <span class="text-[var(--color-primary)] font-semibold">
-        Available for collaborations
-      </span>
-    </p>
   </nav>
 </template>
 
