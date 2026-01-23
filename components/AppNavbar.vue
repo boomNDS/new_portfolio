@@ -1,15 +1,15 @@
 <template>
   <nav
-    class="sticky top-0 z-50 mx-4 mt-5 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 border-2 border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-soft)]"
+    class="sticky top-3 z-50 mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 border-2 border-[var(--color-border)] rounded-2xl shadow-[var(--shadow-soft)]"
   >
     <div
       ref="navRef"
-      class="container mx-auto flex flex-col min-[1045px]:flex-row items-center justify-between gap-3 px-4 py-2"
+      class="container mx-auto flex items-center justify-between gap-3 px-4 py-2"
     >
       <button
         ref="logoRef"
         type="button"
-        class="transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+        class="flex items-center transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         :class="{ 'scale-105': isHovered }"
         aria-label="Scroll to top"
         @click="emitScrollEvent('Intro')"
@@ -18,8 +18,9 @@
           src="/img/logo.svg"
           alt="Pachara logo"
           loading="lazy"
-          width="72"
-          height="72"
+          width="64"
+          height="64"
+          class="block h-10 w-auto"
         />
       </button>
 
@@ -36,40 +37,50 @@
         Menu
       </button>
 
-      <ul
-        v-if="isLargeScreen || isMenuOpen"
-        id="site-menu"
-        class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-12 min-[1045px]:w-auto"
-      >
-        <li
-          v-for="(item, index) in menuItems"
-          :key="item"
-          :ref="(el) => setItemRef(el as HTMLElement | null, index)"
-          class="transition ease-in-out hover:-translate-y-1 cursor-pointer"
+      <Transition name="menu-slide" @after-enter="markMenuOpened">
+        <ul
+          v-if="isLargeScreen || isMenuOpen"
+          id="site-menu"
+          class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-10 min-[1045px]:w-auto"
           :class="{
-            'scale-110': isItemHovered(item),
-            'scale-105': isItemActive(item),
+            'mt-2 w-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-3 py-3 shadow-[var(--shadow-soft)]':
+              !isLargeScreen,
           }"
-          @mouseenter="onItemEnter(index)"
-          @mouseleave="onItemLeave(index)"
         >
-          <NuxtLink
-            :to="menuTo[item]"
-            class="text-[var(--color-dark)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+          <li
+            v-for="(item, index) in menuItems"
+            :key="item"
+            :ref="(el) => setItemRef(el as HTMLElement | null, index)"
+            class="transition ease-in-out hover:-translate-y-1 cursor-pointer"
             :class="{
-              'text-[var(--color-primary)] underline underline-offset-8':
-                activeSection === menuTo[item].slice(1),
+              'scale-110': isItemHovered(item),
+              'scale-105': isItemActive(item),
+              'menu-item': !isLargeScreen && !menuOpenedOnce,
             }"
-            :prefetch="false"
-            :aria-current="
-              activeSection === menuTo[item].slice(1) ? 'page' : undefined
-            "
-            @click="handleMenuSelect(item)"
+            :style="{
+              '--menu-delay': `${index * 60}ms`,
+            }"
+            @mouseenter="onItemEnter(index)"
+            @mouseleave="onItemLeave(index)"
           >
-            {{ item }}
-          </NuxtLink>
-        </li>
-      </ul>
+            <NuxtLink
+              :to="menuTo[item]"
+              class="text-[var(--color-dark)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+              :class="{
+                'text-[var(--color-primary)] underline underline-offset-8':
+                  activeSection === menuTo[item].slice(1),
+              }"
+              :prefetch="false"
+              :aria-current="
+                activeSection === menuTo[item].slice(1) ? 'page' : undefined
+              "
+              @click="handleMenuSelect(item)"
+            >
+              {{ item }}
+            </NuxtLink>
+          </li>
+        </ul>
+      </Transition>
 
       <button
         class="min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
@@ -84,7 +95,7 @@
       </button>
     </div>
     <p
-      class="m-0 px-4 pb-3 text-[11px] sm:text-sm text-[var(--color-text)] flex flex-wrap justify-center min-[1045px]:justify-start gap-x-2 gap-y-1"
+      class="m-0 px-4 pb-3 text-sm text-[var(--color-text)] hidden md:flex flex-wrap justify-start gap-x-2 gap-y-1"
     >
       <span class="font-semibold text-[var(--color-dark)]">
         Full-stack developer
@@ -100,10 +111,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, nextTick, onBeforeUnmount } from "vue";
+import { ref, computed, onMounted, nextTick, onBeforeUnmount, watch } from "vue";
 import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
 
 const isMenuOpen = ref(false);
+const menuOpenedOnce = ref(false);
 const menuItems = ["Experience", "Tech stack", "Showcase"] as const;
 const isLargeScreen = import.meta.client
   ? useMediaQuery("(min-width: 1045px)")
@@ -158,6 +170,12 @@ const handleClick = () => {
   setTimeout(() => {
     wasRecentlyClicked.value = false;
   }, 200); // Reset after 200ms
+};
+
+const markMenuOpened = () => {
+  if (!isLargeScreen.value && isMenuOpen.value) {
+    menuOpenedOnce.value = true;
+  }
 };
 
 const handleMenuSelect = (item: MenuItem) => {
@@ -241,8 +259,40 @@ if (import.meta.client) {
     }
   });
 }
+
+watch(
+  () => isMenuOpen.value,
+  (open) => {
+    if (open) {
+      menuOpenedOnce.value = false;
+    }
+  },
+);
 </script>
 
 <style scoped>
-/* Add any additional styling if needed */
+.menu-slide-enter-active,
+.menu-slide-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.menu-slide-enter-from,
+.menu-slide-leave-to {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+.menu-item {
+  opacity: 0;
+  transform: translateY(-4px);
+  animation: menu-fade 0.24s ease forwards;
+  animation-delay: var(--menu-delay, 0ms);
+}
+
+@keyframes menu-fade {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
