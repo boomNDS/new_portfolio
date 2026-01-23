@@ -5,7 +5,7 @@
 ![Node](https://img.shields.io/badge/node-24.x-43853d)
 ![Yarn](https://img.shields.io/badge/yarn-4.x-2188b6)
 
-This is my personal portfolio website built with Nuxt 3, showcasing my projects and skills.
+This is my personal portfolio website built with Nuxt 4, showcasing projects, experience, and design work.
 
 ## 🚀 Quick Start
 
@@ -20,6 +20,11 @@ This is my personal portfolio website built with Nuxt 3, showcasing my projects 
    ```
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
+## ✅ Requirements
+
+- Node.js 24.x
+- Yarn 4.x
+
 ## 🛠 Build
 
 To build for production:
@@ -28,9 +33,33 @@ To build for production:
   yarn build
 ```
 
+To generate a static build:
+
+```bash
+  yarn generate
+```
+
+To preview the production build:
+
+```bash
+  yarn preview
+```
+
+## 🧪 Testing
+
+```bash
+  yarn test
+```
+
+## 🧹 Linting
+
+```bash
+  yarn lint
+```
+
 ## 📚 Learn More
 
-- [Nuxt 3 Documentation](https://nuxt.com/docs/getting-started/introduction)
+- [Nuxt Documentation](https://nuxt.com/docs/getting-started/introduction)
 - [Deployment Guide](https://nuxt.com/docs/getting-started/deployment)
 
 ## 🤝 Contributing
