@@ -18,6 +18,18 @@
             class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
           >
             <img
+              src="/img/company/buddy_ninja_logo.jpeg"
+              alt="Buddy.ninja logo"
+              class="h-7 w-7 object-contain"
+              loading="lazy"
+              width="28"
+              height="28"
+            />
+          </div>
+          <div
+            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
+          >
+            <img
               src="/img/company/bualoi.png"
               alt="BualoiTech logo"
               class="h-7 w-7 object-contain"
@@ -170,6 +182,19 @@ interface ExperienceCard {
 }
 
 const cards = ref<ExperienceCard[]>([
+  {
+    logoSrc: "/img/company/buddy_ninja_logo.jpeg",
+    logoAlt: "Buddy.ninja logo",
+    title: "Buddy.ninja",
+    subtitle: "Software Engineer, Jul 2025 - Present (Part-Time) · Remote",
+    description:
+      "Shipped core mobile + backend features for a pet-wearables startup, improving real-time sync and product reliability.",
+    listItems: [
+      "Built Flutter apps for iOS/Android with clean UX for pet parents.",
+      "Designed scalable backend services for wearable data sync and device events.",
+      "Partnered with founders on roadmap, architecture, and engineering standards (CI/CD).",
+    ],
+  },
   {
     logoSrc: "/img/company/bualoi.png",
     logoAlt: "BualoiTech logo",
