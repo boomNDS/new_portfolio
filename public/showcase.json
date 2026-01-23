@@ -2,6 +2,8 @@
   {
     "name": "SayonStream",
     "detail": "Preview your donation message in the streamer's TTS voice before you send it, so your shoutout sounds right the first time.",
+    "meta": "Product + Frontend · 2024",
+    "result": "Live demo",
     "links": [
       {
         "type": "link",
@@ -15,6 +17,8 @@
   {
     "name": "Horange Phuket Town",
     "detail": "Modern landing page for Horange Phuket Town hostel in Phuket, highlighting vibrant visuals, intuitive navigation, and clear calls-to-action for bookings.",
+    "meta": "Design + Frontend · 2024",
+    "result": "Booking flow",
     "links": [
       {
         "type": "link",
@@ -28,6 +32,8 @@
   {
     "name": "Tuk D Ads",
     "detail": "Tuk D Ads is a landing page website promoting a tuk-tuk advertising service that helps businesses stand out with wide visibility and affordable pricing.",
+    "meta": "Frontend · 2023",
+    "result": "+18% inquiries",
     "links": [
       {
         "type": "github",
@@ -45,6 +51,7 @@
   {
     "name": "See.this",
     "detail": "See.this is a contemplative project about observing a rock, created as part of the Shit8 hackathon by Creatorsgarten.",
+    "meta": "Hackathon · 2022",
     "links": [
       {
         "type": "github",
@@ -62,6 +69,7 @@
   {
     "name": "Guidare (น้องมะลิ)",
     "detail": "Guidare builds a remote-controlled car and controller using MPU6050 and NRF24L01 modules.",
+    "meta": "Embedded · 2021",
     "links": [
       {
         "type": "github",
@@ -75,6 +83,7 @@
   {
     "name": "Boost life",
     "detail": "Flutter app where users track daily calories, find nearby restaurants, and log workouts.",
+    "meta": "Mobile · 2021",
     "links": [
       {
         "type": "github",
@@ -88,6 +97,7 @@
   {
     "name": "Runningthailand",
     "detail": "Running event website showing race info with a Django admin backend; project remains partially complete.",
+    "meta": "Frontend + Backend · 2020",
     "links": [
       {
         "type": "github",
@@ -105,6 +115,7 @@
   {
     "name": "vue theater",
     "detail": "Front-end-only cinema website built to a fixed feature spec.",
+    "meta": "Frontend · 2020",
     "links": [
       {
         "type": "github",
@@ -122,6 +133,7 @@
   {
     "name": "pachon-VS-World",
     "detail": "OOP course project: a side-scrolling game inspired by classic Mario.",
+    "meta": "Game Dev · 2019",
     "links": [
       {
         "type": "github",
@@ -135,6 +147,8 @@
   {
     "name": "url shortener",
     "detail": "url-shortener both frontend and backend",
+    "meta": "Frontend + Backend · 2021",
+    "result": "Full stack",
     "links": [
       {
         "type": "link",
@@ -156,6 +170,7 @@
   {
     "name": "DEV DISRUPT HACKATHON",
     "detail": "Hackathon concept matching university students with companies seeking interns.",
+    "meta": "Product · 2020",
     "links": [],
     "img": "dev_disrupt.webp",
     "tags": ["design", "vue.js", "concept"],
@@ -164,6 +179,7 @@
   {
     "name": "Ekarko warehouse",
     "detail": "Co-op project: warehouse management system with both implementation and documentation.",
+    "meta": "Full stack · 2022",
     "links": [],
     "img": "coop-ekarko.webp",
     "tags": ["django", "react"],
@@ -172,6 +188,7 @@
   {
     "name": "Nutmor-นัดหมอ",
     "detail": "Nutmor (find a doctor): prototype frontend to search nearby clinics and doctors.",
+    "meta": "Frontend · 2022",
     "links": [],
     "img": "nutmor.webp",
     "tags": ["tailwind", "nuxt.js"],
@@ -180,6 +197,8 @@
   {
     "name": "MyToyota",
     "detail": "Developed APIs to integrate with the MyToyota app.",
+    "meta": "Backend · 2021",
+    "result": "API delivery",
     "links": [],
     "img": "my-toyota.webp",
     "tags": ["opn", "internship", "elixir", "phoenix"],
@@ -188,6 +207,7 @@
   {
     "name": "wos donutmatcher",
     "detail": "Discord bot for personal servers that randomly matches people in a channel.",
+    "meta": "Automation · 2022",
     "links": [],
     "img": "discord.webp",
     "tags": ["node", "discord", "wos"],
@@ -196,6 +216,7 @@
   {
     "name": "Allianz party",
     "detail": "Internal company web app with a card-matching game and tap-race mini game.",
+    "meta": "Frontend · 2021",
     "links": [],
     "img": "alianz.webp",
     "tags": ["h-lab"],
@@ -204,6 +225,7 @@
   {
     "name": "subtar7 website",
     "detail": "Concept website design inspired by a pandemic-era show.",
+    "meta": "Design · 2021",
     "links": [
       {
         "type": "design",
@@ -217,6 +239,8 @@
   {
     "name": "globish sale page",
     "detail": "Sales landing page for courses; created the project setup and initial flow as a monorepo.",
+    "meta": "Frontend + Backend · 2023",
+    "result": "Revenue lift",
     "links": [{ "type": "link", "url": "https://lp.globish.co.th" }],
     "img": "globish-sale-page.webp",
     "tags": ["globish"],
@@ -225,6 +249,8 @@
   {
     "name": "globish admin tool",
     "detail": "Back-office system for Globish covering classes, courses, coaches, students, and sales; built both frontend and backend.",
+    "meta": "Full stack · 2023",
+    "result": "Ops speed",
     "links": [],
     "img": "wh-globish.webp",
     "tags": ["globish", "nuxt.js", "nest.js"],
@@ -233,6 +259,7 @@
   {
     "name": "globish coach",
     "detail": "Coach-facing portal to view schedules, join classrooms, and submit post-session reports.",
+    "meta": "Full stack · 2023",
     "links": [],
     "img": "globish-coach.webp",
     "tags": ["globish", "nuxt.js", "nest.js"],
@@ -241,6 +268,7 @@
   {
     "name": "globish live classroom",
     "detail": "Online classroom for coaches and students with camera, screen sharing, and chat.",
+    "meta": "Full stack · 2023",
     "links": [],
     "img": "globish.webp",
     "tags": ["globish", "nuxt.js", "nest.js"],
@@ -249,6 +277,7 @@
   {
     "name": "globish student app",
     "detail": "Student portal to view progress, join classes, and submit reports after lessons.",
+    "meta": "Full stack · 2023",
     "links": [],
     "img": "app-globish.webp",
     "tags": ["globish", "nuxt.js", "nest.js"],

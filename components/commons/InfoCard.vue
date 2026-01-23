@@ -1,15 +1,15 @@
 <template>
   <section
-    class="rounded max-w-[280px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4 flex flex-col h-full"
+    class="rounded max-w-[300px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4 flex flex-col h-full transition-transform duration-150 hover:-translate-y-1"
   >
     <div class="flex justify-center">
       <div
-        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[var(--color-card)] flex items-center justify-center p-3 border border-[var(--color-border)]/20"
+        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[var(--color-card)] flex items-center justify-center p-3 border border-[var(--color-border)]/20 transition-shadow duration-150 group group-hover:shadow-[var(--shadow-soft)]"
       >
         <template v-if="!mediaError && isVideo">
           <video
             id="video"
-            class="w-full h-full object-contain"
+            class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
             :src="`/img/showcase/${imageSrc}`"
             :alt="imageAlt"
             autoplay
@@ -22,7 +22,7 @@
         <template v-else-if="!mediaError">
           <img
             id="image"
-            class="w-full h-full object-contain"
+            class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
             :src="`/img/showcase/${imageSrc}`"
             :alt="imageAlt"
             loading="lazy"
@@ -43,40 +43,70 @@
         </template>
       </div>
     </div>
-    <div class="px-2 py-1 flex-1 flex flex-col gap-2">
+    <div class="px-3 py-2 flex-1 flex flex-col gap-2">
       <div class="flex flex-wrap items-start gap-2 justify-between">
-        <h3 class="m-0 p-0 font-medium text-[var(--color-dark)]">
+        <h3 class="m-0 p-0 text-[17px] font-semibold text-[var(--color-dark)]">
           {{ title }}
         </h3>
-        <NuxtLink
-          v-for="(link, index) in links"
-          :key="`link-${index}`"
-          :to="link.url"
-          target="_blank"
-          :prefetch="false"
-          :aria-label="`${title} ${link.type} link`"
-          class="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
+        <div
+          v-if="result"
+          class="px-2 py-1 rounded-full text-[11px] font-semibold bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/30"
         >
-          <div
-            class="icon"
-            :class="getIconClass(link.type)"
-            aria-hidden="true"
-          ></div>
-        </NuxtLink>
+          {{ result }}
+        </div>
       </div>
+      <p
+        v-if="meta"
+        class="m-0 text-[12px] uppercase tracking-[0.18em] text-gray-500"
+      >
+        {{ meta }}
+      </p>
       <p class="m-0 p-0 text-[14px] text-[var(--color-text)] desc">
         {{ description }}
       </p>
     </div>
     <div
-      class="flex flex-wrap gap-2 px-2 py-1 text-[13px] text-[var(--color-text)]"
+      v-if="links?.length"
+      class="px-3 pb-2 flex flex-wrap items-center gap-2"
+    >
+      <NuxtLink
+        v-for="(link, index) in links"
+        :key="`link-${index}`"
+        :to="link.url"
+        target="_blank"
+        :prefetch="false"
+        :aria-label="`${title} ${link.type} link`"
+        class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)]/20 px-2 py-1 text-xs font-semibold text-[var(--color-dark)] hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
+      >
+        <span
+          class="icon"
+          :class="getIconClass(link.type)"
+          aria-hidden="true"
+        ></span>
+        {{
+          link.type === "design"
+            ? "Design"
+            : link.type === "github"
+              ? "GitHub"
+              : "Live"
+        }}
+      </NuxtLink>
+    </div>
+    <div
+      class="flex flex-wrap gap-2 px-3 py-2 text-[13px] text-[var(--color-text)]"
     >
       <p
-        v-for="(tag, index) in tags"
+        v-for="(tag, index) in visibleTags"
         :key="`tag-${index}`"
         class="m-0 px-2 py-[2px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
       >
         #{{ tag }}
+      </p>
+      <p
+        v-if="hiddenTagCount > 0"
+        class="m-0 px-2 py-[2px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
+      >
+        +{{ hiddenTagCount }}
       </p>
     </div>
   </section>
@@ -106,6 +136,16 @@ const props = defineProps({
   description: {
     type: String,
     required: true,
+  },
+  meta: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  result: {
+    type: String,
+    required: false,
+    default: "",
   },
   tags: {
     type: Array as () => string[],
@@ -143,6 +183,11 @@ const updateHexCode = () => {
 const isVideo = computed(() => {
   return /\.(mp4|webm|ogg)$/i.test(props.imageSrc);
 });
+
+const visibleTags = computed(() => props.tags.slice(0, 3));
+const hiddenTagCount = computed(() =>
+  Math.max(0, props.tags.length - visibleTags.value.length),
+);
 
 const onMediaError = () => {
   mediaError.value = true;

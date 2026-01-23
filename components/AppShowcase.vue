@@ -29,6 +29,8 @@
         :image-src="data.img"
         :image-alt="data.name"
         :description="data.detail"
+        :meta="data.meta"
+        :result="data.result"
         :tags="data.tags"
         :links="data.links"
       />
