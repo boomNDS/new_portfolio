@@ -103,9 +103,9 @@
               class="rounded-2xl border-4 border-[var(--color-border)] bg-[var(--color-card)]/90 backdrop-blur-sm shadow-[8px_8px_0px_rgba(0,0,0,0.15)] p-5 flex items-center justify-between"
             >
               <div>
-                <p class="m-0 text-sm text-gray-500">Current</p>
+                <p class="m-0 text-sm text-gray-500">Recent</p>
                 <p class="m-0 text-lg font-semibold">BualoiTech · Full-Stack</p>
-                <p class="m-0 text-sm text-gray-600">Aug 2025 - Present</p>
+                <p class="m-0 text-sm text-gray-600">Aug 2025 - Jan 2026</p>
               </div>
               <span
                 class="i-tabler:sparkles text-2xl text-[var(--color-primary)] animate-pulse"

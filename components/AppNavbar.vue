@@ -4,24 +4,31 @@
       ref="navRef"
       class="container mx-auto flex flex-col min-[1045px]:flex-row items-end min-[1045px]:items-center justify-between relative"
     >
-      <img
+      <button
         ref="logoRef"
-        src="/img/logo.svg"
-        alt="Pachara logo"
-        class="absolute left-0 transition ease-in-out hover:-translate-y-1 cursor-pointer"
+        type="button"
+        class="absolute left-0 transition ease-in-out hover:-translate-y-1 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
         :class="{ 'scale-105': isHovered }"
-        loading="lazy"
-        width="96"
-        height="auto"
+        aria-label="Scroll to top"
         @click="emitScrollEvent('Intro')"
-      />
+      >
+        <img
+          src="/img/logo.svg"
+          alt="Pachara logo"
+          loading="lazy"
+          width="96"
+          height="auto"
+        />
+      </button>
 
       <button
         v-if="!isLargeScreen"
-        class="focus:outline-none rounded ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)]"
+        class="rounded ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.9)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
         :class="{
           'scale-92': isActiveOrClicked,
         }"
+        :aria-expanded="isMenuOpen"
+        aria-controls="site-menu"
         @click="handleClick"
       >
         Menu
@@ -29,6 +36,7 @@
 
       <ul
         v-if="isLargeScreen || isMenuOpen"
+        id="site-menu"
         class="flex flex-col min-[1045px]:flex-row items-center justify-center w-full list-none p-0 space-x-0 min-[1045px]:space-x-12"
       >
         <li
@@ -42,11 +50,12 @@
           }"
           @mouseenter="onItemEnter(index)"
           @mouseleave="onItemLeave(index)"
-          @click="emitScrollEvent(item)"
         >
           <NuxtLink
-            class="text-[var(--color-dark)] no-underline"
+            :to="menuTo[item]"
+            class="text-[var(--color-dark)] no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
             :prefetch="false"
+            @click="handleMenuSelect(item)"
           >
             {{ item }}
           </NuxtLink>
@@ -54,7 +63,7 @@
       </ul>
 
       <button
-        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2"
+        class="mt-2 min-[1045px]:mt-0 ml-auto min-[1045px]:ml-4 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] transition-transform duration-150 inline-flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
         @click="$emit('toggle-theme')"
       >
         <span
@@ -102,6 +111,12 @@ const emitScrollEvent = (item: MenuItem | "Intro") => {
   emit("scroll-to-section", sectionMap[item]);
 };
 
+const menuTo: Record<MenuItem, string> = {
+  Experience: "#experience",
+  "Tech stack": "#tech_stack",
+  Showcase: "#showcase",
+};
+
 const activeElement = import.meta.client ? useActiveElement() : ref(null);
 const wasRecentlyClicked = ref(false);
 
@@ -118,6 +133,13 @@ const handleClick = () => {
   setTimeout(() => {
     wasRecentlyClicked.value = false;
   }, 200); // Reset after 200ms
+};
+
+const handleMenuSelect = (item: MenuItem) => {
+  emitScrollEvent(item);
+  if (!isLargeScreen.value) {
+    isMenuOpen.value = false;
+  }
 };
 
 const logoRef = ref(null);
@@ -164,6 +186,14 @@ onMounted(() => {
     );
   });
 });
+
+if (import.meta.client) {
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      isMenuOpen.value = false;
+    }
+  });
+}
 </script>
 
 <style scoped>

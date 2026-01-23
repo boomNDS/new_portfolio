@@ -113,7 +113,7 @@ const cards = ref<ExperienceCard[]>([
     logoSrc: "/img/company/bualoi.png",
     logoAlt: "BualoiTech logo",
     title: "BualoiTech",
-    subtitle: "Full-Stack, Aug 2025 - Current (Full-Time)",
+    subtitle: "Full-Stack, Aug 2025 - Jan 2026 (Full-Time)",
     description:
       "Building full-stack products and platform capabilities with a focus on modern web stacks, API integrations, and cloud deployments.",
     listItems: [

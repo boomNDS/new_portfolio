@@ -32,7 +32,7 @@
 - Prefer fast, focused tests; keep smoke coverage for core routes/components.
 
 ## Commit & Pull Request Guidelines
-- Commit messages follow Conventional Commits (e.g., `fix: ...`, `chore: ...`).
+- Commit messages follow Conventional Commits 1.0.0-beta.4 (e.g., `fix: ...`, `chore: ...`).
 - PRs should include a clear description, scope of changes, and testing notes.
 - For UI changes, attach before/after screenshots or a short clip.
 - Link related issues (e.g., “Closes #123”) when applicable.
