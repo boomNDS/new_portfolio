@@ -1,11 +1,17 @@
 <script setup lang="ts">
-import showcaseData from "~/public/showcase.json";
+import { useAnimate, useInView } from "motion-v";
+import showcaseJson from "~/public/showcase.json";
 import type { Project, ProjectCategory } from "~/types";
-import { useMotionPreference } from "#imports";
+
+const showcaseData = showcaseJson as Project[];
 
 // Composables
 const prefersReducedMotion = useMotionPreference();
-const { $motionAnimate, $motionInView } = useNuxtApp();
+const [scope, animate] = useAnimate();
+const scopeEl = computed<HTMLElement | null>(
+  () => (scope.value as HTMLElement | null) ?? null,
+);
+const gridInView = useInView(scopeEl);
 const route = useRoute();
 const router = useRouter();
 
@@ -22,10 +28,10 @@ const PAGE_SIZE = 8;
 // State
 const selected = ref<ProjectCategory>("all");
 const page = ref(1);
-const gridRef = ref<HTMLElement | null>(null);
+const gridAnimated = ref(false);
 
 // Computed
-const filteredProjects = computed<Project[]>(() => {
+const filteredProjects = computed(() => {
   if (selected.value === "all") return showcaseData;
   if (selected.value === "other") {
     return showcaseData.filter(
@@ -39,44 +45,46 @@ const totalPages = computed(() =>
   Math.max(1, Math.ceil(filteredProjects.value.length / PAGE_SIZE)),
 );
 
-const _paginatedProjects = computed(() => {
+const paginatedProjects = computed(() => {
   const start = (page.value - 1) * PAGE_SIZE;
   return filteredProjects.value.slice(start, start + PAGE_SIZE);
 });
 
 // Methods
-const _handleFilterChange = (category: ProjectCategory) => {
+const handleFilterChange = (category: ProjectCategory) => {
   selected.value = category;
   page.value = 1;
 };
 
-const _nextPage = () => {
+const nextPage = () => {
   if (page.value < totalPages.value) page.value++;
 };
 
-const _prevPage = () => {
+const prevPage = () => {
   if (page.value > 1) page.value--;
 };
 
 // Animation
 const animateGrid = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  const cards = gridRef.value?.querySelectorAll(".project-card");
+  if (gridAnimated.value) return;
+
+  const cards = scope.value?.querySelectorAll<HTMLElement>(".project-card");
   if (!cards) return;
 
   cards.forEach((card, index) => {
-    $motionInView(
+    void animate(
       card,
-      () =>
-        $motionAnimate(
-          card,
-          { opacity: [0, 1], y: [20, 0] },
-          { duration: 0.4, delay: (index % 4) * 0.05, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.2, once: true },
+      { opacity: [0, 1], y: [20, 0] } as Parameters<typeof animate>[1],
+      {
+        duration: 0.4,
+        delay: (index % 4) * 0.05,
+        ease: [0.22, 1, 0.36, 1],
+      } as Parameters<typeof animate>[2],
     );
   });
+  gridAnimated.value = true;
 };
 
 // URL sync
@@ -104,17 +112,30 @@ onMounted(() => {
     page.value = Math.min(pageParam, totalPages.value);
   }
 
-  nextTick(animateGrid);
+  if (gridInView.value) {
+    nextTick(animateGrid);
+  }
 });
 
 // Re-animate on filter/page change
 watch([selected, page], () => {
+  gridAnimated.value = false;
   nextTick(animateGrid);
+});
+
+watch(gridInView, (inView) => {
+  if (inView) {
+    nextTick(animateGrid);
+  }
 });
 </script>
 
 <template>
-  <section id="showcase" class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <section
+    id="showcase"
+    ref="scope"
+    class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
+  >
     <div class="max-w-7xl mx-auto">
       <!-- Section Header -->
       <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
@@ -165,7 +186,6 @@ watch([selected, page], () => {
       <!-- Projects Grid -->
       <div
         v-if="paginatedProjects.length"
-        ref="gridRef"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
       >
         <CommonsInfoCard

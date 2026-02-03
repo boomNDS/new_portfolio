@@ -18,7 +18,7 @@ export default defineNuxtConfig({
     "@unocss/nuxt",
     "dayjs-nuxt",
     "@nuxt/content",
-    "@vueuse/motion/nuxt",
+    "motion-v/nuxt",
   ],
 
   robots: {
@@ -52,7 +52,6 @@ export default defineNuxtConfig({
     public: {},
   },
 
-  plugins: ["~/plugins/motion.client.ts"],
   compatibilityDate: "2024-12-06",
 
   nitro: {

@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import { useMotionPreference } from "#imports";
-
 // Composables
 const { y } = useWindowScroll();
 const prefersReducedMotion = useMotionPreference();
 
 // State
-const _isVisible = computed(() => y.value > 300);
+const isVisible = computed(() => y.value > 300);
 const isAnimating = ref(false);
 
 // Methods
-const _scrollToTop = () => {
+const scrollToTop = () => {
   isAnimating.value = true;
   window.scrollTo({
     top: 0,

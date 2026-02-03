@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useScrollTo, useTheme } from "#imports";
-
 // Composables
 const { theme, toggleTheme } = useTheme();
 const { scrollToSection } = useScrollTo();

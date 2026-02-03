@@ -7,7 +7,7 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const _lastUsedLabel = computed(() => (props.lastUsed ? `Used ${props.lastUsed}` : ""));
+const lastUsedLabel = computed(() => (props.lastUsed ? `Used ${props.lastUsed}` : ""));
 </script>
 
 <template>

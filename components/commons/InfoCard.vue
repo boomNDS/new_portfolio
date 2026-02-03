@@ -17,10 +17,10 @@ const props = defineProps<Props>();
 
 // State
 const mediaError = ref(false);
-const _isHovered = ref(false);
+const isHovered = ref(false);
 
 // Computed
-const _isVideo = computed(() => /\.(mp4|webm|ogg)$/i.test(props.imageSrc));
+const isVideo = computed(() => /\.(mp4|webm|ogg)$/i.test(props.imageSrc));
 
 const visibleTags = computed(() => {
   // Show fewer tags on smaller screens
@@ -28,16 +28,16 @@ const visibleTags = computed(() => {
   return props.tags.slice(0, isMobile ? 2 : 3);
 });
 
-const _hiddenTagCount = computed(() => Math.max(0, props.tags.length - visibleTags.value.length));
+const hiddenTagCount = computed(() => Math.max(0, props.tags.length - visibleTags.value.length));
 
-const _hasLinks = computed(() => props.links?.length > 0);
+const hasLinks = computed(() => props.links?.length > 0);
 
-const _primaryLink = computed(() =>
+const primaryLink = computed(() =>
   props.links?.find((l) => l.type === "link" || l.type === "github"),
 );
 
 // Methods
-const _getIconClass = (type: string): string => {
+const getIconClass = (type: string): string => {
   switch (type) {
     case "github":
       return "i-tabler:brand-github";
@@ -48,7 +48,7 @@ const _getIconClass = (type: string): string => {
   }
 };
 
-const _getLinkLabel = (type: string): string => {
+const getLinkLabel = (type: string): string => {
   switch (type) {
     case "github":
       return "GitHub";
@@ -59,7 +59,7 @@ const _getLinkLabel = (type: string): string => {
   }
 };
 
-const _onMediaError = () => {
+const onMediaError = () => {
   mediaError.value = true;
 };
 </script>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { useAnimate, useInView } from "motion-v";
 import type { MenuItem, SectionId, Theme } from "~/types";
-import { useMotionPreference } from "#imports";
 
 // Props & Emits
 defineProps<{
@@ -13,7 +13,7 @@ const emit = defineEmits<{
 }>();
 
 // Constants
-const _MENU_ITEMS: MenuItem[] = ["Experience", "Tech stack", "Showcase"];
+const MENU_ITEMS = ["Experience", "Tech stack", "Showcase"] as const satisfies readonly MenuItem[];
 const SECTION_MAP: Record<MenuItem | "Intro", SectionId> = {
   Intro: "intro",
   Experience: "experience",
@@ -22,30 +22,32 @@ const SECTION_MAP: Record<MenuItem | "Intro", SectionId> = {
 };
 
 // Composables
-const { $motionAnimate, $motionInView } = useNuxtApp();
 const reducedMotion = useMotionPreference();
 const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+const [navScope, animate] = useAnimate();
+const navScopeEl = computed<HTMLElement | null>(
+  () => (navScope.value as HTMLElement | null) ?? null,
+);
+const navInView = useInView(navScopeEl);
 
 // State
 const isMenuOpen = ref(false);
 const hasMenuOpened = ref(false);
 const activeSection = ref<SectionId>("intro");
-const navRef = ref<HTMLElement | null>(null);
-const itemRefs = ref<(HTMLElement | null)[]>([]);
-const _logoRef = ref<HTMLElement | null>(null);
+const navItemsAnimated = ref(false);
 
 // Intersection Observer for active section
 let sectionObserver: IntersectionObserver | null = null;
 
 // Computed
-const _menuAriaLabel = computed(() => (isMenuOpen.value ? "Close menu" : "Open menu"));
+const menuAriaLabel = computed(() => (isMenuOpen.value ? "Close menu" : "Open menu"));
 
 // Methods
 const scrollToSection = (item: MenuItem | "Intro") => {
   emit("scroll-to-section", SECTION_MAP[item]);
 };
 
-const _handleMenuToggle = () => {
+const handleMenuToggle = () => {
   isMenuOpen.value = !isMenuOpen.value;
   if (isMenuOpen.value) {
     hasMenuOpened.value = false;
@@ -58,46 +60,45 @@ const _handleMenuToggle = () => {
   }
 };
 
-const _handleMenuSelect = (item: MenuItem) => {
+const handleMenuSelect = (item: MenuItem) => {
   scrollToSection(item);
   if (!isLargeScreen.value) {
     isMenuOpen.value = false;
   }
 };
 
-const _setItemRef = (el: HTMLElement | null | Element, index: number) => {
-  if (el) {
-    itemRefs.value[index] = el as HTMLElement;
-  }
-};
+const isActiveSection = (item: MenuItem) => activeSection.value === SECTION_MAP[item];
 
 // Animations
 const animateNavItems = () => {
-  if (reducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (reducedMotion.value === "reduce" || navItemsAnimated.value) return;
+  const scopeEl = navScope.value;
+  if (!scopeEl) return;
 
-  itemRefs.value.forEach((el, index) => {
-    if (!el) return;
-    $motionInView(
+  const items = scopeEl.querySelectorAll<HTMLElement>("[data-nav-item]");
+  items.forEach((el, index) => {
+    void animate(
       el,
-      () =>
-        $motionAnimate(
-          el,
-          { opacity: [0, 1], y: [-8, 0] },
-          { duration: 0.3, delay: index * 0.05, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.5, once: true },
+      { opacity: [0, 1], y: [-8, 0] } as Parameters<typeof animate>[1],
+      {
+        duration: 0.3,
+        delay: index * 0.05,
+        ease: [0.22, 1, 0.36, 1],
+      } as Parameters<typeof animate>[2],
     );
   });
+  navItemsAnimated.value = true;
 };
 
 // Lifecycle
 onMounted(() => {
   // Nav entrance animation
-  if ($motionAnimate && navRef.value && reducedMotion.value !== "reduce") {
-    $motionAnimate(
-      navRef.value,
-      { opacity: [0, 1], y: [-12, 0] },
-      { duration: 0.4, easing: [0.22, 1, 0.36, 1] },
+  const navEl = navScope.value;
+  if (navEl && reducedMotion.value !== "reduce") {
+    animate(
+      navEl,
+      { opacity: [0, 1], y: [-12, 0] } as Parameters<typeof animate>[1],
+      { duration: 0.4, ease: [0.22, 1, 0.36, 1] } as Parameters<typeof animate>[2],
     );
   }
 
@@ -118,11 +119,13 @@ onMounted(() => {
       },
       { rootMargin: "-20% 0px -60% 0px", threshold: [0.2, 0.4, 0.6] },
     );
-    sections.forEach((section) => sectionObserver.observe(section));
+    sections.forEach((section) => sectionObserver?.observe(section));
   }
 
   // Initial animation
-  nextTick(animateNavItems);
+  if (navInView.value) {
+    nextTick(animateNavItems);
+  }
 });
 
 onBeforeUnmount(() => {
@@ -142,11 +145,17 @@ watch(isLargeScreen, (isLarge) => {
     isMenuOpen.value = false;
   }
 });
+
+watch(navInView, (inView) => {
+  if (inView) {
+    nextTick(animateNavItems);
+  }
+});
 </script>
 
 <template>
   <nav
-    ref="navRef"
+    ref="navScope"
     class="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 lg:px-6 py-3"
     role="navigation"
     aria-label="Main navigation"
@@ -179,21 +188,20 @@ watch(isLargeScreen, (isLarge) => {
 
         <!-- Desktop Navigation -->
         <ul class="hidden lg:flex items-center gap-1" role="menubar">
-          <li v-for="(item, index) in MENU_ITEMS" :key="item" role="none">
+          <li v-for="item in MENU_ITEMS" :key="item" role="none">
             <button
-              :ref="(el) => setItemRef(el, index)"
+              data-nav-item
               type="button"
               role="menuitem"
               class="relative cursor-pointer px-4 py-2 rounded-lg text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
               :class="{
-                'text-[var(--color-primary)]':
-                  activeSection === SECTION_MAP[item],
+                'text-[var(--color-primary)]': isActiveSection(item),
               }"
               @click="handleMenuSelect(item)"
             >
               {{ item }}
               <span
-                v-if="activeSection === SECTION_MAP[item]"
+                v-if="isActiveSection(item)"
                 class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-primary)]"
               />
             </button>
@@ -271,7 +279,7 @@ watch(isLargeScreen, (isLarge) => {
                 class="w-full text-left cursor-pointer px-4 py-3 rounded-xl text-base font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                 :class="{
                   'text-[var(--color-primary)] bg-[var(--color-primary)]/5':
-                    activeSection === SECTION_MAP[item],
+                    isActiveSection(item),
                 }"
                 @click="handleMenuSelect(item)"
               >

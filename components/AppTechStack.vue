@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { useMotionPreference } from "#imports";
-
+import { useAnimate, useInView } from "motion-v";
 // Composables
 const prefersReducedMotion = useMotionPreference();
-const { $motionAnimate, $motionInView } = useNuxtApp();
+const [scope, animate] = useAnimate();
+const scopeEl = computed<HTMLElement | null>(
+  () => (scope.value as HTMLElement | null) ?? null,
+);
+const sectionInView = useInView(scopeEl);
 const dayjs = useDayjs();
 
 // Tech stack data - organized by category
@@ -75,35 +78,50 @@ const _allTechs = computed(() =>
 );
 
 // Animation
-const gridRef = ref<HTMLElement | null>(null);
+const gridAnimated = ref(false);
 
 const animateGrid = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  const items = gridRef.value?.querySelectorAll(".tech-card");
+  if (gridAnimated.value) return;
+  const items = scope.value?.querySelectorAll<HTMLElement>(".tech-card");
   if (!items) return;
 
   items.forEach((item, index) => {
-    $motionInView(
+    void animate(
       item,
-      () =>
-        $motionAnimate(
-          item,
-          { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] },
-          { duration: 0.35, delay: (index % 8) * 0.03, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.2, once: true },
+      { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<
+        typeof animate
+      >[1],
+      {
+        duration: 0.35,
+        delay: (index % 8) * 0.03,
+        ease: [0.22, 1, 0.36, 1],
+      } as Parameters<typeof animate>[2],
     );
   });
+  gridAnimated.value = true;
 };
 
 onMounted(() => {
-  nextTick(animateGrid);
+  if (sectionInView.value) {
+    nextTick(animateGrid);
+  }
+});
+
+watch(sectionInView, (inView) => {
+  if (inView) {
+    nextTick(animateGrid);
+  }
 });
 </script>
 
 <template>
-  <section id="tech_stack" class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <section
+    id="tech_stack"
+    ref="scope"
+    class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
+  >
     <div class="max-w-6xl mx-auto">
       <!-- Section Header -->
       <div class="mb-10 sm:mb-12">
@@ -126,7 +144,7 @@ onMounted(() => {
       </div>
 
       <!-- Tech Grid by Category -->
-      <div ref="gridRef" class="space-y-8 sm:space-y-10">
+      <div class="space-y-8 sm:space-y-10">
         <div
           v-for="category in techCategories"
           :key="category.name"

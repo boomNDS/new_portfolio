@@ -1,26 +1,30 @@
 <script setup lang="ts">
+import { useAnimate, useInView } from "motion-v";
 import showcaseData from "~/public/showcase.json";
-import { useMotionPreference } from "#imports";
 
 // Composables
 const prefersReducedMotion = useMotionPreference();
-const { $motionAnimate, $motionInView } = useNuxtApp();
+const [scope, animate] = useAnimate();
+const scopeEl = computed<HTMLElement | null>(
+  () => (scope.value as HTMLElement | null) ?? null,
+);
+const sectionInView = useInView(scopeEl);
+const sectionAnimated = ref(false);
 
 // Stats
-const _totalProjects = computed(() => showcaseData.length);
-const _liveDemos = computed(() =>
-  showcaseData.reduce(
-    (count, item) =>
-      count +
-      (item.links?.filter(
-        (link: { type: string; url: string }) => link.url && link.type !== "design",
-      ).length || 0),
-    0,
-  ),
+const totalProjects = computed(() => showcaseData.length);
+const liveDemos = computed(() =>
+  showcaseData.reduce((count, item) => {
+    const links = item.links ?? [];
+    const demoCount = links.filter(
+      (link: { type: string; url: string }) => link.url && link.type !== "design",
+    ).length;
+    return count + demoCount;
+  }, 0),
 );
 
 // Featured items
-const _featuredItems = [
+const featuredItems = [
   {
     type: "recent",
     title: "Buddy.ninja",
@@ -42,75 +46,82 @@ const _featuredItems = [
     subtitle: "Payment APIs & automation",
     icon: "i-tabler:credit-card",
   },
-];
+] as const;
 
-// Animation refs
-const heroRef = ref<HTMLElement | null>(null);
-const contentRef = ref<HTMLElement | null>(null);
-const cardsRef = ref<HTMLElement | null>(null);
+const [featuredCurrent, featuredRecent, featuredAchievement] = featuredItems;
 
 // Animation handlers
 const animateHero = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  if (heroRef.value) {
-    $motionAnimate(
-      heroRef.value,
-      { opacity: [0, 1], y: [20, 0] },
-      { duration: 0.5, easing: [0.22, 1, 0.36, 1] },
+  const heroEl = scope.value;
+  if (heroEl) {
+    animate(
+      heroEl,
+      { opacity: [0, 1], y: [20, 0] } as Parameters<typeof animate>[1],
+      { duration: 0.5, ease: [0.22, 1, 0.36, 1] } as Parameters<typeof animate>[2],
     );
   }
 };
 
 const animateContent = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  if (contentRef.value) {
-    $motionInView(
-      contentRef.value,
-      () =>
-        $motionAnimate(
-          contentRef.value,
-          { opacity: [0, 1], y: [16, 0] },
-          { duration: 0.4, delay: 0.1, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.3, once: true },
+  const contentEl = scope.value?.querySelector<HTMLElement>("[data-motion='intro-content']");
+  if (contentEl) {
+    void animate(
+      contentEl,
+      { opacity: [0, 1], y: [16, 0] } as Parameters<typeof animate>[1],
+      { duration: 0.4, delay: 0.1, ease: [0.22, 1, 0.36, 1] } as Parameters<typeof animate>[2],
     );
   }
 };
 
 const animateCards = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  const cards = cardsRef.value?.children;
+  const cards = scope.value?.querySelectorAll<HTMLElement>(".intro-card");
   if (!cards) return;
 
-  Array.from(cards).forEach((card, index) => {
-    $motionInView(
+  cards.forEach((card, index) => {
+    void animate(
       card,
-      () =>
-        $motionAnimate(
-          card,
-          { opacity: [0, 1], y: [20, 0] },
-          { duration: 0.4, delay: 0.1 + index * 0.08, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.3, once: true },
+      { opacity: [0, 1], y: [20, 0] } as Parameters<typeof animate>[1],
+      {
+        duration: 0.4,
+        delay: 0.1 + index * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      } as Parameters<typeof animate>[2],
     );
   });
 };
 
 onMounted(() => {
+  if (sectionInView.value) {
+    nextTick(() => {
+      if (sectionAnimated.value) return;
+      animateHero();
+      animateContent();
+      animateCards();
+      sectionAnimated.value = true;
+    });
+  }
+});
+
+watch(sectionInView, (inView) => {
+  if (!inView || sectionAnimated.value) return;
   nextTick(() => {
     animateHero();
     animateContent();
     animateCards();
+    sectionAnimated.value = true;
   });
 });
 </script>
 
 <template>
   <section
-    ref="heroRef"
+    ref="scope"
     class="relative min-h-[90vh] pt-24 sm:pt-28 lg:pt-32 pb-12 sm:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-8 xl:px-12"
   >
     <!-- Background decoration -->
@@ -130,7 +141,7 @@ onMounted(() => {
       class="relative max-w-7xl mx-auto grid lg:grid-cols-2 gap-8 lg:gap-12 items-start"
     >
       <!-- Left Column - Main Content -->
-      <div ref="contentRef" class="space-y-6 sm:space-y-8">
+      <div data-motion="intro-content" class="space-y-6 sm:space-y-8">
         <!-- Badge -->
         <div
           class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--color-primary)]/10 border border-[var(--color-primary)]/20 text-[var(--color-primary)] text-xs sm:text-sm font-medium"
@@ -213,33 +224,33 @@ onMounted(() => {
       </div>
 
       <!-- Right Column - Featured Cards -->
-      <div ref="cardsRef" class="space-y-4 lg:space-y-5">
+      <div class="space-y-4 lg:space-y-5">
         <!-- Current Role Card -->
-        <div class="group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
+        <div class="intro-card group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
           <div class="flex items-start justify-between">
             <div>
               <div class="flex items-center gap-2 mb-2">
                 <span class="w-2 h-2 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
                 <span class="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Current Role</span>
               </div>
-              <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)]">{{ featuredItems[0].title }}</h3>
-              <p class="text-sm text-[var(--color-text)]">{{ featuredItems[0].subtitle }}</p>
-              <p class="text-xs text-[var(--color-text-muted)] mt-1">{{ featuredItems[0].period }}</p>
+              <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)]">{{ featuredCurrent.title }}</h3>
+              <p class="text-sm text-[var(--color-text)]">{{ featuredCurrent.subtitle }}</p>
+              <p class="text-xs text-[var(--color-text-muted)] mt-1">{{ featuredCurrent.period }}</p>
             </div>
             <span class="i-tabler:sparkles text-2xl sm:text-3xl text-[var(--color-primary)]" aria-hidden="true" />
           </div>
         </div>
 
         <!-- Recent Work Card -->
-        <div class="group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-dark)] text-[var(--color-light)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
+        <div class="intro-card group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-dark)] text-[var(--color-light)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
           <div class="flex items-center gap-2 mb-3">
             <span class="i-tabler:rocket text-lg text-[var(--color-primary)]" aria-hidden="true" />
             <span class="text-xs uppercase tracking-wider text-[var(--color-light)]/70">Recent Work</span>
           </div>
-          <h3 class="text-lg sm:text-xl font-semibold mb-2">{{ featuredItems[1].title }}</h3>
-          <p class="text-sm text-[var(--color-light)]/80 mb-4">{{ featuredItems[1].subtitle }}</p>
+          <h3 class="text-lg sm:text-xl font-semibold mb-2">{{ featuredRecent.title }}</h3>
+          <p class="text-sm text-[var(--color-light)]/80 mb-4">{{ featuredRecent.subtitle }}</p>
           <NuxtLink
-            :to="featuredItems[1].link"
+            :to="featuredRecent.link"
             class="inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--color-primary)] hover:text-[var(--color-accent)] transition-colors"
           >
             View details
@@ -248,12 +259,12 @@ onMounted(() => {
         </div>
 
         <!-- Achievement Card -->
-        <div class="group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
+        <div class="intro-card group rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4 sm:p-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-[var(--shadow-strong)]">
           <div class="flex items-start justify-between">
             <div>
               <span class="text-xs uppercase tracking-wider text-[var(--color-text-muted)]">Key Achievement</span>
-              <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)] mt-1">{{ featuredItems[2].title }}</h3>
-              <p class="text-sm text-[var(--color-text)]">{{ featuredItems[2].subtitle }}</p>
+              <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)] mt-1">{{ featuredAchievement.title }}</h3>
+              <p class="text-sm text-[var(--color-text)]">{{ featuredAchievement.subtitle }}</p>
             </div>
             <span class="i-tabler:credit-card text-2xl sm:text-3xl text-[var(--color-primary)]" aria-hidden="true" />
           </div>

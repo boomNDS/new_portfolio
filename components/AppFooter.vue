@@ -1,9 +1,9 @@
 <script setup lang="ts">
 // Get current year
-const _currentYear = computed(() => new Date().getFullYear());
+const currentYear = computed(() => new Date().getFullYear());
 
 // Social links
-const _socialLinks = [
+const socialLinks = [
   {
     name: "LinkedIn",
     url: "https://www.linkedin.com/in/pachara-sriyodwieng-2a9503149",
@@ -23,7 +23,7 @@ const _socialLinks = [
 ];
 
 // Quick links
-const _quickLinks = [
+const quickLinks = [
   { name: "Experience", href: "#experience" },
   { name: "Tech Stack", href: "#tech_stack" },
   { name: "Showcase", href: "#showcase" },

@@ -1,10 +1,14 @@
 <script setup lang="ts">
+import { useAnimate, useInView } from "motion-v";
 import type { Experience, ParsedExperience } from "~/types";
-import { useMotionPreference } from "#imports";
 
 // Composables
 const prefersReducedMotion = useMotionPreference();
-const { $motionAnimate, $motionInView } = useNuxtApp();
+const [scope, animate] = useAnimate();
+const scopeEl = computed<HTMLElement | null>(
+  () => (scope.value as HTMLElement | null) ?? null,
+);
+const sectionInView = useInView(scopeEl);
 
 // Experience data - Merged old details with new concise format
 const experiences = ref<Experience[]>([
@@ -104,7 +108,7 @@ const experiences = ref<Experience[]>([
 ]);
 
 // Company logos for quick view
-const _companyLogos = [
+const companyLogos = [
   { src: "/img/company/buddy_ninja_logo.jpeg", alt: "Buddy.ninja" },
   { src: "/img/company/bualoi.png", alt: "BualoiTech" },
   { src: "/img/company/skuberg_logo.jpeg", alt: "Skuberg" },
@@ -115,7 +119,7 @@ const _companyLogos = [
 ];
 
 // Tech stack tags for each experience
-const _techStacks: Record<string, string[]> = {
+const techStacks: Record<string, string[]> = {
   "Buddy.ninja": ["Flutter", "IoT", "AWS", "CI/CD"],
   BualoiTech: ["Next.js", "TypeScript", "Tailwind", "FastAPI", "Hono", "Firebase", "GCP", "Docker"],
   Skuberg: ["Vue.js", "React", "Elysia.js", "Node.js", "DigitalOcean", "CapRover", "KBank APIs"],
@@ -126,7 +130,7 @@ const _techStacks: Record<string, string[]> = {
 };
 
 // Parse experience data
-const _parsedExperiences = computed<ParsedExperience[]>(() =>
+const parsedExperiences = computed<ParsedExperience[]>(() =>
   experiences.value.map((exp) => {
     const [rolePart, ...rest] = exp.subtitle.split(",");
     const timeframe = rest.join(",").trim();
@@ -142,36 +146,48 @@ const _parsedExperiences = computed<ParsedExperience[]>(() =>
 );
 
 // Animation
-const _sectionRef = ref<HTMLElement | null>(null);
 const timelineRef = ref<HTMLElement | null>(null);
+const sectionAnimated = ref(false);
 
 const animateSection = () => {
-  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+  if (prefersReducedMotion.value === "reduce") return;
 
-  const items = timelineRef.value?.querySelectorAll(".timeline-item");
+  if (sectionAnimated.value) return;
+  const items = scope.value?.querySelectorAll<HTMLElement>(".timeline-item");
   if (!items) return;
 
   items.forEach((item, index) => {
-    $motionInView(
+    void animate(
       item,
-      () =>
-        $motionAnimate(
-          item,
-          { opacity: [0, 1], x: [-20, 0] },
-          { duration: 0.4, delay: index * 0.08, easing: [0.22, 1, 0.36, 1] },
-        ),
-      { amount: 0.2, once: true },
+      { opacity: [0, 1], x: [-20, 0] } as Parameters<typeof animate>[1],
+      {
+        duration: 0.4,
+        delay: index * 0.08,
+        ease: [0.22, 1, 0.36, 1],
+      } as Parameters<typeof animate>[2],
     );
   });
+  sectionAnimated.value = true;
 };
 
 onMounted(() => {
-  nextTick(animateSection);
+  if (sectionInView.value) {
+    nextTick(animateSection);
+  }
+});
+
+watch(sectionInView, (inView) => {
+  if (inView) {
+    nextTick(animateSection);
+  }
 });
 </script>
 
 <template>
-  <section ref="sectionRef" class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+  <section
+    ref="scope"
+    class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
+  >
     <div class="max-w-5xl mx-auto">
       <!-- Section Header -->
       <div class="mb-10 sm:mb-12">
