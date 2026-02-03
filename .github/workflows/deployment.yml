@@ -33,12 +33,18 @@ jobs:
       - name: Enable Corepack (Yarn 4)
         run: corepack enable
 
+      - name: Setup Biome CLI
+        uses: biomejs/setup-biome@v2
+        with:
+          version: 2.3.13
+
       - name: Build
         run: |
           yarn install --immutable
           yarn --version
           yarn biome --version
-          yarn lint
+          biome --version
+          biome ci .
           yarn build
           yarn generate
 
