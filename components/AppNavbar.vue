@@ -35,6 +35,8 @@ const isMenuOpen = ref(false);
 const hasMenuOpened = ref(false);
 const activeSection = ref<SectionId>("intro");
 const navItemsAnimated = ref(false);
+const isDrawerVisible = ref(false);
+const drawerRef = ref<HTMLElement | null>(null);
 
 // Intersection Observer for active section
 let sectionObserver: IntersectionObserver | null = null;
@@ -47,23 +49,64 @@ const scrollToSection = (item: MenuItem | "Intro") => {
   emit("scroll-to-section", SECTION_MAP[item]);
 };
 
+const openMenu = () => {
+  isMenuOpen.value = true;
+  isDrawerVisible.value = true;
+  hasMenuOpened.value = false;
+  nextTick(() => {
+    const drawerEl = drawerRef.value;
+    if (drawerEl && reducedMotion.value !== "reduce") {
+      void animate(
+        drawerEl,
+        { opacity: [0, 1], y: [-8, 0] } as Parameters<typeof animate>[1],
+        { duration: 0.25, ease: [0.22, 1, 0.36, 1] } as Parameters<typeof animate>[2],
+      );
+    }
+    setTimeout(() => {
+      hasMenuOpened.value = true;
+    }, 50);
+  });
+};
+
+const closeMenu = () => {
+  if (!isMenuOpen.value) return;
+  isMenuOpen.value = false;
+  const drawerEl = drawerRef.value;
+  if (drawerEl && reducedMotion.value !== "reduce") {
+    void animate(
+      drawerEl,
+      { opacity: [1, 0], y: [0, -8] } as Parameters<typeof animate>[1],
+      { duration: 0.2, ease: [0.22, 1, 0.36, 1] } as Parameters<typeof animate>[2],
+    );
+    setTimeout(() => {
+      isDrawerVisible.value = false;
+    }, 220);
+    return;
+  }
+  isDrawerVisible.value = false;
+};
+
 const handleMenuToggle = () => {
-  isMenuOpen.value = !isMenuOpen.value;
   if (isMenuOpen.value) {
-    hasMenuOpened.value = false;
-    // Delay setting hasMenuOpened to trigger animations
-    nextTick(() => {
-      setTimeout(() => {
-        hasMenuOpened.value = true;
-      }, 50);
-    });
+    closeMenu();
+  } else {
+    openMenu();
   }
 };
 
 const handleMenuSelect = (item: MenuItem) => {
+  if (!isLargeScreen.value) {
+    const activeEl = document.activeElement as HTMLElement | null;
+    if (activeEl && activeEl.classList.contains("nav-drawer-item")) {
+      activeEl.classList.add("is-tapping");
+      setTimeout(() => {
+        activeEl.classList.remove("is-tapping");
+      }, 180);
+    }
+  }
   scrollToSection(item);
   if (!isLargeScreen.value) {
-    isMenuOpen.value = false;
+    closeMenu();
   }
 };
 
@@ -137,14 +180,14 @@ onBeforeUnmount(() => {
 // Keyboard navigation
 useEventListener("keydown", (e: KeyboardEvent) => {
   if (e.key === "Escape") {
-    isMenuOpen.value = false;
+    closeMenu();
   }
 });
 
 // Close mobile menu when resizing to large screen
 watch(isLargeScreen, (isLarge) => {
   if (isLarge) {
-    isMenuOpen.value = false;
+    closeMenu();
   }
 });
 
@@ -176,7 +219,7 @@ watch(navInView, (inView) => {
 
       <!-- Desktop Navigation (centered) -->
       <ul
-        class="nav-list hidden md:flex items-center justify-center gap-10 lg:gap-12 list-none flex-1 min-w-0"
+        class="nav-list hidden md:flex items-center justify-center gap-8 lg:gap-10 list-none flex-1 min-w-0"
         role="menubar"
       >
         <li v-for="item in MENU_ITEMS" :key="item" role="none">
@@ -184,7 +227,7 @@ watch(navInView, (inView) => {
             data-nav-item
             type="button"
             role="menuitem"
-            class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-md bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+            class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-full bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
             :class="{ 'text-[var(--color-dark)]': isActiveSection(item) }"
             @click="handleMenuSelect(item)"
           >
@@ -195,6 +238,21 @@ watch(navInView, (inView) => {
 
       <!-- Spacer for mobile so theme button stays right -->
       <div class="md:hidden flex-1 min-w-0" />
+
+      <!-- Mobile menu toggle -->
+      <button
+        type="button"
+        class="md:hidden nav-menu-btn cursor-pointer ml-auto mr-2 flex items-center justify-center h-9 w-9 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+        :aria-label="menuAriaLabel"
+        :aria-expanded="isMenuOpen"
+        @click="handleMenuToggle"
+      >
+        <span
+          class="text-lg"
+          :class="[isMenuOpen ? 'i-tabler:x' : 'i-tabler:menu-2']"
+          aria-hidden="true"
+        />
+      </button>
 
       <!-- Dark/Light mode toggle -->
       <button
@@ -214,14 +272,44 @@ watch(navInView, (inView) => {
         <span class="text-sm font-medium">{{ theme === "dark" ? "Light" : "Dark" }}</span>
       </button>
     </div>
+
+    <!-- Mobile Drawer -->
+    <div v-if="isDrawerVisible" class="nav-drawer-wrap md:hidden">
+      <button
+        type="button"
+        class="nav-drawer-backdrop"
+        aria-label="Close menu"
+        @click="closeMenu"
+      />
+      <div ref="drawerRef" class="nav-drawer-panel">
+        <ul class="nav-drawer-list" role="menu">
+          <li v-for="item in MENU_ITEMS" :key="item" role="none">
+            <button
+              type="button"
+              role="menuitem"
+              class="nav-drawer-item cursor-pointer"
+              :class="{ 'is-active': isActiveSection(item) }"
+              @click="handleMenuSelect(item)"
+            >
+              <span class="nav-drawer-label">{{ item }}</span>
+            </button>
+          </li>
+        </ul>
+        <div class="nav-drawer-footer">
+          <span class="nav-drawer-chip">Tap to jump</span>
+          <span class="nav-drawer-chip">Swipe up to close</span>
+        </div>
+      </div>
+    </div>
   </nav>
 </template>
 
 <style scoped>
 /* Flat light bar, 64px height, no border/heavy shadow */
 .nav-bar {
-  background-color: var(--color-background);
-  /* no box-shadow or border for flat look */
+  background: color-mix(in srgb, var(--color-background) 92%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--color-border) 22%, transparent);
+  backdrop-filter: blur(10px);
 }
 
 .nav-logo-text {
@@ -262,14 +350,32 @@ watch(navInView, (inView) => {
   background: rgba(180, 136, 255, 0.22);
 }
 
+.nav-link-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -0.4rem;
+  width: 0;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #7d26cd, #fbbf24);
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+}
+
+.nav-link-btn:hover::after,
+.nav-link-btn.text-\[var\(--color-dark\)\]::after {
+  width: 70%;
+}
+
 /* Oval button with subtle diffused shadow (light theme) */
 .nav-theme-btn {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 18px rgba(64, 17, 122, 0.12);
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .nav-theme-btn:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 26px rgba(64, 17, 122, 0.18);
 }
 
 [data-theme="dark"] .nav-theme-btn {
@@ -291,5 +397,98 @@ watch(navInView, (inView) => {
     opacity: 1;
     transform: translateX(0);
   }
+}
+
+.nav-menu-btn {
+  box-shadow: 0 6px 16px rgba(64, 17, 122, 0.12);
+}
+
+.nav-drawer-wrap {
+  position: absolute;
+  inset: 0;
+  top: 4rem;
+  z-index: 40;
+}
+
+.nav-drawer-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 15, 15, 0.35);
+  backdrop-filter: blur(4px);
+}
+
+.nav-drawer-panel {
+  position: absolute;
+  top: 0.75rem;
+  left: 1rem;
+  right: 1rem;
+  padding: 1rem 1.1rem 1.2rem;
+  border-radius: 1.25rem;
+  background: var(--color-card);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 18px 46px rgba(32, 10, 60, 0.18);
+}
+
+.nav-drawer-list,
+.nav-drawer-list li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-drawer-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem;
+  border-radius: 0.9rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--color-text);
+  background: transparent;
+  border: 1px solid transparent;
+  transition: background 0.2s ease, border 0.2s ease, transform 0.2s ease;
+}
+
+.nav-drawer-item:hover {
+  background: rgba(125, 38, 205, 0.12);
+  border-color: rgba(125, 38, 205, 0.2);
+  color: #5b21b6;
+  transform: translateY(-1px);
+}
+
+.nav-drawer-item.is-active {
+  background: rgba(125, 38, 205, 0.16);
+  border-color: rgba(125, 38, 205, 0.28);
+  color: #5b21b6;
+}
+
+.nav-drawer-item.is-tapping {
+  transform: scale(0.96);
+}
+
+.nav-drawer-label {
+  letter-spacing: 0.01em;
+}
+
+.nav-drawer-footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.nav-drawer-chip {
+  font-size: 0.7rem;
+  padding: 0.35rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(125, 38, 205, 0.08);
+  color: #6b21a8;
+  font-weight: 600;
+}
+
+[data-theme="dark"] .nav-drawer-panel {
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
 }
 </style>
