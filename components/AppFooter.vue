@@ -1,91 +1,135 @@
+<script setup lang="ts">
+// Get current year
+const _currentYear = computed(() => new Date().getFullYear());
+
+// Social links
+const _socialLinks = [
+  {
+    name: "LinkedIn",
+    url: "https://www.linkedin.com/in/pachara-sriyodwieng-2a9503149",
+    icon: "i-tabler:brand-linkedin",
+  },
+  {
+    name: "GitHub",
+    url: "https://github.com/boomNDS",
+    icon: "i-tabler:brand-github",
+  },
+  {
+    name: "Webring",
+    url: "https://webring.wonderful.software/#/pachorn.dev",
+    icon: "custom",
+    customIcon: "/img/webring.svg",
+  },
+];
+
+// Quick links
+const _quickLinks = [
+  { name: "Experience", href: "#experience" },
+  { name: "Tech Stack", href: "#tech_stack" },
+  { name: "Showcase", href: "#showcase" },
+];
+</script>
+
 <template>
   <footer
-    class="w-full h-[200px] bg-[var(--color-light)] mt-[5rem] pt-[5rem] border-t-4 border-[var(--color-border)]"
+    class="mt-auto bg-[var(--color-card)] border-t-2 sm:border-t-4 border-[var(--color-border)]"
   >
-    <section
-      class="flex flex-col sm:flex-row justify-center items-center mx-auto gap-3"
-    >
-      <NuxtLink
-        to="mailto:contact@pachorn.dev?Subject=Hello%20Boom"
-        class="w-[190px] sm:w-[220px] scale-100 active:scale-92 transition duration-100 text-[18px] sm:text-[20px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-accent)] cursor-pointer rounded-xl ease-in shadow-[6px_6px_0px_0px_rgba(0,0,0,0.22)] flex items-center justify-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        :prefetch="false"
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+      <!-- CTA Section -->
+      <div class="text-center mb-10 sm:mb-12">
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-dark)] mb-3">
+          Let's work together
+        </h2>
+        <p class="text-base sm:text-lg text-[var(--color-text)] mb-6 max-w-xl mx-auto">
+          Have a project in mind? Let's discuss how I can help bring your ideas
+          to life.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+          <NuxtLink
+            to="mailto:contact@pachorn.dev?Subject=Hello%20Boom"
+            class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-accent)] text-[var(--color-dark)] font-semibold shadow-[var(--shadow-mid)] hover:shadow-[var(--shadow-strong)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+          >
+            <span class="i-tabler:message-circle text-lg" aria-hidden="true" />
+            Let's talk
+          </NuxtLink>
+          <NuxtLink
+            to="https://cal.com/pachara-sri/30min"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--color-card)] border-2 border-[var(--color-border)] text-[var(--color-dark)] font-semibold shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+          >
+            <span class="i-tabler:calendar-event text-lg" aria-hidden="true" />
+            Book a meeting
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Divider -->
+      <div class="border-t border-[var(--color-border)]/20 my-8 sm:my-10" />
+
+      <!-- Bottom Section -->
+      <div
+        class="flex flex-col sm:flex-row items-center justify-between gap-6"
       >
-        <span class="i-tabler:message-circle text-xl" aria-hidden="true"></span>
-        Let’s talk
-      </NuxtLink>
-      <NuxtLink
-        to="https://cal.com/pachara-sri/30min"
-        target="_blank"
-        rel="noreferrer"
-        class="w-[190px] sm:w-[220px] scale-100 active:scale-92 transition duration-100 text-[18px] sm:text-[20px] text-[var(--color-dark)] px-4 py-2 border-4 border-[var(--color-border)] bg-[var(--color-card)] cursor-pointer rounded-xl ease-in shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] flex items-center justify-center gap-2 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        :prefetch="false"
-      >
-        <span class="i-tabler:calendar-event text-lg" aria-hidden="true"></span>
-        Book a meeting
-      </NuxtLink>
-    </section>
-    <section
-      class="mt-10 mx-auto flex flex-col sm:flex-row justify-center items-center gap-2 sm:gap-3 text-[14px] sm:text-[18px] text-center sm:text-left font-medium"
-    >
-      <p class="m-0 text-[var(--color-text)]">make with 💖 by boomNDS</p>
-      <p class="m-0 sm:ml-2 text-[var(--color-text)]">
-        © {{ $dayjs().year() }} All rights reserved.
+        <!-- Brand -->
+        <div class="text-center sm:text-left">
+          <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
+            <img
+              src="/img/logo.svg"
+              alt=""
+              class="w-6 h-6"
+              width="24"
+              height="24"
+            />
+            <span class="font-semibold text-[var(--color-dark)]">Pachara (Boom)</span>
+          </div>
+          <p class="text-sm text-[var(--color-text-muted)]">
+            © {{ currentYear }} All rights reserved.
+          </p>
+        </div>
+
+        <!-- Quick Links -->
+        <nav aria-label="Footer navigation" class="hidden sm:block">
+          <ul class="flex items-center gap-6">
+            <li v-for="link in quickLinks" :key="link.name">
+              <a
+                :href="link.href"
+                class="text-sm text-[var(--color-text)] hover:text-[var(--color-primary)] transition-colors duration-200"
+              >
+                {{ link.name }}
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Social Links -->
+        <div class="flex items-center gap-3">
+          <NuxtLink
+            v-for="social in socialLinks"
+            :key="social.name"
+            :to="social.url"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--color-light)] text-[var(--color-dark)] hover:bg-[var(--color-primary)] hover:text-white transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            :aria-label="`${social.name} profile`"
+          >
+            <img
+              v-if="social.customIcon"
+              :src="social.customIcon"
+              alt=""
+              class="w-5 h-5"
+              width="20"
+              height="20"
+            />
+            <span v-else :class="[social.icon, 'text-xl']" aria-hidden="true" />
+          </NuxtLink>
+        </div>
+      </div>
+
+      <!-- Made with love -->
+      <p class="text-center text-xs text-[var(--color-text-muted)] mt-8">
+        Made with 💖 using Nuxt.js & UnoCSS
       </p>
-    </section>
-    <section class="mt-4 flex justify-center gap-4 text-[var(--color-dark)]">
-      <NuxtLink
-        to="https://www.linkedin.com/in/pachara-sriyodwieng-2a9503149"
-        target="_blank"
-        rel="noreferrer"
-        :prefetch="false"
-        class="hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
-        aria-label="LinkedIn profile"
-      >
-        <span
-          class="i-tabler:brand-linkedin text-2xl"
-          aria-hidden="true"
-        ></span>
-      </NuxtLink>
-      <NuxtLink
-        to="https://github.com/boomNDS"
-        target="_blank"
-        rel="noreferrer"
-        :prefetch="false"
-        class="hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded"
-        aria-label="GitHub profile"
-      >
-        <span class="i-tabler:brand-github text-2xl" aria-hidden="true"></span>
-      </NuxtLink>
-      <NuxtLink
-        to="https://webring.wonderful.software/#/pachorn.dev"
-        target="_blank"
-        rel="noreferrer"
-        :prefetch="false"
-        class="hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] rounded inline-flex items-center"
-        aria-label="Webring"
-      >
-        <img
-          src="/img/webring.svg"
-          alt="Webring"
-          class="w-6 h-6 webring-icon"
-          loading="lazy"
-          width="24"
-          height="24"
-        />
-      </NuxtLink>
-    </section>
+    </div>
   </footer>
 </template>
-
-<script setup lang="ts"></script>
-
-<style scoped>
-.webring-icon {
-  cursor: pointer;
-  transition: transform 0.25s ease-in-out;
-}
-
-.webring-icon:hover {
-  transform: rotate(30deg) scale(1.05);
-}
-</style>

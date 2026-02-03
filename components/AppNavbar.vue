@@ -1,333 +1,301 @@
-<template>
-  <nav
-    class="sticky top-3 z-50 mx-2 sm:mx-4 mt-4 mb-3 backdrop-blur-sm bg-[var(--color-light)]/90 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--color-border)]/20 relative overflow-x-hidden"
-    role="navigation"
-    aria-label="Main navigation"
-  >
-    <div
-      ref="navRef"
-      class="w-full max-w-[1200px] mx-auto px-1.5 sm:px-2 md:px-3 lg:px-4 py-2"
-    >
-      <div
-        class="flex items-center justify-between gap-0.5 sm:gap-1 md:gap-2 w-full min-w-0"
-      >
-        <button
-          ref="logoRef"
-          type="button"
-          class="flex items-center transition-all duration-200 ease-out hover:-translate-y-0.5 hover:scale-105 cursor-pointer rounded-lg border-none bg-transparent p-0.5 sm:p-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] flex-shrink-0"
-          aria-label="Scroll to top"
-          @click="emitScrollEvent('Intro')"
-        >
-          <img
-            src="/img/logo.svg"
-            alt="Pachara logo"
-            loading="lazy"
-            width="64"
-            height="64"
-            class="block h-7 sm:h-8 md:h-9 w-auto transition-transform duration-200"
-          />
-        </button>
-
-        <div
-          class="flex items-center gap-0.5 sm:gap-1 md:gap-2 flex-1 justify-end min-[1045px]:justify-center min-w-0 overflow-hidden"
-        >
-          <Transition name="menu-slide" @after-enter="markMenuOpened">
-            <ul
-              v-if="isLargeScreen || isMenuOpen"
-              id="site-menu"
-              class="flex flex-col min-[1045px]:flex-row items-center list-none p-0 space-x-0 min-[1045px]:space-x-8 gap-2 min-[1045px]:gap-0"
-              :class="{
-                'absolute top-full left-2 right-2 sm:left-4 sm:right-4 mt-3 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-4 shadow-[var(--shadow-soft)] z-50':
-                  !isLargeScreen,
-              }"
-              role="menubar"
-            >
-              <li
-                v-for="(item, index) in menuItems"
-                :key="item"
-                :ref="(el) => setItemRef(el, index)"
-                class="transition-all duration-200 ease-out hover:-translate-y-0.5 cursor-pointer"
-                :class="{
-                  'scale-105': isItemHovered(item),
-                  'scale-103': isItemActive(item),
-                  'menu-item': !isLargeScreen && !menuOpenedOnce,
-                }"
-                :style="{
-                  '--menu-delay': `${index * 60}ms`,
-                }"
-                role="none"
-                @mouseenter="onItemEnter(index)"
-                @mouseleave="onItemLeave(index)"
-              >
-                <NuxtLink
-                  :to="menuTo[item]"
-                  class="text-[var(--color-dark)] no-underline px-3 py-2 rounded-lg transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] hover:bg-[var(--color-light)]/50"
-                  :prefetch="false"
-                  :aria-current="
-                    activeSection === menuTo[item].slice(1) ? 'page' : undefined
-                  "
-                  role="menuitem"
-                  @click="handleMenuSelect(item)"
-                >
-                  {{ item }}
-                </NuxtLink>
-              </li>
-            </ul>
-          </Transition>
-        </div>
-
-        <div
-          class="flex items-center gap-0.5 sm:gap-1 md:gap-2 flex-shrink-0 mr-3 sm:mr-4 md:mr-0"
-        >
-          <button
-            v-if="!isLargeScreen"
-            type="button"
-            class="px-1.5 sm:px-2.5 md:px-3 lg:px-4 py-1.5 sm:py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-xs sm:text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] active:translate-y-0 active:shadow-[1px_1px_0px_rgba(0,0,0,0.12)] transition-all duration-150 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] whitespace-nowrap flex-shrink-0"
-            :class="{
-              'scale-95': isActiveOrClicked,
-            }"
-            :aria-expanded="isMenuOpen"
-            aria-controls="site-menu"
-            aria-label="Toggle navigation menu"
-            @click="handleClick"
-          >
-            {{ isMenuOpen ? "Close" : "Menu" }}
-          </button>
-
-          <button
-            type="button"
-            class="px-1.5 sm:px-2.5 md:px-3 lg:px-4 py-1.5 sm:py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-xs sm:text-sm font-semibold shadow-[4px_4px_0px_rgba(0,0,0,0.12)] hover:shadow-[2px_2px_0px_rgba(0,0,0,0.12)] hover:-translate-y-[2px] active:translate-y-0 active:shadow-[1px_1px_0px_rgba(0,0,0,0.12)] transition-all duration-150 ease-out inline-flex items-center justify-center gap-0.5 sm:gap-1 md:gap-1.5 lg:gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)] whitespace-nowrap flex-shrink-0"
-            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
-            @click="$emit('toggle-theme')"
-          >
-            <span
-              :class="[
-                theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon',
-                'text-xs sm:text-sm md:text-base transition-transform duration-200 flex-shrink-0',
-                { 'rotate-90': theme === 'dark' },
-              ]"
-              aria-hidden="true"
-            ></span>
-            <span class="hidden md:inline">{{
-              theme === "dark" ? "Light" : "Dark"
-            }}</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </nav>
-</template>
-
 <script setup lang="ts">
-import {
-  ref,
-  computed,
-  onMounted,
-  nextTick,
-  onBeforeUnmount,
-  watch,
-} from "vue";
-import { useActiveElement, useMediaQuery, useElementHover } from "@vueuse/core";
+import type { MenuItem, SectionId, Theme } from "~/types";
+import { useMotionPreference } from "#imports";
 
-const isMenuOpen = ref(false);
-const menuOpenedOnce = ref(false);
-const menuItems = ["Experience", "Tech stack", "Showcase"] as const;
-const isLargeScreen = import.meta.client
-  ? useMediaQuery("(min-width: 1045px)")
-  : ref(false);
-
-type MenuItem = (typeof menuItems)[number];
-type SectionId = "intro" | "experience" | "tech_stack" | "showcase";
+// Props & Emits
+defineProps<{
+  theme: Theme;
+}>();
 
 const emit = defineEmits<{
   (e: "scroll-to-section", sectionId: SectionId): void;
   (e: "toggle-theme"): void;
 }>();
 
-defineProps<{
-  theme: "light" | "dark";
-}>();
+// Constants
+const _MENU_ITEMS: MenuItem[] = ["Experience", "Tech stack", "Showcase"];
+const SECTION_MAP: Record<MenuItem | "Intro", SectionId> = {
+  Intro: "intro",
+  Experience: "experience",
+  "Tech stack": "tech_stack",
+  Showcase: "showcase",
+};
 
-const { $motionAnimate } = useNuxtApp();
-const navRef = ref<HTMLElement | null>(null);
+// Composables
+const { $motionAnimate, $motionInView } = useNuxtApp();
+const reducedMotion = useMotionPreference();
+const isLargeScreen = useMediaQuery("(min-width: 1024px)");
+
+// State
+const isMenuOpen = ref(false);
+const hasMenuOpened = ref(false);
 const activeSection = ref<SectionId>("intro");
+const navRef = ref<HTMLElement | null>(null);
+const itemRefs = ref<(HTMLElement | null)[]>([]);
+const _logoRef = ref<HTMLElement | null>(null);
+
+// Intersection Observer for active section
 let sectionObserver: IntersectionObserver | null = null;
 
-const emitScrollEvent = (item: MenuItem | "Intro") => {
-  const sectionMap: Record<MenuItem | "Intro", SectionId> = {
-    Intro: "intro",
-    Experience: "experience",
-    "Tech stack": "tech_stack",
-    Showcase: "showcase",
-  };
-  emit("scroll-to-section", sectionMap[item]);
+// Computed
+const _menuAriaLabel = computed(() => (isMenuOpen.value ? "Close menu" : "Open menu"));
+
+// Methods
+const scrollToSection = (item: MenuItem | "Intro") => {
+  emit("scroll-to-section", SECTION_MAP[item]);
 };
 
-const menuTo: Record<MenuItem, string> = {
-  Experience: "#experience",
-  "Tech stack": "#tech_stack",
-  Showcase: "#showcase",
-};
-
-const activeElement = import.meta.client ? useActiveElement() : ref(null);
-const wasRecentlyClicked = ref(false);
-
-const isActiveOrClicked = computed(() => {
-  if (!import.meta.client) return wasRecentlyClicked.value;
-  return (
-    activeElement.value === document.activeElement || wasRecentlyClicked.value
-  );
-});
-
-const handleClick = () => {
+const _handleMenuToggle = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  wasRecentlyClicked.value = true;
-  setTimeout(() => {
-    wasRecentlyClicked.value = false;
-  }, 150); // Reset after 150ms for snappier feel
-};
-
-const markMenuOpened = () => {
-  if (!isLargeScreen.value && isMenuOpen.value) {
-    menuOpenedOnce.value = true;
+  if (isMenuOpen.value) {
+    hasMenuOpened.value = false;
+    // Delay setting hasMenuOpened to trigger animations
+    nextTick(() => {
+      setTimeout(() => {
+        hasMenuOpened.value = true;
+      }, 50);
+    });
   }
 };
 
-const handleMenuSelect = (item: MenuItem) => {
-  emitScrollEvent(item);
+const _handleMenuSelect = (item: MenuItem) => {
+  scrollToSection(item);
   if (!isLargeScreen.value) {
     isMenuOpen.value = false;
   }
 };
 
-const logoRef = ref(null);
-
-const itemRefs = ref<(HTMLElement | null)[]>(menuItems.map(() => null));
-const itemHoverStates = menuItems.map((_, index) => {
-  if (!import.meta.client) return ref(false);
-  return useElementHover(computed(() => itemRefs.value[index]));
-});
-
-const setItemRef = (el: HTMLElement | null | Element, index: number) => {
-  itemRefs.value[index] = el as HTMLElement | null;
+const _setItemRef = (el: HTMLElement | null | Element, index: number) => {
+  if (el) {
+    itemRefs.value[index] = el as HTMLElement;
+  }
 };
 
-const isItemHovered = (item: MenuItem) =>
-  itemHoverStates[menuItems.indexOf(item)].value;
-const isItemActive = (item: MenuItem) =>
-  activeElement.value === itemRefs.value[menuItems.indexOf(item)];
+// Animations
+const animateNavItems = () => {
+  if (reducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
 
-const onItemEnter = (index: number) => {
-  const el = itemRefs.value[index];
-  if (!$motionAnimate || !el) return;
-  $motionAnimate(
-    el,
-    { scale: [1, 1.05], opacity: [0.95, 1] },
-    { duration: 0.2, easing: [0.22, 1, 0.36, 1] },
-  );
-};
-
-const onItemLeave = (index: number) => {
-  const el = itemRefs.value[index];
-  if (!$motionAnimate || !el) return;
-  $motionAnimate(
-    el,
-    { scale: [1.05, 1], opacity: [1, 0.95] },
-    { duration: 0.18, easing: [0.22, 1, 0.36, 1] },
-  );
-};
-
-onMounted(() => {
-  nextTick(() => {
-    if (!$motionAnimate || !navRef.value) return;
-    $motionAnimate(
-      navRef.value,
-      { opacity: [0, 1], y: [-8, 0] },
-      { duration: 0.35, easing: [0.22, 1, 0.36, 1] },
+  itemRefs.value.forEach((el, index) => {
+    if (!el) return;
+    $motionInView(
+      el,
+      () =>
+        $motionAnimate(
+          el,
+          { opacity: [0, 1], y: [-8, 0] },
+          { duration: 0.3, delay: index * 0.05, easing: [0.22, 1, 0.36, 1] },
+        ),
+      { amount: 0.5, once: true },
     );
   });
-  if (!import.meta.client) return;
+};
+
+// Lifecycle
+onMounted(() => {
+  // Nav entrance animation
+  if ($motionAnimate && navRef.value && reducedMotion.value !== "reduce") {
+    $motionAnimate(
+      navRef.value,
+      { opacity: [0, 1], y: [-12, 0] },
+      { duration: 0.4, easing: [0.22, 1, 0.36, 1] },
+    );
+  }
+
+  // Setup intersection observer for sections
   const sections = ["intro", "experience", "tech_stack", "showcase"]
     .map((id) => document.getElementById(id))
-    .filter((el): el is HTMLElement => Boolean(el));
-  if (!sections.length) return;
-  sectionObserver = new IntersectionObserver(
-    (entries) => {
-      const visible = entries
-        .filter((entry) => entry.isIntersecting)
-        .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-      if (visible[0]?.target?.id) {
-        activeSection.value = visible[0].target.id as SectionId;
-      }
-    },
-    { rootMargin: "-20% 0px -60% 0px", threshold: [0.2, 0.4, 0.6] },
-  );
-  sections.forEach((section) => sectionObserver?.observe(section));
+    .filter(Boolean) as HTMLElement[];
+
+  if (sections.length) {
+    sectionObserver = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target?.id) {
+          activeSection.value = visible[0].target.id as SectionId;
+        }
+      },
+      { rootMargin: "-20% 0px -60% 0px", threshold: [0.2, 0.4, 0.6] },
+    );
+    sections.forEach((section) => sectionObserver.observe(section));
+  }
+
+  // Initial animation
+  nextTick(animateNavItems);
 });
 
 onBeforeUnmount(() => {
   sectionObserver?.disconnect();
-  sectionObserver = null;
 });
 
-if (import.meta.client) {
-  window.addEventListener("keydown", (event) => {
-    if (event.key === "Escape") {
-      isMenuOpen.value = false;
-    }
-  });
-}
+// Keyboard navigation
+useEventListener("keydown", (e: KeyboardEvent) => {
+  if (e.key === "Escape") {
+    isMenuOpen.value = false;
+  }
+});
 
-watch(
-  () => isMenuOpen.value,
-  (open: boolean) => {
-    if (open) {
-      menuOpenedOnce.value = false;
-    }
-  },
-);
+// Close mobile menu when resizing to large screen
+watch(isLargeScreen, (isLarge) => {
+  if (isLarge) {
+    isMenuOpen.value = false;
+  }
+});
 </script>
 
+<template>
+  <nav
+    ref="navRef"
+    class="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 lg:px-6 py-3"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div
+      class="mx-auto max-w-7xl backdrop-blur-md bg-[var(--color-card)]/85 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--color-border)]/10 transition-all duration-300"
+      :class="{ 'shadow-[var(--shadow-mid)]': isMenuOpen }"
+    >
+      <div class="flex items-center justify-between px-3 sm:px-4 py-2.5">
+        <!-- Logo -->
+        <button
+          ref="logoRef"
+          type="button"
+          class="flex items-center gap-2 p-1.5 rounded-xl transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+          aria-label="Scroll to top"
+          @click="scrollToSection('Intro')"
+        >
+          <img
+            src="/img/logo.svg"
+            alt="Pachara logo"
+            width="36"
+            height="36"
+            class="w-8 h-8 sm:w-9 sm:h-9"
+          />
+          <span
+            class="hidden sm:block font-semibold text-[var(--color-dark)] text-sm lg:text-base"
+            >Boom</span
+          >
+        </button>
+
+        <!-- Desktop Navigation -->
+        <ul class="hidden lg:flex items-center gap-1" role="menubar">
+          <li v-for="(item, index) in MENU_ITEMS" :key="item" role="none">
+            <button
+              :ref="(el) => setItemRef(el, index)"
+              type="button"
+              role="menuitem"
+              class="relative cursor-pointer px-4 py-2 rounded-lg text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
+              :class="{
+                'text-[var(--color-primary)]':
+                  activeSection === SECTION_MAP[item],
+              }"
+              @click="handleMenuSelect(item)"
+            >
+              {{ item }}
+              <span
+                v-if="activeSection === SECTION_MAP[item]"
+                class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-primary)]"
+              />
+            </button>
+          </li>
+        </ul>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-2">
+          <!-- Mobile Menu Toggle -->
+          <button
+            type="button"
+            class="lg:hidden flex items-center cursor-pointer gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            :aria-expanded="isMenuOpen"
+            aria-controls="mobile-menu"
+            :aria-label="menuAriaLabel"
+            @click="handleMenuToggle"
+          >
+            <span>{{ isMenuOpen ? "Close" : "Menu" }}</span>
+            <span
+              class="text-lg transition-transform duration-200"
+              :class="isMenuOpen ? 'i-tabler:x' : 'i-tabler:menu-2'"
+              aria-hidden="true"
+            />
+          </button>
+
+          <!-- Theme Toggle -->
+          <button
+            type="button"
+            class="flex items-center cursor-pointer gap-2 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+            @click="$emit('toggle-theme')"
+          >
+            <span
+              class="text-lg transition-all duration-300"
+              :class="[
+                theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon',
+                { 'rotate-90': theme === 'dark' },
+              ]"
+              aria-hidden="true"
+            />
+            <span class="hidden sm:inline text-sm font-medium">{{
+              theme === "dark" ? "Light" : "Dark"
+            }}</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <Transition
+        enter-active-class="transition-all duration-250 ease-out"
+        enter-from-class="opacity-0 -translate-y-2"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition-all duration-200 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-2"
+      >
+        <div
+          v-show="isMenuOpen"
+          id="mobile-menu"
+          class="lg:hidden border-t border-[var(--color-border)]/10 px-3 py-3"
+        >
+          <ul class="space-y-1" role="menu">
+            <li
+              v-for="(item, index) in MENU_ITEMS"
+              :key="item"
+              role="none"
+              :style="{
+                animationDelay: hasMenuOpened ? `${index * 50}ms` : '0ms',
+              }"
+              :class="{ 'menu-item-enter': hasMenuOpened }"
+            >
+              <button
+                type="button"
+                role="menuitem"
+                class="w-full text-left cursor-pointer px-4 py-3 rounded-xl text-base font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                :class="{
+                  'text-[var(--color-primary)] bg-[var(--color-primary)]/5':
+                    activeSection === SECTION_MAP[item],
+                }"
+                @click="handleMenuSelect(item)"
+              >
+                {{ item }}
+              </button>
+            </li>
+          </ul>
+        </div>
+      </Transition>
+    </div>
+  </nav>
+</template>
+
 <style scoped>
-.menu-slide-enter-active,
-.menu-slide-leave-active {
-  transition:
-    opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.menu-slide-enter-from,
-.menu-slide-leave-to {
+.menu-item-enter {
+  animation: menuItemEnter 0.3s ease-out forwards;
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateX(-8px);
 }
 
-.menu-item {
-  opacity: 0;
-  transform: translateY(-4px);
-  animation: menu-fade 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: var(--menu-delay, 0ms);
-}
-
-@keyframes menu-fade {
+@keyframes menuItemEnter {
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
-}
-
-/* Improve focus visibility */
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--color-primary);
-  outline-offset: 2px;
-  border-radius: 0.5rem;
-}
-
-/* Smooth transitions for all interactive elements */
-button,
-a {
-  transition-property: transform, box-shadow, background-color, color;
-  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
 }
 </style>

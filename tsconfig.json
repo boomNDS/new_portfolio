@@ -1,9 +1,12 @@
-// tsconfig.json
 {
-  // Extends the base TypeScript configuration from Nuxt
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    // Specifies type definitions to be included
-    "types": ["@types/node", "@nuxt/types"]
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"],
+      "~~/*": ["./*"],
+      "@@/*": ["./*"]
+    }
   }
 }

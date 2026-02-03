@@ -1,230 +1,206 @@
-<template>
-  <section
-    class="rounded max-w-[300px] border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] mx-auto mt-4 flex flex-col h-full transition-transform duration-150 hover:-translate-y-1"
-  >
-    <div class="flex justify-center">
-      <div
-        class="relative w-full max-w-[90%] aspect-[4/5] rounded-[1.5rem] overflow-hidden bg-[var(--color-card)] flex items-center justify-center p-3 border border-[var(--color-border)]/20 transition-shadow duration-150 group group-hover:shadow-[var(--shadow-soft)]"
-      >
-        <template v-if="!mediaError && isVideo">
-          <video
-            id="video"
-            class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
-            :src="`/img/showcase/${imageSrc}`"
-            :alt="imageAlt"
-            autoplay
-            muted
-            loop
-            preload="none"
-            @error="onMediaError"
-          ></video>
-        </template>
-        <template v-else-if="!mediaError">
-          <img
-            id="image"
-            class="w-full h-full object-contain transition-transform duration-200 group-hover:scale-[1.03]"
-            :src="`/img/showcase/${imageSrc}`"
-            :alt="imageAlt"
-            loading="lazy"
-            width="240"
-            height="300"
-            @error="onMediaError"
-          />
-        </template>
-        <template v-else>
-          <img
-            class="w-full h-full object-contain"
-            src="/img/showcase/placeholder.svg"
-            alt="Showcase media placeholder"
-            loading="lazy"
-            width="240"
-            height="300"
-          />
-        </template>
-      </div>
-    </div>
-    <div class="px-3 py-2 flex-1 flex flex-col gap-2">
-      <div class="flex flex-wrap items-start gap-2 justify-between">
-        <h3 class="m-0 p-0 text-[17px] font-semibold text-[var(--color-dark)]">
-          {{ title }}
-        </h3>
-        <div
-          v-if="result"
-          class="px-2 py-1 rounded-full text-[11px] font-semibold bg-[var(--color-primary)] text-white border border-[var(--color-primary)] shadow-[2px_2px_0px_0px_rgba(0,0,0,0.12)]"
-        >
-          {{ result }}
-        </div>
-      </div>
-      <p
-        v-if="meta"
-        class="m-0 text-[12px] uppercase tracking-[0.18em] text-gray-600"
-      >
-        {{ meta }}
-      </p>
-      <p class="m-0 p-0 text-[14px] text-[var(--color-text)] desc">
-        {{ description }}
-      </p>
-    </div>
-    <div
-      v-if="links?.length"
-      class="px-3 pb-2 flex flex-wrap items-center gap-2 border-b border-[var(--color-border)]/10"
-    >
-      <NuxtLink
-        v-for="(link, index) in links"
-        :key="`link-${index}`"
-        :to="link.url"
-        target="_blank"
-        :prefetch="false"
-        :aria-label="`${title} ${link.type} link`"
-        class="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)]/20 px-2 py-1 text-xs font-semibold text-[var(--color-dark)] hover:text-[var(--color-primary)] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-      >
-        <span
-          class="icon"
-          :class="getIconClass(link.type)"
-          aria-hidden="true"
-        ></span>
-        {{
-          link.type === "design"
-            ? "Design"
-            : link.type === "github"
-              ? "GitHub"
-              : "Live"
-        }}
-      </NuxtLink>
-    </div>
-    <div
-      class="flex flex-wrap gap-2 px-3 py-2 text-[12px] text-[var(--color-text)]"
-    >
-      <p
-        v-for="(tag, index) in visibleTags"
-        :key="`tag-${index}`"
-        class="m-0 px-1.5 py-[1px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
-      >
-        #{{ tag }}
-      </p>
-      <p
-        v-if="hiddenTagCount > 0"
-        class="m-0 px-1.5 py-[1px] rounded-full bg-[var(--color-light)] border border-[var(--color-border)]/10"
-      >
-        +{{ hiddenTagCount }}
-      </p>
-    </div>
-  </section>
-</template>
-
 <script setup lang="ts">
-import type { PropType } from "vue";
-import { useMediaQuery } from "@vueuse/core";
+import type { ProjectLink } from "~/types";
 
-export interface Link {
-  type: string;
-  url: string;
+// Props
+interface Props {
+  imageSrc: string;
+  imageAlt: string;
+  title: string;
+  description: string;
+  meta?: string;
+  result?: string;
+  tags: string[];
+  links: ProjectLink[];
 }
 
-const props = defineProps({
-  imageSrc: {
-    type: String,
-    required: true,
-  },
-  imageAlt: {
-    type: String,
-    required: true,
-  },
-  title: {
-    type: String,
-    required: true,
-  },
-  description: {
-    type: String,
-    required: true,
-  },
-  meta: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  result: {
-    type: String,
-    required: false,
-    default: "",
-  },
-  tags: {
-    type: Array as () => string[],
-    required: true,
-  },
-  links: {
-    type: Array as PropType<Link[]>,
-    required: true,
-  },
+const props = defineProps<Props>();
+
+// State
+const mediaError = ref(false);
+const _isHovered = ref(false);
+
+// Computed
+const _isVideo = computed(() => /\.(mp4|webm|ogg)$/i.test(props.imageSrc));
+
+const visibleTags = computed(() => {
+  // Show fewer tags on smaller screens
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
+  return props.tags.slice(0, isMobile ? 2 : 3);
 });
 
-const hexCode = ref("");
-const mediaError = ref(false);
-// const rgbaColor = computed(() => hexToRgba(hexCode.value));
+const _hiddenTagCount = computed(() => Math.max(0, props.tags.length - visibleTags.value.length));
 
-const getIconClass = (type: string): string | null => {
-  return type === "github"
-    ? "i-logos-github-icon"
-    : type === "design"
-      ? "i-logos-figma"
-      : `i-tabler:external-link`;
-};
+const _hasLinks = computed(() => props.links?.length > 0);
 
-const updateHexCode = () => {
-  const imgEl = document.getElementById("image") as HTMLImageElement;
+const _primaryLink = computed(() =>
+  props.links?.find((l) => l.type === "link" || l.type === "github"),
+);
 
-  if (imgEl) {
-    imgEl.onload = () => {
-      const rgb = getAverageRGB(imgEl);
-      hexCode.value = rgbToHex(rgb);
-    };
+// Methods
+const _getIconClass = (type: string): string => {
+  switch (type) {
+    case "github":
+      return "i-tabler:brand-github";
+    case "design":
+      return "i-tabler:palette";
+    default:
+      return "i-tabler:external-link";
   }
 };
 
-const isVideo = computed(() => {
-  return /\.(mp4|webm|ogg)$/i.test(props.imageSrc);
-});
-
-const isSmallScreen = import.meta.client
-  ? useMediaQuery("(max-width: 639px)")
-  : ref(false);
-const visibleTags = computed(() =>
-  props.tags.slice(0, isSmallScreen.value ? 2 : 3),
-);
-const hiddenTagCount = computed(() =>
-  Math.max(0, props.tags.length - visibleTags.value.length),
-);
-
-const onMediaError = () => {
-  mediaError.value = true;
+const _getLinkLabel = (type: string): string => {
+  switch (type) {
+    case "github":
+      return "GitHub";
+    case "design":
+      return "Design";
+    default:
+      return "Live";
+  }
 };
 
-onMounted(() => {
-  updateHexCode();
-});
-
-watch(
-  () => props.imageSrc,
-  () => {
-    updateHexCode();
-  },
-);
+const _onMediaError = () => {
+  mediaError.value = true;
+};
 </script>
 
+<template>
+  <article
+    class="group flex flex-col h-full rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)] overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-mid)] hover:-translate-y-1"
+    @mouseenter="isHovered = true"
+    @mouseleave="isHovered = false"
+  >
+    <!-- Media -->
+    <div class="relative aspect-[4/3] bg-[var(--color-light)] overflow-hidden">
+      <!-- Video -->
+      <video
+        v-if="!mediaError && isVideo"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        :src="`/img/showcase/${imageSrc}`"
+        autoplay
+        muted
+        loop
+        playsinline
+        @error="onMediaError"
+      />
+
+      <!-- Image -->
+      <img
+        v-else-if="!mediaError"
+        :src="`/img/showcase/${imageSrc}`"
+        :alt="imageAlt"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+        width="400"
+        height="300"
+        @error="onMediaError"
+      />
+
+      <!-- Placeholder -->
+      <div
+        v-else
+        class="w-full h-full flex items-center justify-center bg-[var(--color-light)]"
+      >
+        <span
+          class="i-tabler:image-off text-4xl text-[var(--color-text-muted)]"
+          aria-hidden="true"
+        />
+      </div>
+
+      <!-- Result Badge -->
+      <div
+        v-if="result"
+        class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]"
+      >
+        {{ result }}
+      </div>
+
+      <!-- Hover Overlay -->
+      <div
+        class="absolute inset-0 bg-[var(--color-dark)]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      >
+        <NuxtLink
+          v-if="primaryLink"
+          :to="primaryLink.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-mid)] hover:scale-105 transition-transform duration-200"
+        >
+          <span :class="getIconClass(primaryLink.type)" aria-hidden="true" />
+          View Project
+        </NuxtLink>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="flex flex-col flex-1 p-4 sm:p-5">
+      <!-- Meta -->
+      <p
+        v-if="meta"
+        class="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--color-text-muted)] mb-1.5"
+      >
+        {{ meta }}
+      </p>
+
+      <!-- Title -->
+      <h3
+        class="text-base sm:text-lg font-semibold text-[var(--color-dark)] mb-2 line-clamp-1 group-hover:text-[var(--color-primary)] transition-colors duration-200"
+      >
+        {{ title }}
+      </h3>
+
+      <!-- Description -->
+      <p class="text-sm text-[var(--color-text)] line-clamp-2 mb-4 flex-1">
+        {{ description }}
+      </p>
+
+      <!-- Links -->
+      <div v-if="hasLinks" class="flex flex-wrap gap-2 mb-3">
+        <NuxtLink
+          v-for="link in links"
+          :key="link.url"
+          :to="link.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-[var(--color-border)]/20 text-xs font-medium text-[var(--color-dark)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-primary)]/5 transition-all duration-200"
+        >
+          <span :class="getIconClass(link.type)" aria-hidden="true" />
+          {{ getLinkLabel(link.type) }}
+        </NuxtLink>
+      </div>
+
+      <!-- Tags -->
+      <div class="flex flex-wrap gap-1.5">
+        <span
+          v-for="tag in visibleTags"
+          :key="tag"
+          class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs bg-[var(--color-light)] text-[var(--color-text)] border border-[var(--color-border)]/10"
+        >
+          #{{ tag }}
+        </span>
+        <span
+          v-if="hiddenTagCount > 0"
+          class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs bg-[var(--color-light)] text-[var(--color-text-muted)] border border-[var(--color-border)]/10"
+        >
+          +{{ hiddenTagCount }}
+        </span>
+      </div>
+    </div>
+  </article>
+</template>
+
 <style scoped>
-.desc {
+.line-clamp-1 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.icon {
-  color: var(--color-dark);
-  transition: color 0.15s ease;
-}
-
-.icon:hover {
-  color: var(--color-primary);
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 </style>

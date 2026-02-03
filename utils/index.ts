@@ -1,50 +1,50 @@
-// Define an interface for RGB color
-interface RGB {
+/**
+ * Utility functions for the portfolio application
+ */
+
+// ============================================
+// Color Utilities
+// ============================================
+
+export interface RGB {
   r: number;
   g: number;
   b: number;
 }
 
-// Function to get the average RGB value from an image element
+/**
+ * Calculates the average RGB color from an image element
+ * @param imgEl - The image element to analyze
+ * @returns The average RGB values
+ */
 export function getAverageRGB(imgEl: HTMLImageElement): RGB {
-  const blockSize = 5; // Only visit every 5 pixels
-  const defaultRGB: RGB = { r: 0, g: 0, b: 0 }; // Default RGB for non-supporting environments
+  const blockSize = 5;
+  const defaultRGB: RGB = { r: 0, g: 0, b: 0 };
 
-  // Create a canvas element and get its 2D context
   const canvas = document.createElement("canvas");
   const context = canvas.getContext("2d");
 
-  // If context is not available, return the default RGB
   if (!context) {
     return defaultRGB;
   }
 
-  // Set canvas dimensions to match the image element's dimensions
-  const height = (canvas.height =
-    imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
-  const width = (canvas.width =
-    imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
+  const height = (canvas.height = imgEl.naturalHeight || imgEl.offsetHeight || imgEl.height);
+  const width = (canvas.width = imgEl.naturalWidth || imgEl.offsetWidth || imgEl.width);
 
-  // Draw the image on the canvas
   context.drawImage(imgEl, 0, 0);
 
   let data: ImageData;
   try {
-    // Get the image data from the canvas
     data = context.getImageData(0, 0, width, height);
   } catch (e) {
-    console.error(e);
-    // Handle security error for images from a different domain
-    console.error("Security error: Unable to access image data.");
+    console.error("Security error: Unable to access image data.", e);
     return defaultRGB;
   }
 
-  // Initialize variables to accumulate RGB values
   const length = data.data.length;
   const rgb: RGB = { r: 0, g: 0, b: 0 };
   let count = 0;
 
-  // Iterate through the pixel data in blocks
   for (let i = 0; i < length; i += blockSize * 4) {
     count++;
     rgb.r += data.data[i];
@@ -52,7 +52,6 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGB {
     rgb.b += data.data[i + 2];
   }
 
-  // Calculate the average RGB values
   rgb.r = Math.floor(rgb.r / count);
   rgb.g = Math.floor(rgb.g / count);
   rgb.b = Math.floor(rgb.b / count);
@@ -60,20 +59,121 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGB {
   return rgb;
 }
 
+/**
+ * Converts RGB values to a hex color string
+ * @param rgb - The RGB values
+ * @returns Hex color string (e.g., #ff0000)
+ */
 export function rgbToHex(rgb: RGB): string {
-  const componentToHex = (c: number): string => {
-    const hex = c.toString(16);
-    return hex.length === 1 ? "0" + hex : hex;
+  const toHex = (n: number): string => {
+    const hex = n.toString(16);
+    return hex.length === 1 ? `0${hex}` : hex;
   };
 
-  return `#${componentToHex(rgb.r)}${componentToHex(rgb.g)}${componentToHex(rgb.b)}`;
+  return `#${toHex(rgb.r)}${toHex(rgb.g)}${toHex(rgb.b)}`;
 }
 
-export function hexToRgba(hex: string, alpha: number = 1): string {
-  const bigint = parseInt(hex.slice(1), 16);
+/**
+ * Converts a hex color string to RGBA
+ * @param hex - The hex color string
+ * @param alpha - The alpha value (0-1)
+ * @returns RGBA color string
+ */
+export function hexToRgba(hex: string, alpha = 1): string {
+  const cleanHex = hex.replace("#", "");
+  const bigint = Number.parseInt(cleanHex, 16);
   const r = (bigint >> 16) & 255;
   const g = (bigint >> 8) & 255;
   const b = bigint & 255;
 
-  return `rgba(${r},${g},${b},${alpha})`;
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+// ============================================
+// Date Utilities
+// ============================================
+
+/**
+ * Formats a date to a relative time string
+ * @param date - The date to format
+ * @returns Relative time string (e.g., "2 days ago")
+ */
+export function formatRelativeTime(date: Date | string): string {
+  const now = new Date();
+  const then = new Date(date);
+  const diffInSeconds = Math.floor((now.getTime() - then.getTime()) / 1000);
+
+  const intervals = {
+    year: 31536000,
+    month: 2592000,
+    week: 604800,
+    day: 86400,
+    hour: 3600,
+    minute: 60,
+    second: 1,
+  };
+
+  for (const [unit, seconds] of Object.entries(intervals)) {
+    const interval = Math.floor(diffInSeconds / seconds);
+    if (interval >= 1) {
+      return `${interval} ${unit}${interval > 1 ? "s" : ""} ago`;
+    }
+  }
+
+  return "Just now";
+}
+
+// ============================================
+// String Utilities
+// ============================================
+
+/**
+ * Truncates a string to a specified length
+ * @param str - The string to truncate
+ * @param length - The maximum length
+ * @returns Truncated string with ellipsis if needed
+ */
+export function truncate(str: string, length: number): string {
+  if (str.length <= length) return str;
+  return `${str.slice(0, length).trim()}...`;
+}
+
+/**
+ * Converts a string to kebab-case
+ * @param str - The string to convert
+ * @returns Kebab-case string
+ */
+export function kebabCase(str: string): string {
+  return str
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[\s_]+/g, "-")
+    .toLowerCase();
+}
+
+// ============================================
+// Validation Utilities
+// ============================================
+
+/**
+ * Validates an email address
+ * @param email - The email to validate
+ * @returns True if valid
+ */
+export function isValidEmail(email: string): boolean {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+/**
+ * Validates a URL
+ * @param url - The URL to validate
+ * @returns True if valid
+ */
+export function isValidUrl(url: string): boolean {
+  try {
+    new URL(url);
+    return true;
+  } catch {
+    return false;
+  }
 }

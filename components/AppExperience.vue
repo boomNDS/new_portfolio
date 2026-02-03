@@ -1,315 +1,164 @@
-<template>
-  <div
-    class="mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 mb-16 max-w-5xl pt-6 overflow-x-hidden"
-  >
-    <div class="mb-6 space-y-2">
-      <p class="text-sm uppercase tracking-[0.2em] text-gray-500">Experience</p>
-      <h2 class="title m-0 text-[var(--color-dark)]">
-        Professional experience
-      </h2>
-      <p class="text-gray-600">
-        Highlights from roles where I’ve shipped full-stack products, scaled
-        platforms, and refined UX flows.
-      </p>
-      <div class="flex flex-wrap items-baseline gap-2 pt-1">
-        <p class="m-0 text-xs uppercase tracking-[0.18em] text-gray-500">
-          Teams I’ve worked with
-        </p>
-        <div class="flex flex-wrap items-center gap-2">
-          <div
-            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
-          >
-            <img
-              src="/img/company/buddy_ninja_logo.jpeg"
-              alt="Buddy.ninja logo"
-              class="h-7 w-7 object-contain"
-              loading="lazy"
-              width="28"
-              height="28"
-            />
-          </div>
-          <div
-            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
-          >
-            <img
-              src="/img/company/bualoi.png"
-              alt="BualoiTech logo"
-              class="h-7 w-7 object-contain"
-              loading="lazy"
-              width="28"
-              height="28"
-            />
-          </div>
-          <div
-            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
-          >
-            <img
-              src="/img/company/skuberg_logo.jpeg"
-              alt="Skuberg logo"
-              class="h-7 w-7 object-contain"
-              loading="lazy"
-              width="28"
-              height="28"
-            />
-          </div>
-          <div
-            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
-          >
-            <img
-              src="/img/company/globish_logo.png"
-              alt="Globish Academia logo"
-              class="h-7 w-7 object-contain"
-              loading="lazy"
-              width="28"
-              height="28"
-            />
-          </div>
-          <div
-            class="h-10 w-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-soft)] flex items-center justify-center p-1"
-          >
-            <img
-              src="/img/company/opn_logo.png"
-              alt="OPN logo"
-              class="h-7 w-7 object-contain"
-              loading="lazy"
-              width="28"
-              height="28"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <section class="relative">
-      <div
-        class="hidden md:block absolute left-[28px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--color-primary)]/40 via-[var(--color-primary)]/20 to-transparent"
-      ></div>
-
-      <div class="flex flex-col gap-5">
-        <article
-          v-for="(card, index) in displayCards"
-          :key="index"
-          :ref="(el) => setCardRef(el as HTMLElement | null, index)"
-          class="relative md:pl-20"
-        >
-          <div
-            class="hidden md:flex absolute left-0 top-7 w-14 h-14 items-center justify-center rounded-full border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)]"
-          >
-            <img
-              :src="card.logoSrc"
-              :alt="card.logoAlt"
-              loading="lazy"
-              class="w-10 h-10 object-contain"
-              width="40"
-              height="40"
-            />
-          </div>
-
-          <div
-            class="rounded-xl border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4"
-          >
-            <div
-              class="flex flex-col md:flex-row md:items-start md:justify-between gap-3"
-            >
-              <div class="flex items-start gap-3">
-                <img
-                  :src="card.logoSrc"
-                  :alt="card.logoAlt"
-                  loading="lazy"
-                  class="w-12 h-12 object-contain rounded-lg border border-[var(--color-border)]/15 md:hidden"
-                  width="48"
-                  height="48"
-                />
-                <div>
-                  <div class="flex items-center gap-2 flex-wrap">
-                    <h3
-                      class="m-0 text-xl font-semibold text-[var(--color-dark)]"
-                    >
-                      {{ card.title }}
-                    </h3>
-                    <span
-                      v-if="card.isCurrent"
-                      class="px-2 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary)]/12 text-[var(--color-primary)] border border-[var(--color-primary)]/30"
-                    >
-                      Current
-                    </span>
-                  </div>
-                  <p class="m-0 text-sm text-gray-700">{{ card.role }}</p>
-                  <p class="m-0 text-sm text-gray-500">{{ card.timeframe }}</p>
-                </div>
-              </div>
-              <div
-                v-if="card.employmentType"
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-[var(--color-primary)] text-[var(--color-light)] uppercase tracking-wide shadow-[3px_3px_0px_rgba(0,0,0,0.16)]"
-              >
-                {{ card.employmentType }}
-              </div>
-            </div>
-
-            <p class="mt-3 mb-0 text-sm text-gray-700 leading-relaxed">
-              {{ card.description }}
-            </p>
-
-            <ul class="mt-3 mb-0 space-y-1 text-sm text-gray-800 md:columns-2">
-              <li
-                v-for="(item, idx) in card.listItems"
-                :key="idx"
-                class="flex items-start gap-2 break-inside-avoid"
-              >
-                <span
-                  class="mt-[6px] inline-block w-2 h-2 rounded-full bg-[var(--color-primary)]"
-                  aria-hidden="true"
-                ></span>
-                <span>{{ item }}</span>
-              </li>
-            </ul>
-          </div>
-        </article>
-      </div>
-    </section>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed, nextTick, onMounted, ref, watch } from "vue";
-import { usePreferredReducedMotion } from "@vueuse/core";
+import type { Experience, ParsedExperience } from "~/types";
+import { useMotionPreference } from "#imports";
 
-interface ExperienceCard {
-  logoSrc: string;
-  logoAlt: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  listItems: string[];
-}
+// Composables
+const prefersReducedMotion = useMotionPreference();
+const { $motionAnimate, $motionInView } = useNuxtApp();
 
-const cards = ref<ExperienceCard[]>([
+// Experience data - Merged old details with new concise format
+const experiences = ref<Experience[]>([
   {
     logoSrc: "/img/company/buddy_ninja_logo.jpeg",
     logoAlt: "Buddy.ninja logo",
     title: "Buddy.ninja",
     subtitle: "Software Engineer, Jul 2025 - Present (Part-Time) · Remote",
     description:
-      "Shipped core mobile + backend features for a pet-wearables startup, improving real-time sync and product reliability.",
+      "Building cross-platform Flutter apps for pet wearables with scalable backend systems. Established CI/CD pipelines and engineering best practices.",
     listItems: [
-      "Built Flutter apps for iOS/Android with clean UX for pet parents.",
-      "Designed scalable backend services for wearable data sync and device events.",
-      "Partnered with founders on roadmap, architecture, and engineering standards (CI/CD).",
+      "Built Flutter mobile apps (iOS/Android) with user-friendly interfaces for pet parents",
+      "Developed scalable backend systems powering wearable devices with real-time data sync",
+      "Integrated IoT connectivity between hardware and software for seamless experiences",
+      "Established CI/CD pipelines and early engineering best practices",
     ],
   },
   {
     logoSrc: "/img/company/bualoi.png",
     logoAlt: "BualoiTech logo",
     title: "BualoiTech",
-    subtitle: "Full-Stack, Aug 2025 - Jan 2026 (Full-Time)",
+    subtitle: "Full-Stack Developer, Aug 2025 - Jan 2026 (Full-Time) · Hybrid",
     description:
-      "Shipped full-stack product features and platform upgrades, improving reliability and delivery speed across web and API surfaces.",
+      "Delivered 6+ UI flows with Next.js and TypeScript. Built backend services with FastAPI and Hono, integrating Firebase and MongoDB for real-time features.",
     listItems: [
-      "Develop and maintain Next.js + TypeScript apps with Tailwind CSS and ShadCN UI.",
-      "Build and scale Python/FastAPI services with RESTful APIs for internal and external consumers.",
-      "Use Firebase and MongoDB for data handling, real-time features, and integrations.",
-      "Lead architecture decisions, code reviews, performance tuning, and CI/CD automation.",
-      "Operate with Docker and cloud platforms (AWS/GCP) for deployment and DevOps workflows.",
+      "Developed full-stack applications using Next.js, TypeScript, Tailwind CSS, and shadCN UI",
+      "Built and scaled backend services with Python, FastAPI, and Hono (Express-like framework)",
+      "Designed and consumed RESTful APIs for internal and external integrations",
+      "Integrated Firebase and MongoDB for real-time features and efficient data handling",
+      "Containerized services with Docker and deployed to GCP (~50% setup time reduction)",
     ],
   },
   {
     logoSrc: "/img/company/skuberg_logo.jpeg",
     logoAlt: "Skuberg logo",
     title: "Skuberg",
-    subtitle: "Full-Stack, Aug 2024 - Jan 2025 (Full-Time)",
+    subtitle: "Full-Stack Engineer, Aug 2024 - Jan 2025 (Full-Time) · On-site",
     description:
-      "Designed data models, delivered end-to-end features, and streamlined deployment workflows for stable releases and smoother integrations.",
+      "Designed database architecture and built scalable systems with Vue/React and Elysia.js. Managed DigitalOcean deployments and integrated KBank payment APIs.",
     listItems: [
-      "Database design & flow",
-      "Backend & frontend development.",
-      "API integration (KBank).",
-      "Deployment on DigitalOcean.",
+      "Designed database architecture and implemented scalable backend/frontend systems",
+      "Built backend services using Elysia.js (Express-like) for fast, maintainable APIs",
+      "Integrated KBank payment APIs, reducing manual reconciliation effort by ~30%",
+      "Managed end-to-end deployment on DigitalOcean using CapRover (<30 min releases)",
     ],
   },
   {
     logoSrc: "/img/company/globish_logo.png",
-    logoAlt: "Globish logo",
+    logoAlt: "Globish Academia logo",
     title: "Globish Academia",
-    subtitle: "Full-Stack, Sep 2021 - Apr 2024 (Full-Time)",
+    subtitle: "Full-Stack Engineer, Sept 2021 - Apr 2024 (Full-Time) · Bangkok",
     description:
-      "Built Nuxt-based products, improved UX flows, and delivered API capabilities to support product growth and smoother user journeys.",
+      "Established Nuxt.js project with reusable components. Built Nest.js APIs to automate workflows and reduce manual processing time.",
     listItems: [
-      "Developed an automated scoring system for streamlined summary and report generation.",
-      "Revitalized email marketing for an enhanced user experience.",
+      "Established Nuxt.js project with streamlined development and enhanced UX",
+      "Mapped user flows for seamless navigation and improved usability",
+      "Built Nest.js APIs to automate manual workflows (~40% processing time reduction)",
     ],
   },
   {
     logoSrc: "/img/company/hlab.png",
-    logoAlt: "h-lab logo",
+    logoAlt: "H-Lab logo",
     title: "H-Lab",
-    subtitle: "Software engineer, Aug 2021 - Aug 2021 (Freelance)",
+    subtitle: "Software Engineer, Aug 2021 (Freelance) · Bangkok",
     description:
-      "Delivered a React memory game and a LINE messaging controller to automate scheduling and content delivery.",
-    listItems: [],
+      "Developed React memory matching game with intuitive UI/UX. Built LINE Messaging Controller to automate communication workflows.",
+    listItems: [
+      "Developed memory matching game using React with engaging UI/UX",
+      "Designed LINE Messaging Controller to schedule and dispatch content",
+    ],
   },
   {
     logoSrc: "/img/company/opn_logo.png",
-    logoAlt: "opn logo",
+    logoAlt: "OPN logo",
     title: "OPN",
-    subtitle: "Tech-intern, Apr 2021 - June 2021,  (Internship)",
+    subtitle: "Tech Intern, Apr 2021 - June 2021 (Internship) · Bangkok",
     description:
-      "Built Phoenix endpoints, automated uploads to AWS S3, and wrote tests to improve system stability and data reliability.",
-    listItems: [],
+      "Built Phoenix API endpoints, automated AWS S3 image uploads, and wrote unit tests to improve system stability.",
+    listItems: [
+      "Built API endpoints and queries using Phoenix framework",
+      "Automated image uploads to AWS S3",
+      "Wrote unit tests to improve code quality",
+    ],
   },
   {
     logoSrc: "/img/company/startup_uni_logo.png",
-    logoAlt: "startup unicorn logo",
-    title: "Startup unicorn (Dopple)",
-    subtitle: "Full-Stack, Aug 2020 - Nov 2020 (Internship)",
+    logoAlt: "Startup Unicorn logo",
+    title: "Startup Unicorn (Follovv)",
+    subtitle: "Full-Stack Developer, Aug 2020 - Nov 2020 (Internship) · Bangkok",
     description:
-      "Connected Django frontend and backend flows to complete product functionality and support faster iteration.",
-    listItems: [],
+      "Developed APIs and data flows using Django to connect frontend and backend components for the Follovv platform.",
+    listItems: [
+      "Built APIs and data flows using Django",
+      "Connected frontend and backend components",
+    ],
   },
 ]);
 
-const parseSubtitle = (subtitle: string) => {
-  const [rolePart, ...rest] = subtitle.split(",");
-  const timeframe = rest.join(",").trim();
-  const employmentType = subtitle.match(/\(([^)]+)\)/)?.[1] || "";
-  return { role: rolePart?.trim() || subtitle, timeframe, employmentType };
+// Company logos for quick view
+const _companyLogos = [
+  { src: "/img/company/buddy_ninja_logo.jpeg", alt: "Buddy.ninja" },
+  { src: "/img/company/bualoi.png", alt: "BualoiTech" },
+  { src: "/img/company/skuberg_logo.jpeg", alt: "Skuberg" },
+  { src: "/img/company/globish_logo.png", alt: "Globish" },
+  { src: "/img/company/hlab.png", alt: "H-Lab" },
+  { src: "/img/company/opn_logo.png", alt: "OPN" },
+  { src: "/img/company/startup_uni_logo.png", alt: "Startup Unicorn" },
+];
+
+// Tech stack tags for each experience
+const _techStacks: Record<string, string[]> = {
+  "Buddy.ninja": ["Flutter", "IoT", "AWS", "CI/CD"],
+  BualoiTech: ["Next.js", "TypeScript", "Tailwind", "FastAPI", "Hono", "Firebase", "GCP", "Docker"],
+  Skuberg: ["Vue.js", "React", "Elysia.js", "Node.js", "DigitalOcean", "CapRover", "KBank APIs"],
+  "Globish Academia": ["Nuxt.js", "Nest.js", "Node.js"],
+  "H-Lab": ["React", "JavaScript", "LINE API"],
+  OPN: ["Phoenix", "Elixir", "AWS S3"],
+  "Startup Unicorn (Follovv)": ["Django", "Python"],
 };
 
-const cardRefs = ref<HTMLElement[]>([]);
-const { $motionAnimate, $motionInView } = useNuxtApp();
-const reducedMotion = import.meta.client
-  ? usePreferredReducedMotion()
-  : ref<"no-preference" | "reduce">("no-preference");
-
-const displayCards = computed(() =>
-  cards.value.map((card) => {
-    const meta = parseSubtitle(card.subtitle);
+// Parse experience data
+const _parsedExperiences = computed<ParsedExperience[]>(() =>
+  experiences.value.map((exp) => {
+    const [rolePart, ...rest] = exp.subtitle.split(",");
+    const timeframe = rest.join(",").trim();
+    const employmentType = exp.subtitle.match(/\(([^)]+)\)/)?.[1] || "";
     return {
-      ...card,
-      ...meta,
-      listItems: card.listItems.slice(0, 3),
-      isCurrent: /current/i.test(card.subtitle),
+      ...exp,
+      role: rolePart?.trim() || exp.subtitle,
+      timeframe,
+      employmentType,
+      isCurrent: /current|present/i.test(exp.subtitle),
     };
   }),
 );
 
-const setCardRef = (el: HTMLElement | null, index: number) => {
-  if (el) {
-    cardRefs.value[index] = el;
-  }
-};
+// Animation
+const _sectionRef = ref<HTMLElement | null>(null);
+const timelineRef = ref<HTMLElement | null>(null);
 
-const animateCards = () => {
-  if (reducedMotion.value === "reduce") return;
-  if (!$motionAnimate || !$motionInView) return;
-  cardRefs.value.forEach((el, index) => {
-    if (!el) return;
+const animateSection = () => {
+  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+
+  const items = timelineRef.value?.querySelectorAll(".timeline-item");
+  if (!items) return;
+
+  items.forEach((item, index) => {
     $motionInView(
-      el,
+      item,
       () =>
         $motionAnimate(
-          el,
-          { opacity: [0, 1], y: [14, 0] },
-          { duration: 0.45, delay: index * 0.06, easing: [0.22, 1, 0.36, 1] },
+          item,
+          { opacity: [0, 1], x: [-20, 0] },
+          { duration: 0.4, delay: index * 0.08, easing: [0.22, 1, 0.36, 1] },
         ),
       { amount: 0.2, once: true },
     );
@@ -317,16 +166,169 @@ const animateCards = () => {
 };
 
 onMounted(() => {
-  nextTick(animateCards);
+  nextTick(animateSection);
 });
-
-watch(
-  displayCards,
-  () => {
-    nextTick(animateCards);
-  },
-  { flush: "post" },
-);
 </script>
 
-<style scoped></style>
+<template>
+  <section ref="sectionRef" class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-5xl mx-auto">
+      <!-- Section Header -->
+      <div class="mb-10 sm:mb-12">
+        <div class="flex items-center gap-3 mb-3">
+          <span
+            class="i-tabler:briefcase text-xl sm:text-2xl text-[var(--color-primary)]"
+            aria-hidden="true"
+          />
+          <span class="text-xs sm:text-sm uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+            Experience
+          </span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-dark)] mb-3">
+          Professional Experience
+        </h2>
+        <p class="text-base sm:text-lg text-[var(--color-text)] max-w-3xl">
+          Full-stack developer building Vue/React (Nuxt/Next) frontends and Node.js/Python 
+          APIs with cloud deployments. Experienced in payment integrations, IoT connectivity, 
+          and mobile development with Flutter.
+        </p>
+
+        <!-- Company Logos -->
+        <div class="flex items-center gap-2 mt-4 sm:mt-6 flex-wrap">
+          <span class="text-xs text-[var(--color-text-muted)] mr-2">
+            Teams I've worked with:
+          </span>
+          <div class="flex items-center gap-2 flex-wrap">
+            <div
+              v-for="company in companyLogos"
+              :key="company.alt"
+              class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[var(--color-card)] border border-[var(--color-border)]/10 shadow-[var(--shadow-sm)] flex items-center justify-center p-1.5 hover:scale-110 transition-transform duration-200"
+              :title="company.alt"
+            >
+              <img
+                :src="company.src"
+                :alt="company.alt"
+                class="w-full h-full object-contain rounded-full"
+                loading="lazy"
+                width="32"
+                height="32"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Timeline -->
+      <div ref="timelineRef" class="relative">
+        <!-- Timeline Line -->
+        <div
+          class="hidden md:block absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[var(--color-primary)]/40 via-[var(--color-primary)]/20 to-transparent"
+          aria-hidden="true"
+        />
+
+        <!-- Experience Items -->
+        <div class="space-y-6 sm:space-y-8">
+          <article
+            v-for="(exp, index) in parsedExperiences"
+            :key="exp.title"
+            class="timeline-item relative md:pl-16"
+          >
+            <!-- Timeline Dot -->
+            <div
+              class="hidden md:flex absolute left-0 top-0 w-12 h-12 rounded-full border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)] items-center justify-center z-10"
+              :class="{ 'ring-2 ring-[var(--color-primary)] ring-offset-2': exp.isCurrent }"
+            >
+              <img
+                :src="exp.logoSrc"
+                :alt="exp.logoAlt"
+                class="w-7 h-7 object-contain rounded"
+                loading="lazy"
+                width="28"
+                height="28"
+              />
+            </div>
+
+            <!-- Card -->
+            <div
+              class="rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-mid)] p-4 sm:p-5 lg:p-6 transition-all duration-300 hover:shadow-[var(--shadow-strong)] hover:-translate-y-0.5"
+            >
+              <!-- Header -->
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
+                <div class="flex items-start gap-3">
+                  <img
+                    :src="exp.logoSrc"
+                    :alt="exp.logoAlt"
+                    class="w-11 h-11 sm:hidden object-contain rounded-lg border border-[var(--color-border)]/10"
+                    loading="lazy"
+                    width="44"
+                    height="44"
+                  />
+                  <div>
+                    <div class="flex items-center gap-2 flex-wrap">
+                      <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)]">
+                        {{ exp.title }}
+                      </h3>
+                      <span
+                        v-if="exp.isCurrent"
+                        class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20"
+                      >
+                        Current
+                      </span>
+                    </div>
+                    <p class="text-sm text-[var(--color-text)]">{{ exp.role }}</p>
+                    <p class="text-xs sm:text-sm text-[var(--color-text-muted)]">
+                      {{ exp.timeframe }}
+                    </p>
+                  </div>
+                </div>
+                <span
+                  v-if="exp.employmentType"
+                  class="inline-flex items-center self-start px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)] text-[var(--color-light)] uppercase tracking-wide shadow-[var(--shadow-sm)]"
+                >
+                  {{ exp.employmentType }}
+                </span>
+              </div>
+
+              <!-- Description -->
+              <p class="text-sm sm:text-base text-[var(--color-text)] leading-relaxed mb-3">
+                {{ exp.description }}
+              </p>
+
+              <!-- Highlights -->
+              <ul
+                v-if="exp.listItems.length"
+                class="space-y-1.5 sm:space-y-2 text-sm text-[var(--color-text)] mb-4"
+              >
+                <li
+                  v-for="item in exp.listItems"
+                  :key="item"
+                  class="flex items-start gap-2"
+                >
+                  <span
+                    class="mt-1.5 w-1.5 h-1.5 rounded-full bg-[var(--color-primary)] flex-shrink-0"
+                    aria-hidden="true"
+                  />
+                  <span>{{ item }}</span>
+                </li>
+              </ul>
+
+              <!-- Tech Stack Tags -->
+              <div
+                v-if="techStacks[exp.title]"
+                class="flex flex-wrap gap-1.5 pt-3 border-t border-[var(--color-border)]/10"
+              >
+                <span
+                  v-for="tech in techStacks[exp.title]"
+                  :key="tech"
+                  class="px-2 py-0.5 rounded-md bg-[var(--color-light)] text-[var(--color-text-muted)] text-[10px] sm:text-xs font-medium"
+                >
+                  {{ tech }}
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

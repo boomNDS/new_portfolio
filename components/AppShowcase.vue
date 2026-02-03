@@ -1,215 +1,250 @@
-<template>
-  <div
-    class="mx-auto px-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 mb-16 max-w-6xl pt-6 overflow-x-hidden"
-  >
-    <div class="flex items-start justify-between flex-wrap gap-3 mb-4">
-      <div>
-        <p class="text-sm uppercase tracking-[0.2em] text-gray-500 m-0">
-          Projects
-        </p>
-        <h2 class="title m-0 text-[var(--color-dark)]">
-          Showcase
-          <span class="text-[var(--color-text)] text-lg"
-            >({{ projectCount }} projects)</span
-          >
-        </h2>
-        <p class="m-0 text-gray-600 text-sm text-[var(--color-text)]">
-          A mix of landing pages, apps, and tools I’ve shipped end-to-end.
-        </p>
-      </div>
-      <CommonsNDropdrop v-model="selected" />
-    </div>
-
-    <section
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch"
-    >
-      <CommonsInfoCard
-        v-for="(data, index) in items"
-        :key="`showcase-${index}`"
-        :ref="(el) => setCardRef(el as HTMLElement | null, index)"
-        :title="data.name"
-        :image-src="data.img"
-        :image-alt="data.name"
-        :description="data.detail"
-        :meta="data.meta"
-        :result="data.result"
-        :tags="data.tags"
-        :links="data.links"
-      />
-      <div
-        v-if="!items.length"
-        class="col-span-full rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] px-4 py-6 text-center text-[var(--color-text)] shadow-[var(--shadow-soft)]"
-      >
-        No projects found for this filter. Try another category to explore more
-        work.
-      </div>
-    </section>
-
-    <div
-      v-if="filterItems.length"
-      class="mt-6 flex items-center justify-between gap-3"
-    >
-      <button
-        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        :disabled="page === 1"
-        @click="prevPage"
-      >
-        Previous
-      </button>
-      <span class="text-sm text-[var(--color-text)]">
-        Page {{ page }} / {{ totalPages }}
-      </span>
-      <button
-        class="px-4 py-2 rounded-lg border text-sm font-semibold bg-[var(--color-card)] text-[var(--color-dark)] border-[var(--color-border)] shadow-[4px_4px_0px_0px_rgba(0,0,0,0.18)] transition duration-150 hover:-translate-y-0.5 disabled:opacity-50 disabled:translate-y-0 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-light)]"
-        :disabled="page === totalPages"
-        @click="nextPage"
-      >
-        Next
-      </button>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
-import { computed, nextTick, onMounted, watch, ref } from "vue";
-import { usePreferredReducedMotion } from "@vueuse/core";
 import showcaseData from "~/public/showcase.json";
+import type { Project, ProjectCategory } from "~/types";
+import { useMotionPreference } from "#imports";
 
-const selected = useState("showcaseFilter", () => "all");
-const page = useState("showcasePage", () => 1);
-const cardRefs = ref<HTMLElement[]>([]);
+// Composables
+const prefersReducedMotion = useMotionPreference();
 const { $motionAnimate, $motionInView } = useNuxtApp();
-const reducedMotion = import.meta.client
-  ? usePreferredReducedMotion()
-  : ref<"no-preference" | "reduce">("no-preference");
-const pageSize = 8;
 const route = useRoute();
 const router = useRouter();
 
-const filterItems = computed(() => {
-  return showcaseData.filter((data) => {
-    if (selected.value === "all") return true;
-    if (selected.value === "other") {
-      return !["frontend", "backend", "design"].some((category) =>
-        data.category.includes(category),
-      );
-    }
-    return data.category.includes(selected.value);
-  });
-});
+// Constants
+const CATEGORIES: { value: ProjectCategory; label: string }[] = [
+  { value: "all", label: "All Projects" },
+  { value: "frontend", label: "Frontend" },
+  { value: "backend", label: "Backend" },
+  { value: "design", label: "Design" },
+  { value: "other", label: "Other" },
+];
+const PAGE_SIZE = 8;
 
-const projectCount = computed(() => filterItems.value.length);
+// State
+const selected = ref<ProjectCategory>("all");
+const page = ref(1);
+const gridRef = ref<HTMLElement | null>(null);
+
+// Computed
+const filteredProjects = computed<Project[]>(() => {
+  if (selected.value === "all") return showcaseData;
+  if (selected.value === "other") {
+    return showcaseData.filter(
+      (p) => !p.category.some((c) => ["frontend", "backend", "design"].includes(c)),
+    );
+  }
+  return showcaseData.filter((p) => p.category.includes(selected.value));
+});
 
 const totalPages = computed(() =>
-  Math.max(1, Math.ceil(filterItems.value.length / pageSize)),
+  Math.max(1, Math.ceil(filteredProjects.value.length / PAGE_SIZE)),
 );
 
-const items = computed(() => {
-  const start = (page.value - 1) * pageSize;
-  return filterItems.value.slice(start, start + pageSize);
+const _paginatedProjects = computed(() => {
+  const start = (page.value - 1) * PAGE_SIZE;
+  return filteredProjects.value.slice(start, start + PAGE_SIZE);
 });
 
-const nextPage = () => {
-  if (page.value < totalPages.value) page.value += 1;
+// Methods
+const _handleFilterChange = (category: ProjectCategory) => {
+  selected.value = category;
+  page.value = 1;
 };
 
-const prevPage = () => {
-  if (page.value > 1) page.value -= 1;
+const _nextPage = () => {
+  if (page.value < totalPages.value) page.value++;
 };
 
-const setCardRef = (el: HTMLElement | null, index: number) => {
-  if (el) {
-    cardRefs.value[index] = el;
-  }
+const _prevPage = () => {
+  if (page.value > 1) page.value--;
 };
 
-const animateCards = () => {
-  if (reducedMotion.value === "reduce") return;
-  if (!$motionAnimate || !$motionInView) return;
-  cardRefs.value.forEach((el, index) => {
-    if (!el) return;
+// Animation
+const animateGrid = () => {
+  if (prefersReducedMotion.value === "reduce" || !$motionInView || !$motionAnimate) return;
+
+  const cards = gridRef.value?.querySelectorAll(".project-card");
+  if (!cards) return;
+
+  cards.forEach((card, index) => {
     $motionInView(
-      el,
+      card,
       () =>
         $motionAnimate(
-          el,
-          { opacity: [0, 1], y: [12, 0] },
-          { duration: 0.4, delay: index * 0.05, easing: [0.22, 1, 0.36, 1] },
+          card,
+          { opacity: [0, 1], y: [20, 0] },
+          { duration: 0.4, delay: (index % 4) * 0.05, easing: [0.22, 1, 0.36, 1] },
         ),
       { amount: 0.2, once: true },
     );
   });
 };
 
-onMounted(() => {
-  nextTick(animateCards);
-  if (route.query.filter) {
-    selected.value = String(route.query.filter);
-  }
-  if (route.query.page) {
-    const parsed = Number(route.query.page);
-    page.value = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-  }
-});
-
-watch(
-  items,
-  () => {
-    nextTick(animateCards);
-  },
-  { flush: "post" },
-);
-
-watch(
-  filterItems,
-  () => {
-    page.value = 1;
-  },
-  { flush: "post" },
-);
-
-watch(
-  totalPages,
-  () => {
-    if (page.value > totalPages.value) {
-      page.value = totalPages.value;
-    }
-  },
-  { flush: "post" },
-);
-
-watch(
-  () => route.query,
-  (query) => {
-    if (query.filter && query.filter !== selected.value) {
-      selected.value = String(query.filter);
-    }
-    if (query.page) {
-      const parsed = Number(query.page);
-      const nextPage = Number.isFinite(parsed) && parsed > 0 ? parsed : 1;
-      if (nextPage !== page.value) page.value = nextPage;
-    }
-  },
-  { deep: true },
-);
-
+// URL sync
 watch(
   [selected, page],
-  ([nextFilter, nextPage]) => {
-    const nextQuery = {
-      ...route.query,
-      filter: nextFilter !== "all" ? nextFilter : undefined,
-      page: nextPage > 1 ? String(nextPage) : undefined,
-    };
-    const currentFilter = route.query.filter ?? undefined;
-    const currentPage = route.query.page ?? undefined;
-    if (currentFilter === nextQuery.filter && currentPage === nextQuery.page) {
-      return;
-    }
-    router.replace({ query: nextQuery });
+  ([newFilter, newPage]) => {
+    const query: Record<string, string> = {};
+    if (newFilter !== "all") query.filter = newFilter;
+    if (newPage > 1) query.page = String(newPage);
+
+    router.replace({ query: Object.keys(query).length ? query : undefined });
   },
   { flush: "post" },
 );
+
+// Initialize from URL
+onMounted(() => {
+  const filterParam = route.query.filter as ProjectCategory;
+  const pageParam = Number(route.query.page);
+
+  if (filterParam && CATEGORIES.some((c) => c.value === filterParam)) {
+    selected.value = filterParam;
+  }
+  if (pageParam && pageParam > 0) {
+    page.value = Math.min(pageParam, totalPages.value);
+  }
+
+  nextTick(animateGrid);
+});
+
+// Re-animate on filter/page change
+watch([selected, page], () => {
+  nextTick(animateGrid);
+});
 </script>
 
-<style scoped></style>
+<template>
+  <section id="showcase" class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <!-- Section Header -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
+        <div>
+          <div class="flex items-center gap-3 mb-3">
+            <span
+              class="i-tabler:folder text-xl sm:text-2xl text-[var(--color-primary)]"
+              aria-hidden="true"
+            />
+            <span class="text-xs sm:text-sm uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
+              Portfolio
+            </span>
+          </div>
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-dark)] mb-2">
+            Showcase
+            <span class="text-lg sm:text-xl text-[var(--color-text-muted)] font-normal">
+              ({{ filteredProjects.length }} projects)
+            </span>
+          </h2>
+          <p class="text-base sm:text-lg text-[var(--color-text)] max-w-2xl">
+            A mix of landing pages, apps, and tools I've shipped end-to-end.
+          </p>
+        </div>
+
+        <!-- Filter Dropdown -->
+        <div class="relative">
+          <select
+            v-model="selected"
+            class="appearance-none w-full sm:w-auto px-4 py-2.5 pr-10 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] cursor-pointer"
+            aria-label="Filter projects by category"
+            @change="handleFilterChange(($event.target as HTMLSelectElement).value as ProjectCategory)"
+          >
+            <option
+              v-for="cat in CATEGORIES"
+              :key="cat.value"
+              :value="cat.value"
+            >
+              {{ cat.label }}
+            </option>
+          </select>
+          <span
+            class="absolute right-3 top-1/2 -translate-y-1/2 i-tabler:chevron-down text-[var(--color-text-muted)] pointer-events-none"
+            aria-hidden="true"
+          />
+        </div>
+      </div>
+
+      <!-- Projects Grid -->
+      <div
+        v-if="paginatedProjects.length"
+        ref="gridRef"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+      >
+        <CommonsInfoCard
+          v-for="project in paginatedProjects"
+          :key="project.name"
+          class="project-card"
+          :title="project.name"
+          :image-src="project.img"
+          :image-alt="project.name"
+          :description="project.detail"
+          :meta="project.meta"
+          :result="project.result"
+          :tags="project.tags"
+          :links="project.links"
+        />
+      </div>
+
+      <!-- Empty State -->
+      <div
+        v-else
+        class="text-center py-16 sm:py-20 rounded-2xl border-2 border-dashed border-[var(--color-border)] bg-[var(--color-card)]/50"
+      >
+        <span
+          class="i-tabler:folder-off text-4xl sm:text-5xl text-[var(--color-text-muted)] mb-4 block"
+          aria-hidden="true"
+        />
+        <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)] mb-2">
+          No projects found
+        </h3>
+        <p class="text-[var(--color-text)]">
+          Try selecting a different category to explore more work.
+        </p>
+      </div>
+
+      <!-- Pagination -->
+      <div
+        v-if="totalPages > 1"
+        class="mt-8 sm:mt-10 flex items-center justify-center gap-3"
+      >
+        <button
+          type="button"
+          class="flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          :disabled="page === 1"
+          aria-label="Previous page"
+          @click="prevPage"
+        >
+          <span class="i-tabler:chevron-left" aria-hidden="true" />
+          <span class="hidden sm:inline">Previous</span>
+        </button>
+
+        <div class="flex items-center gap-1.5">
+          <button
+            v-for="p in totalPages"
+            :key="p"
+            type="button"
+            class="min-w-[2.25rem] h-9 px-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            :class="
+              page === p
+                ? 'bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]'
+                : 'border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] hover:shadow-[var(--shadow-sm)]'
+            "
+            :aria-current="page === p ? 'page' : undefined"
+            @click="page = p"
+          >
+            {{ p }}
+          </button>
+        </div>
+
+        <button
+          type="button"
+          class="flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          :disabled="page === totalPages"
+          aria-label="Next page"
+          @click="nextPage"
+        >
+          <span class="hidden sm:inline">Next</span>
+          <span class="i-tabler:chevron-right" aria-hidden="true" />
+        </button>
+      </div>
+    </div>
+  </section>
+</template>

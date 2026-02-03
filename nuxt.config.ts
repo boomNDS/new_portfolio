@@ -11,7 +11,6 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   modules: [
-    "@nuxt/eslint",
     "@nuxt/test-utils/module",
     "@vueuse/nuxt",
     "@nuxt/image",

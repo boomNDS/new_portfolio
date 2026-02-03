@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "vue.volar",
+    "vue.vscode-typescript-vue-plugin",
+    "biomejs.biome",
+    "nuxtr.vscode"
+  ],
+  "unwantedRecommendations": ["octref.vetur"]
+}

@@ -1,5 +1,5 @@
-import { defineNuxtPlugin } from "#app";
 import { animate, inView } from "motion";
+import { defineNuxtPlugin } from "#app";
 
 export default defineNuxtPlugin(() => {
   return {
