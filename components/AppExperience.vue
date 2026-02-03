@@ -5,9 +5,7 @@ import type { Experience, ParsedExperience } from "~/types";
 // Composables
 const prefersReducedMotion = useMotionPreference();
 const [scope, animate] = useAnimate();
-const scopeEl = computed<HTMLElement | null>(
-  () => (scope.value as HTMLElement | null) ?? null,
-);
+const scopeEl = computed<HTMLElement | null>(() => (scope.value as HTMLElement | null) ?? null);
 const sectionInView = useInView(scopeEl);
 
 // Experience data - Merged old details with new concise format
@@ -18,12 +16,12 @@ const experiences = ref<Experience[]>([
     title: "Buddy.ninja",
     subtitle: "Software Engineer, Jul 2025 - Present (Part-Time) · Remote",
     description:
-      "Building cross-platform Flutter apps for pet wearables with scalable backend systems. Established CI/CD pipelines and engineering best practices.",
+      "Building cross-platform Flutter apps for pet wearables and the backend systems that power them. Set up CI/CD and core engineering practices.",
     listItems: [
-      "Built Flutter mobile apps (iOS/Android) with user-friendly interfaces for pet parents",
-      "Developed scalable backend systems powering wearable devices with real-time data sync",
-      "Integrated IoT connectivity between hardware and software for seamless experiences",
-      "Established CI/CD pipelines and early engineering best practices",
+      "Shipped Flutter apps (iOS/Android) with a clean, parent-friendly UX",
+      "Implemented backend services for wearable telemetry and real-time sync",
+      "Connected IoT devices with reliable app ↔ device communication",
+      "Introduced CI/CD and early engineering standards",
     ],
   },
   {
@@ -32,13 +30,12 @@ const experiences = ref<Experience[]>([
     title: "BualoiTech",
     subtitle: "Full-Stack Developer, Aug 2025 - Jan 2026 (Full-Time) · Hybrid",
     description:
-      "Delivered 6+ UI flows with Next.js and TypeScript. Built backend services with FastAPI and Hono, integrating Firebase and MongoDB for real-time features.",
+      "Delivered 6+ product flows in Next.js/TypeScript. Built FastAPI + Hono services with Firebase and MongoDB for real-time features.",
     listItems: [
-      "Developed full-stack applications using Next.js, TypeScript, Tailwind CSS, and shadCN UI",
-      "Built and scaled backend services with Python, FastAPI, and Hono (Express-like framework)",
-      "Designed and consumed RESTful APIs for internal and external integrations",
-      "Integrated Firebase and MongoDB for real-time features and efficient data handling",
-      "Containerized services with Docker and deployed to GCP (~50% setup time reduction)",
+      "Built end-to-end features with Next.js, TypeScript, Tailwind CSS, and shadCN UI",
+      "Developed FastAPI + Hono services and production-ready REST APIs",
+      "Integrated Firebase and MongoDB for real-time data handling",
+      "Containerized and deployed to GCP with Docker (~50% faster setup)",
     ],
   },
   {
@@ -47,12 +44,12 @@ const experiences = ref<Experience[]>([
     title: "Skuberg",
     subtitle: "Full-Stack Engineer, Aug 2024 - Jan 2025 (Full-Time) · On-site",
     description:
-      "Designed database architecture and built scalable systems with Vue/React and Elysia.js. Managed DigitalOcean deployments and integrated KBank payment APIs.",
+      "Designed the data model and shipped scalable systems across Vue/React and Elysia.js. Owned DigitalOcean deployments and KBank payment integration.",
     listItems: [
-      "Designed database architecture and implemented scalable backend/frontend systems",
-      "Built backend services using Elysia.js (Express-like) for fast, maintainable APIs",
-      "Integrated KBank payment APIs, reducing manual reconciliation effort by ~30%",
-      "Managed end-to-end deployment on DigitalOcean using CapRover (<30 min releases)",
+      "Designed the database and implemented scalable front/back-end systems",
+      "Built maintainable Elysia.js APIs for core product workflows",
+      "Integrated KBank payments, cutting manual reconciliation ~30%",
+      "Owned deployments on DigitalOcean with CapRover (<30 min releases)",
     ],
   },
   {
@@ -61,11 +58,11 @@ const experiences = ref<Experience[]>([
     title: "Globish Academia",
     subtitle: "Full-Stack Engineer, Sept 2021 - Apr 2024 (Full-Time) · Bangkok",
     description:
-      "Established Nuxt.js project with reusable components. Built Nest.js APIs to automate workflows and reduce manual processing time.",
+      "Established the Nuxt codebase with reusable UI patterns. Built Nest.js APIs to automate workflows and cut manual work.",
     listItems: [
-      "Established Nuxt.js project with streamlined development and enhanced UX",
-      "Mapped user flows for seamless navigation and improved usability",
-      "Built Nest.js APIs to automate manual workflows (~40% processing time reduction)",
+      "Bootstrapped Nuxt project structure and reusable components",
+      "Mapped user flows to simplify navigation and UX",
+      "Built Nest.js APIs reducing manual processing ~40%",
     ],
   },
   {
@@ -74,10 +71,10 @@ const experiences = ref<Experience[]>([
     title: "H-Lab",
     subtitle: "Software Engineer, Aug 2021 (Freelance) · Bangkok",
     description:
-      "Developed React memory matching game with intuitive UI/UX. Built LINE Messaging Controller to automate communication workflows.",
+      "Built a React memory game with polished UX and a LINE Messaging Controller for automated comms.",
     listItems: [
-      "Developed memory matching game using React with engaging UI/UX",
-      "Designed LINE Messaging Controller to schedule and dispatch content",
+      "Shipped a React memory game with clean UI/UX",
+      "Built a LINE Messaging Controller to schedule and dispatch content",
     ],
   },
   {
@@ -85,12 +82,11 @@ const experiences = ref<Experience[]>([
     logoAlt: "OPN logo",
     title: "OPN",
     subtitle: "Tech Intern, Apr 2021 - June 2021 (Internship) · Bangkok",
-    description:
-      "Built Phoenix API endpoints, automated AWS S3 image uploads, and wrote unit tests to improve system stability.",
+    description: "Built Phoenix APIs, automated S3 uploads, and added unit tests for stability.",
     listItems: [
-      "Built API endpoints and queries using Phoenix framework",
+      "Implemented Phoenix API endpoints and queries",
       "Automated image uploads to AWS S3",
-      "Wrote unit tests to improve code quality",
+      "Wrote unit tests to improve reliability",
     ],
   },
   {
@@ -99,11 +95,8 @@ const experiences = ref<Experience[]>([
     title: "Startup Unicorn (Follovv)",
     subtitle: "Full-Stack Developer, Aug 2020 - Nov 2020 (Internship) · Bangkok",
     description:
-      "Developed APIs and data flows using Django to connect frontend and backend components for the Follovv platform.",
-    listItems: [
-      "Built APIs and data flows using Django",
-      "Connected frontend and backend components",
-    ],
+      "Developed Django APIs and data flows connecting frontend and backend for Follovv.",
+    listItems: ["Built Django APIs and data flows", "Connected frontend and backend components"],
   },
 ]);
 
@@ -204,9 +197,9 @@ watch(sectionInView, (inView) => {
           Professional Experience
         </h2>
         <p class="text-base sm:text-lg text-[var(--color-text)] max-w-3xl">
-          Full-stack developer building Vue/React (Nuxt/Next) frontends and Node.js/Python 
-          APIs with cloud deployments. Experienced in payment integrations, IoT connectivity, 
-          and mobile development with Flutter.
+          Full-stack developer building Vue/React (Nuxt/Next) frontends and Node.js/Python
+          APIs with cloud deployments. Experienced in payments, IoT connectivity, and
+          mobile development with Flutter.
         </p>
 
         <!-- Company Logos -->

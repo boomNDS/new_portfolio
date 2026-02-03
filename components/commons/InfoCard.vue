@@ -115,16 +115,16 @@ const onMediaError = () => {
         {{ result }}
       </div>
 
-      <!-- Hover Overlay -->
+      <!-- Hover Overlay: fixed black + opacity so dark in both themes; button stays readable -->
       <div
-        class="absolute inset-0 bg-[var(--color-dark)]/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        class="project-card-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
       >
         <NuxtLink
           v-if="primaryLink"
           :to="primaryLink.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 px-4 py-2 rounded-full bg-white text-[var(--color-dark)] font-semibold text-sm shadow-[var(--shadow-mid)] hover:scale-105 transition-transform duration-200"
+          class="project-card-overlay-btn flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:scale-105 transition-transform duration-200"
         >
           <span :class="getIconClass(primaryLink.type)" aria-hidden="true" />
           View Project
@@ -202,5 +202,20 @@ const onMediaError = () => {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Hover overlay: black with opacity so it stays dark in light and dark mode */
+.project-card-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Button on overlay: always light bg + dark text for readability on dark overlay */
+.project-card-overlay-btn {
+  background: #ffffff;
+  color: #111111;
+}
+
+.project-card-overlay-btn:hover {
+  background: #f4f4f4;
 }
 </style>

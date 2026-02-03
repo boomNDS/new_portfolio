@@ -227,7 +227,7 @@ watch(gridInView, (inView) => {
       >
         <button
           type="button"
-          class="flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          class="cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
           :disabled="page === 1"
           aria-label="Previous page"
           @click="prevPage"
@@ -241,7 +241,7 @@ watch(gridInView, (inView) => {
             v-for="p in totalPages"
             :key="p"
             type="button"
-            class="min-w-[2.25rem] h-9 px-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            class="cursor-pointer min-w-[2.25rem] h-9 px-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
             :class="
               page === p
                 ? 'bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]'
@@ -256,7 +256,7 @@ watch(gridInView, (inView) => {
 
         <button
           type="button"
-          class="flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          class="cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
           :disabled="page === totalPages"
           aria-label="Next page"
           @click="nextPage"

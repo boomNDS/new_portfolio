@@ -156,144 +156,128 @@ watch(navInView, (inView) => {
 <template>
   <nav
     ref="navScope"
-    class="fixed top-0 left-0 right-0 z-50 px-3 sm:px-4 lg:px-6 py-3"
+    class="nav-bar fixed top-0 left-0 right-0 z-50 h-16 flex items-center px-4 sm:px-6 lg:px-8"
     role="navigation"
     aria-label="Main navigation"
   >
-    <div
-      class="mx-auto max-w-7xl backdrop-blur-md bg-[var(--color-card)]/85 rounded-2xl shadow-[var(--shadow-soft)] border border-[var(--color-border)]/10 transition-all duration-300"
-      :class="{ 'shadow-[var(--shadow-mid)]': isMenuOpen }"
-    >
-      <div class="flex items-center justify-between px-3 sm:px-4 py-2.5">
-        <!-- Logo -->
-        <button
-          ref="logoRef"
-          type="button"
-          class="flex items-center gap-2 p-1.5 rounded-xl transition-transform duration-200 hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
-          aria-label="Scroll to top"
-          @click="scrollToSection('Intro')"
-        >
-          <img
-            src="/img/logo.svg"
-            alt="Pachara logo"
-            width="36"
-            height="36"
-            class="w-8 h-8 sm:w-9 sm:h-9"
-          />
-          <span
-            class="hidden sm:block font-semibold text-[var(--color-dark)] text-sm lg:text-base"
-            >Boom</span
-          >
-        </button>
-
-        <!-- Desktop Navigation -->
-        <ul class="hidden lg:flex items-center gap-1" role="menubar">
-          <li v-for="item in MENU_ITEMS" :key="item" role="none">
-            <button
-              data-nav-item
-              type="button"
-              role="menuitem"
-              class="relative cursor-pointer px-4 py-2 rounded-lg text-sm font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2"
-              :class="{
-                'text-[var(--color-primary)]': isActiveSection(item),
-              }"
-              @click="handleMenuSelect(item)"
-            >
-              {{ item }}
-              <span
-                v-if="isActiveSection(item)"
-                class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-[var(--color-primary)]"
-              />
-            </button>
-          </li>
-        </ul>
-
-        <!-- Actions -->
-        <div class="flex items-center gap-2">
-          <!-- Mobile Menu Toggle -->
-          <button
-            type="button"
-            class="lg:hidden flex items-center cursor-pointer gap-1.5 px-3 py-2 rounded-lg text-sm font-medium border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-            :aria-expanded="isMenuOpen"
-            aria-controls="mobile-menu"
-            :aria-label="menuAriaLabel"
-            @click="handleMenuToggle"
-          >
-            <span>{{ isMenuOpen ? "Close" : "Menu" }}</span>
-            <span
-              class="text-lg transition-transform duration-200"
-              :class="isMenuOpen ? 'i-tabler:x' : 'i-tabler:menu-2'"
-              aria-hidden="true"
-            />
-          </button>
-
-          <!-- Theme Toggle -->
-          <button
-            type="button"
-            class="flex items-center cursor-pointer gap-2 px-3 py-2 rounded-full border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-            :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
-            @click="$emit('toggle-theme')"
-          >
-            <span
-              class="text-lg transition-all duration-300"
-              :class="[
-                theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon',
-                { 'rotate-90': theme === 'dark' },
-              ]"
-              aria-hidden="true"
-            />
-            <span class="hidden sm:inline text-sm font-medium">{{
-              theme === "dark" ? "Light" : "Dark"
-            }}</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Mobile Menu -->
-      <Transition
-        enter-active-class="transition-all duration-250 ease-out"
-        enter-from-class="opacity-0 -translate-y-2"
-        enter-to-class="opacity-100 translate-y-0"
-        leave-active-class="transition-all duration-200 ease-in"
-        leave-from-class="opacity-100 translate-y-0"
-        leave-to-class="opacity-0 -translate-y-2"
+    <div class="mx-auto w-full max-w-6xl flex items-center justify-between gap-4">
+      <!-- Logo -->
+      <button
+        type="button"
+        class="cursor-pointer flex items-center gap-1.5 shrink-0 px-2 py-1 rounded-md bg-transparent border-0 transition-opacity duration-200 hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+        aria-label="Scroll to top"
+        @click="scrollToSection('Intro')"
       >
-        <div
-          v-show="isMenuOpen"
-          id="mobile-menu"
-          class="lg:hidden border-t border-[var(--color-border)]/10 px-3 py-3"
-        >
-          <ul class="space-y-1" role="menu">
-            <li
-              v-for="(item, index) in MENU_ITEMS"
-              :key="item"
-              role="none"
-              :style="{
-                animationDelay: hasMenuOpened ? `${index * 50}ms` : '0ms',
-              }"
-              :class="{ 'menu-item-enter': hasMenuOpened }"
-            >
-              <button
-                type="button"
-                role="menuitem"
-                class="w-full text-left cursor-pointer px-4 py-3 rounded-xl text-base font-medium text-[var(--color-text)] hover:text-[var(--color-dark)] hover:bg-[var(--color-light)]/50 transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
-                :class="{
-                  'text-[var(--color-primary)] bg-[var(--color-primary)]/5':
-                    isActiveSection(item),
-                }"
-                @click="handleMenuSelect(item)"
-              >
-                {{ item }}
-              </button>
-            </li>
-          </ul>
-        </div>
-      </Transition>
+        <span class="nav-logo-text">Pachara</span>
+        <span class="nav-logo-dot" aria-hidden="true" />
+      </button>
+
+      <!-- Desktop Navigation (centered) -->
+      <ul
+        class="nav-list hidden md:flex items-center justify-center gap-10 lg:gap-12 list-none flex-1 min-w-0"
+        role="menubar"
+      >
+        <li v-for="item in MENU_ITEMS" :key="item" role="none">
+          <button
+            data-nav-item
+            type="button"
+            role="menuitem"
+            class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-md bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+            :class="{ 'text-[var(--color-dark)]': isActiveSection(item) }"
+            @click="handleMenuSelect(item)"
+          >
+            {{ item }}
+          </button>
+        </li>
+      </ul>
+
+      <!-- Spacer for mobile so theme button stays right -->
+      <div class="md:hidden flex-1 min-w-0" />
+
+      <!-- Dark/Light mode toggle -->
+      <button
+        type="button"
+        class="nav-theme-btn cursor-pointer flex items-center gap-2 shrink-0 h-9 px-4 rounded-full border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+        :aria-label="`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`"
+        @click="$emit('toggle-theme')"
+      >
+        <span
+          class="text-base transition-transform duration-300"
+          :class="[
+            theme === 'dark' ? 'i-tabler:sun' : 'i-tabler:moon',
+            { 'rotate-90': theme === 'dark' },
+          ]"
+          aria-hidden="true"
+        />
+        <span class="text-sm font-medium">{{ theme === "dark" ? "Light" : "Dark" }}</span>
+      </button>
     </div>
   </nav>
 </template>
 
 <style scoped>
+/* Flat light bar, 64px height, no border/heavy shadow */
+.nav-bar {
+  background-color: var(--color-background);
+  /* no box-shadow or border for flat look */
+}
+
+.nav-logo-text {
+  font-family: "Dancing Script", cursive;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
+/* Small solid yellow circular dot */
+.nav-logo-dot {
+  width: 0.375rem;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background-color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.nav-list,
+.nav-list li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Nav link: default and hover with readable text in both themes */
+.nav-link-btn {
+  color: var(--color-text);
+}
+
+.nav-link-btn:hover {
+  color: #5b21b6;
+  background: rgba(125, 38, 205, 0.12);
+}
+
+[data-theme="dark"] .nav-link-btn:hover {
+  color: #e9d5ff;
+  background: rgba(180, 136, 255, 0.22);
+}
+
+/* Oval button with subtle diffused shadow (light theme) */
+.nav-theme-btn {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.nav-theme-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] .nav-theme-btn {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+[data-theme="dark"] .nav-theme-btn:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
 .menu-item-enter {
   animation: menuItemEnter 0.3s ease-out forwards;
   opacity: 0;
