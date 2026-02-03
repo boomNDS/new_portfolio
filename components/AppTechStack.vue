@@ -89,7 +89,7 @@ const animateGrid = () => {
   items.forEach((item, index) => {
     void animate(
       item,
-        { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<typeof animate>[1],
+      { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<typeof animate>[1],
       {
         duration: 0.35,
         delay: (index % 8) * 0.03,

@@ -36,6 +36,8 @@ jobs:
       - name: Build
         run: |
           yarn install --immutable
+          yarn --version
+          yarn biome --version
           yarn lint
           yarn build
           yarn generate

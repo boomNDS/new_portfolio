@@ -27,7 +27,7 @@
     "ws": "^8.18.3"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.0.6",
+    "@biomejs/biome": "2.3.13",
     "@iconify-json/logos": "^1.2.10",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/tabler": "^1.2.23",
