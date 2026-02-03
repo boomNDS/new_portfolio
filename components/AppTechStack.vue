@@ -1,11 +1,10 @@
 <script setup lang="ts">
 import { useAnimate, useInView } from "motion-v";
+
 // Composables
 const prefersReducedMotion = useMotionPreference();
 const [scope, animate] = useAnimate();
-const scopeEl = computed<HTMLElement | null>(
-  () => (scope.value as HTMLElement | null) ?? null,
-);
+const scopeEl = computed<HTMLElement | null>(() => (scope.value as HTMLElement | null) ?? null);
 const sectionInView = useInView(scopeEl);
 const dayjs = useDayjs();
 
@@ -90,9 +89,7 @@ const animateGrid = () => {
   items.forEach((item, index) => {
     void animate(
       item,
-      { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<
-        typeof animate
-      >[1],
+        { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<typeof animate>[1],
       {
         duration: 0.35,
         delay: (index % 8) * 0.03,

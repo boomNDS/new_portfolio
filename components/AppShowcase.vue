@@ -8,9 +8,7 @@ const showcaseData = showcaseJson as Project[];
 // Composables
 const prefersReducedMotion = useMotionPreference();
 const [scope, animate] = useAnimate();
-const scopeEl = computed<HTMLElement | null>(
-  () => (scope.value as HTMLElement | null) ?? null,
-);
+const scopeEl = computed<HTMLElement | null>(() => (scope.value as HTMLElement | null) ?? null);
 const gridInView = useInView(scopeEl);
 const route = useRoute();
 const router = useRouter();

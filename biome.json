@@ -10,14 +10,14 @@
     "ignoreUnknown": false,
     "includes": [
       "**",
-      "!**/node_modules/**",
-      "!**/.nuxt/**",
-      "!**/.output/**",
-      "!**/dist/**",
-      "!**/.data/**",
-      "!**/coverage/**",
+      "!**/node_modules",
+      "!**/.nuxt",
+      "!**/.output",
+      "!**/dist",
+      "!**/.data",
+      "!**/coverage",
       "!**/*.d.ts",
-      "!**/public/**"
+      "!**/public"
     ]
   },
   "formatter": {

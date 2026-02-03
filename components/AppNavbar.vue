@@ -119,7 +119,9 @@ onMounted(() => {
       },
       { rootMargin: "-20% 0px -60% 0px", threshold: [0.2, 0.4, 0.6] },
     );
-    sections.forEach((section) => sectionObserver?.observe(section));
+    sections.forEach((section) => {
+      sectionObserver?.observe(section);
+    });
   }
 
   // Initial animation

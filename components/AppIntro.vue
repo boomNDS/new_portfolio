@@ -15,13 +15,7 @@ const waveRef = ref<HTMLElement | null>(null);
 const nameTarget = "Boom";
 const nameTyped = ref("");
 
-const roleItems = [
-  "full-stack developer",
-  "foodie",
-  "gym bro",
-  "shipping enjoyer",
-  "city bites",
-];
+const roleItems = ["full-stack developer", "foodie", "gym bro", "shipping enjoyer", "city bites"];
 const roleTyped = ref(roleItems[0] ?? "full-stack developer");
 const roleIndex = ref(0);
 

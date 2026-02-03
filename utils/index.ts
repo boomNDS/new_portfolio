@@ -37,6 +37,7 @@ export function getAverageRGB(imgEl: HTMLImageElement): RGB {
   try {
     data = context.getImageData(0, 0, width, height);
   } catch (e) {
+    // biome-ignore lint/suspicious/noConsole -- keep error detail for image data failures
     console.error("Security error: Unable to access image data.", e);
     return defaultRGB;
   }
