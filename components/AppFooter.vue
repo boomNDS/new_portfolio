@@ -16,7 +16,7 @@ const socialLinks = [
   },
   {
     name: "Webring",
-    url: "https://webring.wonderful.software/#/pachorn.dev",
+    url: "https://webring.wonderful.software/#pachorn.dev",
     icon: "custom",
     customIcon: "/img/webring.svg",
   },
