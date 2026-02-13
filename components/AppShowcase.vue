@@ -21,7 +21,7 @@ const CATEGORIES: { value: ProjectCategory; label: string }[] = [
   { value: "design", label: "Design" },
   { value: "other", label: "Other" },
 ];
-const PAGE_SIZE = 8;
+const PAGE_SIZE = 6;
 
 // State
 const selected = ref<ProjectCategory>("all");
@@ -74,10 +74,10 @@ const animateGrid = () => {
   cards.forEach((card, index) => {
     void animate(
       card,
-      { opacity: [0, 1], y: [20, 0] } as Parameters<typeof animate>[1],
+      { opacity: [0, 1], y: [16, 0] } as Parameters<typeof animate>[1],
       {
-        duration: 0.4,
-        delay: (index % 4) * 0.05,
+        duration: 0.35,
+        delay: (index % 6) * 0.05,
         ease: [0.22, 1, 0.36, 1],
       } as Parameters<typeof animate>[2],
     );
@@ -134,26 +134,23 @@ watch(gridInView, (inView) => {
     ref="scope"
     class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
   >
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-6xl mx-auto">
       <!-- Section Header -->
-      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8">
         <div>
-          <div class="flex items-center gap-3 mb-3">
-            <span
-              class="i-tabler:folder text-xl sm:text-2xl text-[var(--color-primary)]"
-              aria-hidden="true"
-            />
+          <div class="flex items-center gap-2 mb-3">
+            <span class="i-tabler:folder text-lg text-[var(--color-primary)]" aria-hidden="true" />
             <span class="text-xs sm:text-sm uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
               Portfolio
             </span>
           </div>
-          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-dark)] mb-2">
+          <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold text-[var(--color-dark)]">
             Showcase
             <span class="text-lg sm:text-xl text-[var(--color-text-muted)] font-normal">
               ({{ filteredProjects.length }} projects)
             </span>
           </h2>
-          <p class="text-base sm:text-lg text-[var(--color-text)] max-w-2xl">
+          <p class="text-base sm:text-lg text-[var(--color-text)] mt-2">
             A mix of landing pages, apps, and tools I've shipped end-to-end.
           </p>
         </div>
@@ -162,7 +159,7 @@ watch(gridInView, (inView) => {
         <div class="relative">
           <select
             v-model="selected"
-            class="appearance-none w-full sm:w-auto px-4 py-2.5 pr-10 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] cursor-pointer"
+            class="appearance-none w-full sm:w-auto px-4 py-2 pr-10 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium hover:border-[var(--color-primary)]/50 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-[var(--color-primary)]"
             aria-label="Filter projects by category"
             @change="handleFilterChange(($event.target as HTMLSelectElement).value as ProjectCategory)"
           >
@@ -184,7 +181,7 @@ watch(gridInView, (inView) => {
       <!-- Projects Grid -->
       <div
         v-if="paginatedProjects.length"
-        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6"
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6"
       >
         <CommonsInfoCard
           v-for="project in paginatedProjects"
@@ -205,13 +202,10 @@ watch(gridInView, (inView) => {
       <!-- Empty State -->
       <div
         v-else
-        class="text-center py-16 sm:py-20 rounded-2xl border-2 border-dashed border-[var(--color-border)] bg-[var(--color-card)]/50"
+        class="text-center py-16 sm:py-20 rounded-2xl border border-dashed border-[var(--color-border)] bg-[var(--color-card)]/50"
       >
-        <span
-          class="i-tabler:folder-off text-4xl sm:text-5xl text-[var(--color-text-muted)] mb-4 block"
-          aria-hidden="true"
-        />
-        <h3 class="text-lg sm:text-xl font-semibold text-[var(--color-dark)] mb-2">
+        <span class="i-tabler:folder-off text-4xl text-[var(--color-text-muted)] mb-4 block" aria-hidden="true" />
+        <h3 class="text-lg font-semibold text-[var(--color-dark)] mb-2">
           No projects found
         </h3>
         <p class="text-[var(--color-text)]">
@@ -222,11 +216,11 @@ watch(gridInView, (inView) => {
       <!-- Pagination -->
       <div
         v-if="totalPages > 1"
-        class="mt-8 sm:mt-10 flex items-center justify-center gap-3"
+        class="mt-8 sm:mt-10 flex items-center justify-center gap-2"
       >
         <button
           type="button"
-          class="cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium hover:bg-[var(--color-light)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           :disabled="page === 1"
           aria-label="Previous page"
           @click="prevPage"
@@ -235,16 +229,16 @@ watch(gridInView, (inView) => {
           <span class="hidden sm:inline">Previous</span>
         </button>
 
-        <div class="flex items-center gap-1.5">
+        <div class="flex items-center gap-1">
           <button
             v-for="p in totalPages"
             :key="p"
             type="button"
-            class="cursor-pointer min-w-[2.25rem] h-9 px-2.5 rounded-lg text-sm font-medium transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+            class="min-w-[2.25rem] h-9 px-2.5 rounded-lg text-sm font-medium transition-colors"
             :class="
               page === p
-                ? 'bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]'
-                : 'border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] hover:shadow-[var(--shadow-sm)]'
+                ? 'bg-[var(--color-primary)] text-white'
+                : 'border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] hover:bg-[var(--color-light)]'
             "
             :aria-current="page === p ? 'page' : undefined"
             @click="page = p"
@@ -255,7 +249,7 @@ watch(gridInView, (inView) => {
 
         <button
           type="button"
-          class="cursor-pointer flex items-center gap-1.5 px-4 py-2 rounded-lg border-2 border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-soft)] hover:-translate-y-0.5 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:shadow-[var(--shadow-sm)] transition-all duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+          class="inline-flex items-center gap-1 px-3 py-2 rounded-lg border border-[var(--color-border)] bg-[var(--color-card)] text-[var(--color-dark)] text-sm font-medium hover:bg-[var(--color-light)] disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
           :disabled="page === totalPages"
           aria-label="Next page"
           @click="nextPage"

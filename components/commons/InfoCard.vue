@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useAnimate } from "motion-v";
 import type { ProjectLink } from "~/types";
 
 // Props
@@ -18,13 +19,11 @@ const props = defineProps<Props>();
 
 // State
 const mediaError = ref(false);
-const isHovered = ref(false);
 
 // Computed
 const isVideo = computed(() => /\.(mp4|webm|ogg)$/i.test(props.imageSrc));
 
 const visibleTags = computed(() => {
-  // Show fewer tags on smaller screens
   const isMobile = typeof window !== "undefined" && window.innerWidth < 640;
   return props.tags.slice(0, isMobile ? 2 : 3);
 });
@@ -67,16 +66,14 @@ const onMediaError = () => {
 
 <template>
   <article
-    class="group flex flex-col h-full rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)] overflow-hidden transition-all duration-300 hover:shadow-[var(--shadow-mid)] hover:-translate-y-1"
-    @mouseenter="isHovered = true"
-    @mouseleave="isHovered = false"
+    class="group flex flex-col h-full rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_rgba(0,0,0,0.1)] overflow-hidden hover:shadow-[6px_6px_0px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-300"
   >
     <!-- Media -->
-    <div class="relative aspect-[4/3] bg-[var(--color-light)] overflow-hidden">
+    <div class="relative aspect-[16/10] bg-[var(--color-light)] overflow-hidden">
       <!-- Video -->
       <video
         v-if="!mediaError && isVideo"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="w-full h-full object-cover"
         :src="`/img/showcase/${imageSrc}`"
         autoplay
         muted
@@ -90,10 +87,10 @@ const onMediaError = () => {
         v-else-if="!mediaError"
         :src="`/img/showcase/${imageSrc}`"
         :alt="imageAlt"
-        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         loading="lazy"
         width="400"
-        height="300"
+        height="250"
         @error="onMediaError"
       />
 
@@ -102,16 +99,13 @@ const onMediaError = () => {
         v-else
         class="w-full h-full flex items-center justify-center bg-[var(--color-light)]"
       >
-        <span
-          class="i-tabler:image-off text-4xl text-[var(--color-text-muted)]"
-          aria-hidden="true"
-        />
+        <span class="i-tabler:image-off text-3xl text-[var(--color-text-muted)]" aria-hidden="true" />
       </div>
 
       <!-- Result Badge -->
       <div
         v-if="result"
-        class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]"
+        class="absolute top-3 left-3 px-2 py-1 rounded-full text-[10px] font-semibold bg-[var(--color-primary)] text-white"
       >
         {{ result }}
       </div>
@@ -119,21 +113,21 @@ const onMediaError = () => {
       <!-- Inactive Badge -->
       <div
         v-if="inactive"
-        class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-text-muted)] text-white shadow-[var(--shadow-sm)]"
+        class="absolute top-3 right-3 px-2 py-1 rounded-full text-[10px] font-semibold bg-[var(--color-text-muted)] text-white"
       >
         Inactive
       </div>
 
-      <!-- Hover Overlay: fixed black + opacity so dark in both themes; button stays readable -->
+      <!-- Hover Overlay -->
       <div
-        class="project-card-overlay absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+        v-if="primaryLink"
+        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50"
       >
         <NuxtLink
-          v-if="primaryLink"
           :to="primaryLink.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="project-card-overlay-btn flex items-center gap-2 px-4 py-2 rounded-full font-semibold text-sm shadow-lg hover:scale-105 transition-transform duration-200"
+          class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--color-card)] text-[var(--color-dark)] border-2 border-[var(--color-border)] font-semibold text-sm hover:scale-105 transition-transform"
         >
           <span :class="getIconClass(primaryLink.type)" aria-hidden="true" />
           View Project
@@ -142,24 +136,22 @@ const onMediaError = () => {
     </div>
 
     <!-- Content -->
-    <div class="flex flex-col flex-1 p-4 sm:p-5">
+    <div class="flex flex-col flex-1 p-4">
       <!-- Meta -->
       <p
         v-if="meta"
-        class="text-[10px] sm:text-xs uppercase tracking-wider text-[var(--color-text-muted)] mb-1.5"
+        class="text-[10px] uppercase tracking-wider text-[var(--color-text-muted)] mb-1"
       >
         {{ meta }}
       </p>
 
       <!-- Title -->
-      <h3
-        class="text-base sm:text-lg font-semibold text-[var(--color-dark)] mb-2 line-clamp-1 group-hover:text-[var(--color-primary)] transition-colors duration-200"
-      >
+      <h3 class="text-base font-semibold text-[var(--color-dark)] mb-1 group-hover:text-[var(--color-primary)] transition-colors">
         {{ title }}
       </h3>
 
       <!-- Description -->
-      <p class="text-sm text-[var(--color-text)] line-clamp-2 mb-4 flex-1">
+      <p class="text-sm text-[var(--color-text)] line-clamp-2 mb-3 flex-1">
         {{ description }}
       </p>
 
@@ -171,7 +163,7 @@ const onMediaError = () => {
           :to="link.url"
           target="_blank"
           rel="noopener noreferrer"
-          class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-[var(--color-border)]/20 text-xs font-medium text-[var(--color-dark)] hover:text-[var(--color-primary)] hover:border-[var(--color-primary)]/30 hover:bg-[var(--color-primary)]/5 transition-all duration-200"
+          class="inline-flex items-center gap-1 px-2 py-1 rounded-lg border border-[var(--color-border)] text-xs font-medium text-[var(--color-dark)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] transition-colors"
         >
           <span :class="getIconClass(link.type)" aria-hidden="true" />
           {{ getLinkLabel(link.type) }}
@@ -183,13 +175,13 @@ const onMediaError = () => {
         <span
           v-for="tag in visibleTags"
           :key="tag"
-          class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs bg-[var(--color-light)] text-[var(--color-text)] border border-[var(--color-border)]/10"
+          class="px-2 py-0.5 rounded-full text-[10px] bg-[var(--color-light)] text-[var(--color-text-muted)]"
         >
           #{{ tag }}
         </span>
         <span
           v-if="hiddenTagCount > 0"
-          class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs bg-[var(--color-light)] text-[var(--color-text-muted)] border border-[var(--color-border)]/10"
+          class="px-2 py-0.5 rounded-full text-[10px] bg-[var(--color-light)] text-[var(--color-text-muted)]"
         >
           +{{ hiddenTagCount }}
         </span>
@@ -199,32 +191,10 @@ const onMediaError = () => {
 </template>
 
 <style scoped>
-.line-clamp-1 {
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
 .line-clamp-2 {
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-}
-
-/* Hover overlay: black with opacity so it stays dark in light and dark mode */
-.project-card-overlay {
-  background: rgba(0, 0, 0, 0.6);
-}
-
-/* Button on overlay: always light bg + dark text for readability on dark overlay */
-.project-card-overlay-btn {
-  background: #ffffff;
-  color: #111111;
-}
-
-.project-card-overlay-btn:hover {
-  background: #f4f4f4;
 }
 </style>

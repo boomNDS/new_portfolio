@@ -65,17 +65,6 @@ const techCategories = [
   },
 ];
 
-// Flatten for animation
-const _allTechs = computed(() =>
-  techCategories.flatMap((cat) =>
-    cat.items.map((item) => ({
-      ...item,
-      category: cat.name,
-      lastUsedLabel: dayjs().to(dayjs(item.lastUsed)),
-    })),
-  ),
-);
-
 // Animation
 const gridAnimated = ref(false);
 
@@ -89,7 +78,7 @@ const animateGrid = () => {
   items.forEach((item, index) => {
     void animate(
       item,
-      { opacity: [0, 1], y: [16, 0], scale: [0.95, 1] } as Parameters<typeof animate>[1],
+      { opacity: [0, 1], y: [12, 0] } as Parameters<typeof animate>[1],
       {
         duration: 0.35,
         delay: (index % 8) * 0.03,
@@ -119,14 +108,11 @@ watch(sectionInView, (inView) => {
     ref="scope"
     class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
   >
-    <div class="max-w-6xl mx-auto">
+    <div class="max-w-5xl mx-auto">
       <!-- Section Header -->
       <div class="mb-10 sm:mb-12">
-        <div class="flex items-center gap-3 mb-3">
-          <span
-            class="i-tabler:stack text-xl sm:text-2xl text-[var(--color-primary)]"
-            aria-hidden="true"
-          />
+        <div class="flex items-center gap-2 mb-3">
+          <span class="i-tabler:stack text-lg text-[var(--color-primary)]" aria-hidden="true" />
           <span class="text-xs sm:text-sm uppercase tracking-[0.2em] text-[var(--color-text-muted)]">
             Toolkit
           </span>
@@ -148,32 +134,26 @@ watch(sectionInView, (inView) => {
           class="space-y-4"
         >
           <!-- Category Label -->
-          <h3
-            class="text-sm sm:text-base font-semibold text-[var(--color-text-muted)] uppercase tracking-wider"
-          >
+          <h3 class="text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
             {{ category.name }}
           </h3>
 
           <!-- Tech Cards Grid -->
-          <div
-            class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4"
-          >
+          <div class="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-3">
             <div
               v-for="tech in category.items"
               :key="`${category.name}-${tech.iconTitle}`"
-              class="tech-card group flex flex-col items-center justify-center text-center p-3 sm:p-4 rounded-xl sm:rounded-2xl border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[var(--shadow-soft)] hover:shadow-[var(--shadow-mid)] hover:-translate-y-1 transition-all duration-300"
+              class="tech-card group flex flex-col items-center justify-center text-center p-4 sm:p-5 rounded-xl sm:rounded-2xl border-2 sm:border-4 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_rgba(0,0,0,0.1)] hover:shadow-[6px_6px_0px_rgba(0,0,0,0.12)] hover:-translate-y-0.5 transition-all duration-300"
             >
               <div
                 :class="tech.iconSrc"
-                class="text-3xl sm:text-4xl lg:text-5xl mb-2 sm:mb-3 grayscale group-hover:grayscale-0 transition-all duration-300 group-hover:scale-110"
+                class="text-2xl sm:text-3xl mb-2 grayscale group-hover:grayscale-0 transition-all duration-300"
                 aria-hidden="true"
               />
-              <p
-                class="font-semibold text-[var(--color-dark)] capitalize text-sm sm:text-base group-hover:text-[var(--color-primary)] transition-colors duration-200"
-              >
+              <p class="font-medium text-[var(--color-dark)] text-xs sm:text-sm group-hover:text-[var(--color-primary)] transition-colors">
                 {{ tech.iconTitle }}
               </p>
-              <p class="text-[10px] sm:text-xs text-[var(--color-text-muted)] mt-0.5">
+              <p class="text-[10px] text-[var(--color-text-muted)] mt-0.5">
                 {{ dayjs().to(dayjs(tech.lastUsed)) }}
               </p>
             </div>

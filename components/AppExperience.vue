@@ -178,6 +178,7 @@ watch(sectionInView, (inView) => {
 
 <template>
   <section
+    id="experience"
     ref="scope"
     class="py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8"
   >
