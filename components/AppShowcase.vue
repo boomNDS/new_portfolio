@@ -196,6 +196,7 @@ watch(gridInView, (inView) => {
           :description="project.detail"
           :meta="project.meta"
           :result="project.result"
+          :inactive="project.inactive"
           :tags="project.tags"
           :links="project.links"
         />

@@ -36,6 +36,7 @@ export interface Project {
   detail: string;
   meta: string;
   result?: string;
+  inactive?: boolean;
   links: ProjectLink[];
   img: string;
   tags: string[];

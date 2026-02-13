@@ -1,9 +1,35 @@
 [
   {
+    "name": "SoupNotify",
+    "detail": "Discord bot for SOOP (formerly AfreecaTV) live stream notifications. Automatically notifies your Discord server when your favorite streamers go live.",
+    "meta": "Backend · 2025",
+    "result": "Active",
+    "links": [],
+    "img": "soupnotify.webp",
+    "tags": ["FastAPI", "Discord", "SOOP", "Bot", "Python"],
+    "category": ["backend"]
+  },
+  {
+    "name": "Staykha",
+    "detail": "ระบบบริหารจัดการหอพักและบ้านเช่าครบวงจร ช่วยเจ้าของอาคารประหยัดเวลาและเพิ่มประสิทธิภาพ",
+    "meta": "Full stack · 2025",
+    "result": "Live",
+    "links": [
+      {
+        "type": "link",
+        "url": "https://www.staykha.com"
+      }
+    ],
+    "img": "staykha.webp",
+    "tags": ["Vite", "React", "Elysia", "PostgreSQL", "Fly.io", "Vercel", "Supabase"],
+    "category": ["frontend", "backend"]
+  },
+  {
     "name": "SayonStream",
     "detail": "Preview your donation message in the streamer's TTS voice before you send it, so your shoutout sounds right the first time.",
     "meta": "Product + Frontend · 2024",
     "result": "Live demo",
+    "inactive": true,
     "links": [
       {
         "type": "link",

@@ -9,6 +9,7 @@ interface Props {
   description: string;
   meta?: string;
   result?: string;
+  inactive?: boolean;
   tags: string[];
   links: ProjectLink[];
 }
@@ -113,6 +114,14 @@ const onMediaError = () => {
         class="absolute top-3 left-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)] text-white shadow-[var(--shadow-sm)]"
       >
         {{ result }}
+      </div>
+
+      <!-- Inactive Badge -->
+      <div
+        v-if="inactive"
+        class="absolute top-3 right-3 px-2.5 py-1 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-text-muted)] text-white shadow-[var(--shadow-sm)]"
+      >
+        Inactive
       </div>
 
       <!-- Hover Overlay: fixed black + opacity so dark in both themes; button stays readable -->
