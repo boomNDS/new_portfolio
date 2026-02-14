@@ -13,7 +13,12 @@ const emit = defineEmits<{
 }>();
 
 // Constants
-const MENU_ITEMS = ["Experience", "Tech stack", "Showcase", "Writing"] as const satisfies readonly MenuItem[];
+const MENU_ITEMS = [
+  "Experience",
+  "Tech stack",
+  "Showcase",
+  "Writing",
+] as const satisfies readonly MenuItem[];
 const SECTION_MAP: Record<MenuItem | "Intro", SectionId> = {
   Intro: "intro",
   Experience: "experience",
@@ -109,7 +114,7 @@ const handleMenuSelect = (item: MenuItem) => {
   if (item === "Writing") return;
   if (!isLargeScreen.value) {
     const activeEl = document.activeElement as HTMLElement | null;
-    if (activeEl && activeEl.classList.contains("nav-drawer-item")) {
+    if (activeEl?.classList.contains("nav-drawer-item")) {
       activeEl.classList.add("is-tapping");
       setTimeout(() => {
         activeEl.classList.remove("is-tapping");
@@ -123,7 +128,11 @@ const handleMenuSelect = (item: MenuItem) => {
 };
 
 const route = useRoute();
-const isWritingPage = () => route.path.startsWith('/writing') || route.path.startsWith('/blog') || route.path.startsWith('/dev-logs') || route.path.startsWith('/learning');
+const isWritingPage = () =>
+  route.path.startsWith("/writing") ||
+  route.path.startsWith("/blog") ||
+  route.path.startsWith("/dev-logs") ||
+  route.path.startsWith("/learning");
 
 const isActiveSection = (item: MenuItem) => {
   if (item === "Writing") return isWritingPage();

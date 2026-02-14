@@ -1,127 +1,130 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from "vue";
 
 // Mock data for demonstration
 const mockContent = ref([
   {
-    path: '/blog/welcome',
-    type: 'blog',
-    title: 'Welcome to My Blog',
-    description: 'This is a placeholder blog post to demonstrate the layout. Real content coming soon!',
-    date: '2026-02-14',
-    readTime: '3 min read',
-    tags: ['introduction', 'placeholder'],
+    path: "/blog/welcome",
+    type: "blog",
+    title: "Welcome to My Blog",
+    description:
+      "This is a placeholder blog post to demonstrate the layout. Real content coming soon!",
+    date: "2026-02-14",
+    readTime: "3 min read",
+    tags: ["introduction", "placeholder"],
     isMock: true,
   },
   {
-    path: '/dev-logs/project-alpha',
-    type: 'dev-log',
-    title: 'Project Alpha: Getting Started',
-    description: 'Kicking off a new project with modern tech stack. Excited to share the journey!',
-    date: '2026-02-12',
-    readTime: '5 min read',
-    project: 'Project Alpha',
+    path: "/dev-logs/project-alpha",
+    type: "dev-log",
+    title: "Project Alpha: Getting Started",
+    description: "Kicking off a new project with modern tech stack. Excited to share the journey!",
+    date: "2026-02-12",
+    readTime: "5 min read",
+    project: "Project Alpha",
     milestone: true,
     progress: 25,
-    tags: ['vue', 'nuxt', 'beginning'],
+    tags: ["vue", "nuxt", "beginning"],
     isMock: true,
   },
   {
-    path: '/learning/typescript-basics',
-    type: 'learning',
-    title: 'TypeScript Basics for Beginners',
-    description: 'A comprehensive guide to getting started with TypeScript. Learn the fundamentals.',
-    date: '2026-02-09',
-    readTime: '8 min read',
-    topic: 'TypeScript',
-    difficulty: 'beginner',
-    tags: ['typescript', 'javascript', 'tutorial'],
+    path: "/learning/typescript-basics",
+    type: "learning",
+    title: "TypeScript Basics for Beginners",
+    description:
+      "A comprehensive guide to getting started with TypeScript. Learn the fundamentals.",
+    date: "2026-02-09",
+    readTime: "8 min read",
+    topic: "TypeScript",
+    difficulty: "beginner",
+    tags: ["typescript", "javascript", "tutorial"],
     isMock: true,
   },
   {
-    path: '/dev-logs/project-alpha/week-1',
-    type: 'dev-log',
-    title: 'Project Alpha: Week 1 Progress',
-    description: 'First week done! Set up the project structure and configured the CI/CD pipeline.',
-    date: '2026-02-07',
-    readTime: '4 min read',
-    project: 'Project Alpha',
+    path: "/dev-logs/project-alpha/week-1",
+    type: "dev-log",
+    title: "Project Alpha: Week 1 Progress",
+    description: "First week done! Set up the project structure and configured the CI/CD pipeline.",
+    date: "2026-02-07",
+    readTime: "4 min read",
+    project: "Project Alpha",
     milestone: false,
     progress: 40,
-    tags: ['devops', 'ci-cd', 'progress'],
+    tags: ["devops", "ci-cd", "progress"],
     isMock: true,
   },
   {
-    path: '/blog/why-i-love-vue',
-    type: 'blog',
-    title: 'Why I Love Vue.js',
-    description: 'Sharing my thoughts on why Vue has become my go-to framework for web development.',
-    date: '2026-02-04',
-    readTime: '6 min read',
-    tags: ['vue', 'javascript', 'opinion'],
+    path: "/blog/why-i-love-vue",
+    type: "blog",
+    title: "Why I Love Vue.js",
+    description:
+      "Sharing my thoughts on why Vue has become my go-to framework for web development.",
+    date: "2026-02-04",
+    readTime: "6 min read",
+    tags: ["vue", "javascript", "opinion"],
     isMock: true,
   },
   {
-    path: '/learning/rust-ownership',
-    type: 'learning',
-    title: 'Understanding Ownership in Rust',
-    description: 'Deep dive into Rust\'s ownership system and memory management concepts.',
-    date: '2026-01-31',
-    readTime: '10 min read',
-    topic: 'Rust',
-    difficulty: 'advanced',
-    tags: ['rust', 'systems-programming', 'memory'],
+    path: "/learning/rust-ownership",
+    type: "learning",
+    title: "Understanding Ownership in Rust",
+    description: "Deep dive into Rust's ownership system and memory management concepts.",
+    date: "2026-01-31",
+    readTime: "10 min read",
+    topic: "Rust",
+    difficulty: "advanced",
+    tags: ["rust", "systems-programming", "memory"],
     isMock: true,
   },
   {
-    path: '/dev-logs/side-project',
-    type: 'dev-log',
-    title: 'Weekend Side Project: CLI Tool',
-    description: 'Built a small CLI tool to automate repetitive tasks. Super productive weekend!',
-    date: '2026-01-27',
-    readTime: '4 min read',
-    project: 'CLI Tools',
+    path: "/dev-logs/side-project",
+    type: "dev-log",
+    title: "Weekend Side Project: CLI Tool",
+    description: "Built a small CLI tool to automate repetitive tasks. Super productive weekend!",
+    date: "2026-01-27",
+    readTime: "4 min read",
+    project: "CLI Tools",
     milestone: false,
     progress: 80,
-    tags: ['cli', 'automation', 'productivity'],
+    tags: ["cli", "automation", "productivity"],
     isMock: true,
   },
 ]);
 
 // Filter state
-const activeFilter = ref('all');
+const activeFilter = ref("all");
 
 // Filtered content
 const filteredContent = computed(() => {
-  if (activeFilter.value === 'all') return mockContent.value;
-  return mockContent.value.filter(item => item.type === activeFilter.value);
+  if (activeFilter.value === "all") return mockContent.value;
+  return mockContent.value.filter((item) => item.type === activeFilter.value);
 });
 
 // Stats
 const stats = computed(() => {
   const total = mockContent.value.length;
-  const devLogs = mockContent.value.filter(i => i.type === 'dev-log').length;
-  const learning = mockContent.value.filter(i => i.type === 'learning').length;
-  const blog = mockContent.value.filter(i => i.type === 'blog').length;
+  const devLogs = mockContent.value.filter((i) => i.type === "dev-log").length;
+  const learning = mockContent.value.filter((i) => i.type === "learning").length;
+  const blog = mockContent.value.filter((i) => i.type === "blog").length;
   return { total, devLogs, learning, blog };
 });
 
 // Type config
 const typeConfig = {
-  'dev-log': { label: 'Dev Log', color: 'bg-blue-100 text-blue-700 border-blue-200' },
-  'learning': { label: 'Learning', color: 'bg-green-100 text-green-700 border-green-200' },
-  'blog': { label: 'Blog', color: 'bg-purple-100 text-purple-700 border-purple-200' },
+  "dev-log": { label: "Dev Log", color: "bg-blue-100 text-blue-700 border-blue-200" },
+  learning: { label: "Learning", color: "bg-green-100 text-green-700 border-green-200" },
+  blog: { label: "Blog", color: "bg-purple-100 text-purple-700 border-purple-200" },
 };
 
 const difficultyColor = {
-  beginner: 'bg-emerald-100 text-emerald-700 border-emerald-200',
-  intermediate: 'bg-amber-100 text-amber-700 border-amber-200',
-  advanced: 'bg-rose-100 text-rose-700 border-rose-200',
+  beginner: "bg-emerald-100 text-emerald-700 border-emerald-200",
+  intermediate: "bg-amber-100 text-amber-700 border-amber-200",
+  advanced: "bg-rose-100 text-rose-700 border-rose-200",
 };
 
 useSeoMeta({
-  title: 'Writing',
-  description: 'My thoughts, learnings, and development journey.',
+  title: "Writing",
+  description: "My thoughts, learnings, and development journey.",
 });
 </script>
 

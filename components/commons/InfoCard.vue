@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useAnimate } from "motion-v";
 import type { ProjectLink } from "~/types";
 
 // Props

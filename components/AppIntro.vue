@@ -23,37 +23,37 @@ const animatedDemos = ref(0);
 // Counter animation function
 const animateCounter = (target: number, output: Ref<number>, duration = 1200) => {
   const startTime = performance.now();
-  
+
   const updateCounter = (currentTime: number) => {
     const elapsed = currentTime - startTime;
     const progress = Math.min(elapsed / duration, 1);
-    const easeOut = 1 - Math.pow(1 - progress, 3);
+    const easeOut = 1 - (1 - progress) ** 3;
     output.value = Math.floor(target * easeOut);
-    
+
     if (progress < 1) {
       requestAnimationFrame(updateCounter);
     }
   };
-  
+
   requestAnimationFrame(updateCounter);
 };
 
 // Hero entrance animation - faster stagger
 const animateHero = () => {
   if (prefersReducedMotion.value === "reduce") return;
-  
+
   const elements = scope.value?.querySelectorAll<HTMLElement>("[data-animate]");
   if (!elements) return;
-  
+
   // Animate all elements with stagger (parallel, not sequential)
   elements.forEach((el, index) => {
     animate(
       el,
       { opacity: [0, 1], y: [15, 0] },
-      { duration: 0.35, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] }
+      { duration: 0.35, delay: index * 0.06, ease: [0.22, 1, 0.36, 1] },
     );
   });
-  
+
   // Start counter animations earlier (after 0.4s)
   setTimeout(() => {
     animateCounter(totalProjects.value, animatedProjects);

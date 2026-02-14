@@ -13,10 +13,8 @@ interface Props {
 
 const props = defineProps<Props>();
 
-const relatedItems = computed(() => 
-  props.items
-    .filter(item => item.path !== props.currentPath)
-    .slice(0, 3)
+const relatedItems = computed(() =>
+  props.items.filter((item) => item.path !== props.currentPath).slice(0, 3),
 );
 </script>
 

@@ -1,14 +1,45 @@
 <script setup lang="ts">
 const route = useRoute();
-const slug = Array.isArray(route.params.slug) ? route.params.slug.join('/') : route.params.slug;
+const slug = Array.isArray(route.params.slug) ? route.params.slug.join("/") : (route.params.slug ?? "");
 
-// Generate TOC from content (mock implementation)
-const generateTOC = (body: any) => {
-  const toc = [];
+// Content body types
+interface ContentNode {
+  type: string;
+  tag?: string;
+  value?: string;
+  props?: { id?: string; class?: string };
+  children?: ContentNode[];
+}
+
+interface ContentBody {
+  type: string;
+  children?: ContentNode[];
+}
+
+interface Article {
+  type: "blog" | "dev-log" | "learning";
+  title: string;
+  description: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+  isMock: boolean;
+  body: ContentBody;
+  milestone?: boolean;
+  difficulty?: "beginner" | "intermediate" | "advanced";
+  project?: string;
+  progress?: number;
+  prerequisites?: string[];
+  topic?: string;
+}
+
+// Generate TOC from content
+const generateTOC = (body: ContentBody | undefined) => {
+  const toc: { id: string; text: string; level: number }[] = [];
   if (body?.children) {
-    body.children.forEach((child: any, index: number) => {
-      if (child.tag === 'h2') {
-        const text = child.children?.[0]?.value || '';
+    body.children.forEach((child: ContentNode, index: number) => {
+      if (child.tag === "h2") {
+        const text = child.children?.[0]?.value || "";
         toc.push({ id: `section-${index}`, text, level: 2 });
       }
     });
@@ -17,88 +48,251 @@ const generateTOC = (body: any) => {
 };
 
 // Mock content database
-const mockArticles: Record<string, any> = {
-  'blog/welcome': {
-    type: 'blog',
-    title: 'Welcome to My Blog',
-    description: 'This is a placeholder blog post to demonstrate the layout. Real content coming soon!',
-    date: '2026-02-14',
-    readTime: '3 min read',
-    tags: ['introduction', 'placeholder'],
+const mockArticles: Record<string, Article> = {
+  "blog/welcome": {
+    type: "blog",
+    title: "Welcome to My Blog",
+    description:
+      "This is a placeholder blog post to demonstrate the layout. Real content coming soon!",
+    date: "2026-02-14",
+    readTime: "3 min read",
+    tags: ["introduction", "placeholder"],
     isMock: true,
     body: {
-      type: 'root',
+      type: "root",
       children: [
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'Welcome! This is a mock blog post to show how the layout will look when real content is added. The actual blog will feature thoughts on software engineering, tutorials, and experiences from my journey as a developer.' }] },
-        { type: 'element', tag: 'h2', props: { id: 'what-to-expect' }, children: [{ type: 'text', value: 'What to Expect' }] },
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'Here are some topics I plan to write about:' }] },
-        { type: 'element', tag: 'ul', children: [
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Web development tutorials and tips' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Project retrospectives and lessons learned' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Tool recommendations and reviews' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Random thoughts on tech industry' }] },
-        ]},
-        { type: 'element', tag: 'h2', props: { id: 'get-in-touch' }, children: [{ type: 'text', value: 'Get in Touch' }] },
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: "I'd love to hear from you! Whether you have questions, feedback, or just want to say hi, feel free to reach out." }] },
-      ]
-    }
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "Welcome! This is a mock blog post to show how the layout will look when real content is added. The actual blog will feature thoughts on software engineering, tutorials, and experiences from my journey as a developer.",
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "what-to-expect" },
+          children: [{ type: "text", value: "What to Expect" }],
+        },
+        {
+          type: "element",
+          tag: "p",
+          children: [{ type: "text", value: "Here are some topics I plan to write about:" }],
+        },
+        {
+          type: "element",
+          tag: "ul",
+          children: [
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Web development tutorials and tips" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Project retrospectives and lessons learned" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Tool recommendations and reviews" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Random thoughts on tech industry" }],
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "get-in-touch" },
+          children: [{ type: "text", value: "Get in Touch" }],
+        },
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "I'd love to hear from you! Whether you have questions, feedback, or just want to say hi, feel free to reach out.",
+            },
+          ],
+        },
+      ],
+    },
   },
-  'dev-logs/project-alpha': {
-    type: 'dev-log',
-    title: 'Project Alpha: Getting Started',
-    description: 'Kicking off a new project with modern tech stack. Excited to share the journey!',
-    date: '2026-02-12',
-    readTime: '5 min read',
-    project: 'Project Alpha',
+  "dev-logs/project-alpha": {
+    type: "dev-log",
+    title: "Project Alpha: Getting Started",
+    description: "Kicking off a new project with modern tech stack. Excited to share the journey!",
+    date: "2026-02-12",
+    readTime: "5 min read",
+    project: "Project Alpha",
     milestone: true,
     progress: 25,
-    tags: ['vue', 'nuxt', 'beginning'],
+    tags: ["vue", "nuxt", "beginning"],
     isMock: true,
     body: {
-      type: 'root',
+      type: "root",
       children: [
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'Today marks the beginning of Project Alpha! This is a full-stack application built with Nuxt 3, FastAPI, and PostgreSQL.' }] },
-        { type: 'element', tag: 'h2', props: { id: 'tech-stack' }, children: [{ type: 'text', value: 'Tech Stack' }] },
-        { type: 'element', tag: 'ul', children: [
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Frontend: Nuxt 3 with TypeScript' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Backend: FastAPI (Python)' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Database: PostgreSQL' }] },
-          { type: 'element', tag: 'li', children: [{ type: 'text', value: 'Hosting: Vercel + Railway' }] },
-        ]},
-        { type: 'element', tag: 'h2', props: { id: 'goals' }, children: [{ type: 'text', value: 'Goals' }] },
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'The main objectives for this project are to learn Nuxt 3 patterns, implement proper auth, and create a scalable API architecture.' }] },
-      ]
-    }
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "Today marks the beginning of Project Alpha! This is a full-stack application built with Nuxt 3, FastAPI, and PostgreSQL.",
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "tech-stack" },
+          children: [{ type: "text", value: "Tech Stack" }],
+        },
+        {
+          type: "element",
+          tag: "ul",
+          children: [
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Frontend: Nuxt 3 with TypeScript" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Backend: FastAPI (Python)" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Database: PostgreSQL" }],
+            },
+            {
+              type: "element",
+              tag: "li",
+              children: [{ type: "text", value: "Hosting: Vercel + Railway" }],
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "goals" },
+          children: [{ type: "text", value: "Goals" }],
+        },
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "The main objectives for this project are to learn Nuxt 3 patterns, implement proper auth, and create a scalable API architecture.",
+            },
+          ],
+        },
+      ],
+    },
   },
-  'learning/typescript-basics': {
-    type: 'learning',
-    title: 'TypeScript Basics for Beginners',
-    description: 'A comprehensive guide to getting started with TypeScript. Learn the fundamentals.',
-    date: '2026-02-09',
-    readTime: '8 min read',
-    topic: 'TypeScript',
-    difficulty: 'beginner',
-    prerequisites: ['Basic JavaScript knowledge', 'Node.js installed'],
-    tags: ['typescript', 'javascript', 'tutorial'],
+  "learning/typescript-basics": {
+    type: "learning",
+    title: "TypeScript Basics for Beginners",
+    description:
+      "A comprehensive guide to getting started with TypeScript. Learn the fundamentals.",
+    date: "2026-02-09",
+    readTime: "8 min read",
+    topic: "TypeScript",
+    difficulty: "beginner",
+    prerequisites: ["Basic JavaScript knowledge", "Node.js installed"],
+    tags: ["typescript", "javascript", "tutorial"],
     isMock: true,
     body: {
-      type: 'root',
+      type: "root",
       children: [
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'TypeScript adds static typing to JavaScript, making your code more reliable and easier to maintain.' }] },
-        { type: 'element', tag: 'h2', props: { id: 'why-typescript' }, children: [{ type: 'text', value: 'Why TypeScript?' }] },
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'TypeScript catches errors at compile time rather than runtime. This means fewer bugs in production!' }] },
-        { type: 'element', tag: 'h2', props: { id: 'basic-types' }, children: [{ type: 'text', value: 'Basic Types' }] },
-        { type: 'element', tag: 'pre', props: { class: 'language-typescript' }, children: [{ type: 'element', tag: 'code', children: [{ type: 'text', value: '// Basic types\nlet name: string = "John";\nlet age: number = 30;' }] }] },
-        { type: 'element', tag: 'h2', props: { id: 'interfaces' }, children: [{ type: 'text', value: 'Interfaces' }] },
-        { type: 'element', tag: 'p', children: [{ type: 'text', value: 'Interfaces define the shape of objects in TypeScript.' }] },
-      ]
-    }
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "TypeScript adds static typing to JavaScript, making your code more reliable and easier to maintain.",
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "why-typescript" },
+          children: [{ type: "text", value: "Why TypeScript?" }],
+        },
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            {
+              type: "text",
+              value:
+                "TypeScript catches errors at compile time rather than runtime. This means fewer bugs in production!",
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "basic-types" },
+          children: [{ type: "text", value: "Basic Types" }],
+        },
+        {
+          type: "element",
+          tag: "pre",
+          props: { class: "language-typescript" },
+          children: [
+            {
+              type: "element",
+              tag: "code",
+              children: [
+                {
+                  type: "text",
+                  value: '// Basic types\nlet name: string = "John";\nlet age: number = 30;',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          type: "element",
+          tag: "h2",
+          props: { id: "interfaces" },
+          children: [{ type: "text", value: "Interfaces" }],
+        },
+        {
+          type: "element",
+          tag: "p",
+          children: [
+            { type: "text", value: "Interfaces define the shape of objects in TypeScript." },
+          ],
+        },
+      ],
+    },
   },
 };
 
 // Get content
 const content = computed(() => mockArticles[slug] || null);
-const toc = computed(() => content.value ? generateTOC(content.value.body) : []);
+const toc = computed(() => (content.value ? generateTOC(content.value.body) : []));
 
 // Related content
 const relatedContent = computed(() => {
@@ -111,14 +305,14 @@ const relatedContent = computed(() => {
 });
 
 if (!content.value) {
-  throw createError({ statusCode: 404, statusMessage: 'Page not found' });
+  throw createError({ statusCode: 404, statusMessage: "Page not found" });
 }
 
 // Scroll to section
 const scrollToSection = (id: string) => {
   const element = document.getElementById(id);
   if (element) {
-    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    element.scrollIntoView({ behavior: "smooth", block: "start" });
   }
 };
 
@@ -127,7 +321,7 @@ const copiedCode = ref<string | null>(null);
 const copyCode = async (code: string) => {
   await navigator.clipboard.writeText(code);
   copiedCode.value = code;
-  setTimeout(() => copiedCode.value = null, 2000);
+  setTimeout(() => (copiedCode.value = null), 2000);
 };
 
 // Reading progress
@@ -140,57 +334,58 @@ const updateProgress = () => {
 // Enhance code blocks with copy buttons and language labels
 const enhanceCodeBlocks = () => {
   setTimeout(() => {
-    const preBlocks = document.querySelectorAll('.prose pre');
+    const preBlocks = document.querySelectorAll(".prose pre");
     preBlocks.forEach((pre) => {
-      const code = pre.querySelector('code');
-      if (!code || pre.querySelector('.copy-btn')) return;
-      
+      const code = pre.querySelector("code");
+      if (!code || pre.querySelector(".copy-btn")) return;
+
       // Get language from class
-      const langClass = Array.from(code.classList).find(c => c.startsWith('language-'));
-      const lang = langClass ? langClass.replace('language-', '') : 'code';
-      pre.setAttribute('data-language', lang);
-      
+      const langClass = Array.from(code.classList).find((c) => c.startsWith("language-"));
+      const lang = langClass ? langClass.replace("language-", "") : "code";
+      pre.setAttribute("data-language", lang);
+
       // Add copy button
-      const copyBtn = document.createElement('button');
-      copyBtn.className = 'copy-btn absolute top-2 right-2 z-10 px-3 py-1.5 text-xs font-medium text-gray-400 bg-[#313244] hover:bg-[#45475a] hover:text-white rounded-lg transition-all opacity-0 group-hover:opacity-100';
+      const copyBtn = document.createElement("button");
+      copyBtn.className =
+        "copy-btn absolute top-2 right-2 z-10 px-3 py-1.5 text-xs font-medium text-gray-400 bg-[#313244] hover:bg-[#45475a] hover:text-white rounded-lg transition-all opacity-0 group-hover:opacity-100";
       copyBtn.innerHTML = '<span class="i-tabler:copy" /> Copy';
       copyBtn.onclick = () => {
-        navigator.clipboard.writeText(code.textContent || '');
+        navigator.clipboard.writeText(code.textContent || "");
         copyBtn.innerHTML = '<span class="i-tabler:check" /> Copied!';
-        copyBtn.classList.add('text-green-400');
+        copyBtn.classList.add("text-green-400");
         setTimeout(() => {
           copyBtn.innerHTML = '<span class="i-tabler:copy" /> Copy';
-          copyBtn.classList.remove('text-green-400');
+          copyBtn.classList.remove("text-green-400");
         }, 2000);
       };
-      
-      pre.classList.add('group');
+
+      pre.classList.add("group");
       pre.appendChild(copyBtn);
-      
+
       // Show button on hover
-      pre.addEventListener('mouseenter', () => copyBtn.classList.remove('opacity-0'));
-      pre.addEventListener('mouseleave', () => copyBtn.classList.remove('opacity-0'));
+      pre.addEventListener("mouseenter", () => copyBtn.classList.remove("opacity-0"));
+      pre.addEventListener("mouseleave", () => copyBtn.classList.remove("opacity-0"));
     });
   }, 100);
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', updateProgress, { passive: true });
+  window.addEventListener("scroll", updateProgress, { passive: true });
   updateProgress();
   enhanceCodeBlocks();
 });
 onUnmounted(() => {
-  window.removeEventListener('scroll', updateProgress);
+  window.removeEventListener("scroll", updateProgress);
 });
 
 const typeConfig: Record<string, { label: string; color: string }> = {
-  'blog': { label: 'Blog', color: 'bg-purple-100 text-purple-700 border-purple-200' },
-  'dev-log': { label: 'Dev Log', color: 'bg-blue-100 text-blue-700 border-blue-200' },
-  'learning': { label: 'Learning', color: 'bg-green-100 text-green-700 border-green-200' },
+  blog: { label: "Blog", color: "bg-purple-100 text-purple-700 border-purple-200" },
+  "dev-log": { label: "Dev Log", color: "bg-blue-100 text-blue-700 border-blue-200" },
+  learning: { label: "Learning", color: "bg-green-100 text-green-700 border-green-200" },
 };
 
 useSeoMeta({
-  title: () => content.value?.title || 'Article',
+  title: () => content.value?.title || "Article",
   description: () => content.value?.description,
 });
 </script>
