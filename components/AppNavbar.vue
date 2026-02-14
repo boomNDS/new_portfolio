@@ -214,7 +214,7 @@ useEventListener("keydown", (e: KeyboardEvent) => {
 
 useEventListener("click", (e: MouseEvent) => {
   const target = e.target as HTMLElement;
-  if (!writingMenuRef.value?.contains(target)) {
+  if (writingMenuRef.value && !writingMenuRef.value.contains(target)) {
     isWritingMenuOpen.value = false;
   }
 });

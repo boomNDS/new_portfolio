@@ -36,6 +36,10 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
   ],
 
+  unocss: {
+    silent: true,
+  },
+
   robots: {
     UserAgent: "*",
     Disallow: "/",
@@ -100,7 +104,7 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: false,
       routes: ["/"],
-      ignore: ["/__nuxt_content/content/sql_dump.txt"],
+      ignore: ["/__nuxt_content/content/sql_dump.txt", "/blog/**", "/dev-logs/**", "/learning/**"],
     },
   },
 
