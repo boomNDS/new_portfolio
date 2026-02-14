@@ -13,7 +13,7 @@ export default defineNuxtConfig({
         {
           rel: "preconnect",
           href: "https://fonts.gstatic.com",
-          crossorigin: "",
+          crossorigin: "anonymous",
         },
         {
           rel: "stylesheet",
@@ -36,18 +36,13 @@ export default defineNuxtConfig({
     "motion-v/nuxt",
   ],
 
-  unocss: {
-    silent: true,
-  },
-
   robots: {
-    UserAgent: "*",
-    Disallow: "/",
+    disallow: ["/"],
   },
 
   router: {
     options: {
-      scrollBehavior: () => ({ behavior: "smooth" }),
+      scrollBehaviorType: "smooth",
     },
   },
 
@@ -65,32 +60,36 @@ export default defineNuxtConfig({
       // Use built-in Node sqlite to avoid native bindings like better-sqlite3.
       sqliteConnector: "native",
     },
-    highlight: {
-      theme: {
-        default: "github-light",
-        dark: "github-dark",
+    build: {
+      markdown: {
+        highlight: {
+          theme: {
+            default: "github-light",
+            dark: "github-dark",
+          },
+          langs: [
+            "javascript",
+            "typescript",
+            "vue",
+            "vue-html",
+            "css",
+            "scss",
+            "html",
+            "json",
+            "yaml",
+            "markdown",
+            "md",
+            "bash",
+            "shell",
+            "dockerfile",
+            "python",
+            "rust",
+            "go",
+            "sql",
+            "prisma",
+          ],
+        },
       },
-      langs: [
-        "javascript",
-        "typescript",
-        "vue",
-        "vue-html",
-        "css",
-        "scss",
-        "html",
-        "json",
-        "yaml",
-        "markdown",
-        "md",
-        "bash",
-        "shell",
-        "dockerfile",
-        "python",
-        "rust",
-        "go",
-        "sql",
-        "prisma",
-      ],
     },
   },
 

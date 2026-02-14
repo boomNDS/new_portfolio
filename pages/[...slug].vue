@@ -311,7 +311,10 @@ const scrollToSection = (id: string) => {
           <!-- Article -->
           <article class="flex-1 max-w-3xl space-y-8">
             <!-- Prerequisites -->
-            <div v-if="article.prerequisites?.length" class="card-prerequisites">
+            <div
+              v-if="article.prerequisites?.length"
+              class="mb-8 p-6 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_rgba(0,0,0,0.1)]"
+            >
               <h3 class="flex items-center gap-2 font-semibold text-[var(--color-dark)]">
                 <span class="i-tabler:book-open text-[var(--color-primary)]" />
                 Before You Start
@@ -325,11 +328,20 @@ const scrollToSection = (id: string) => {
             </div>
 
             <!-- TOC Mobile -->
-            <nav v-if="toc.length" class="toc-mobile lg:hidden">
-              <p class="toc-title">On this page</p>
+            <nav
+              v-if="toc.length"
+              class="lg:hidden mb-8 p-4 rounded-xl border border-gray-200/80 bg-white/90 shadow-sm backdrop-blur-sm"
+            >
+              <p class="text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-3">On this page</p>
               <ul class="space-y-1">
                 <li v-for="item in toc" :key="item.id">
-                  <button @click="scrollToSection(item.id)" class="toc-link">{{ item.text }}</button>
+                  <button
+                      type="button"
+                      @click="scrollToSection(item.id)"
+                      class="block w-full text-left py-1.5 text-sm text-gray-600 hover:text-[var(--color-primary)] transition-colors"
+                    >
+                      {{ item.text }}
+                    </button>
                 </li>
               </ul>
             </nav>
@@ -342,7 +354,12 @@ const scrollToSection = (id: string) => {
             <!-- Tags -->
             <div v-if="content?.tags?.length" class="flex flex-wrap items-center gap-2 pt-8 border-t border-gray-100">
               <span class="text-sm text-gray-500">Tags:</span>
-              <NuxtLink v-for="tag in content.tags" :key="tag" :to="`/writing?tag=${tag}`" class="tag-link">
+              <NuxtLink
+                v-for="tag in content.tags"
+                :key="tag"
+                :to="`/writing?tag=${tag}`"
+                class="px-3 py-1.5 bg-indigo-50 text-indigo-700 rounded-full text-sm font-medium hover:bg-indigo-100 transition-colors"
+              >
                 {{ tag }}
               </NuxtLink>
             </div>
@@ -351,11 +368,17 @@ const scrollToSection = (id: string) => {
           <!-- TOC Desktop -->
           <aside v-if="toc.length" class="hidden lg:block lg:w-64 shrink-0">
             <div class="sticky top-24">
-              <nav class="toc-desktop">
-                <p class="toc-title">On this page</p>
+              <nav class="p-4 rounded-xl border border-gray-200/80 bg-white/90 shadow-sm">
+                <p class="text-[11px] font-medium text-gray-400 uppercase tracking-widest mb-3">On this page</p>
                 <ul class="space-y-1">
                   <li v-for="item in toc" :key="item.id">
-                    <button @click="scrollToSection(item.id)" class="toc-link">{{ item.text }}</button>
+                    <button
+                      type="button"
+                      @click="scrollToSection(item.id)"
+                      class="block w-full text-left py-1.5 text-sm text-gray-600 hover:text-[var(--color-primary)] transition-colors"
+                    >
+                      {{ item.text }}
+                    </button>
                   </li>
                 </ul>
               </nav>
@@ -365,7 +388,10 @@ const scrollToSection = (id: string) => {
       </main>
 
       <!-- Related Articles -->
-      <section v-if="relatedContent.length" class="related-section">
+      <section
+        v-if="relatedContent.length"
+        class="border-t border-gray-100 bg-gradient-to-b from-gray-50 to-white"
+      >
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
           <div class="flex items-center gap-3 mb-8">
             <span class="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center">
@@ -374,14 +400,22 @@ const scrollToSection = (id: string) => {
             <h2 class="text-xl font-bold text-gray-900">Continue Reading</h2>
           </div>
           <div class="grid sm:grid-cols-2 gap-6">
-            <NuxtLink v-for="item in relatedContent" :key="item.path" :to="item.path" class="card-related">
-              <div class="icon-wrapper">
+            <NuxtLink
+              v-for="item in relatedContent"
+              :key="item.path"
+              :to="item.path"
+              class="group flex gap-4 p-5 bg-white rounded-2xl border border-gray-100 hover:border-indigo-200 hover:shadow-xl hover:shadow-indigo-100/50 transition-all duration-300"
+            >
+              <div class="shrink-0 w-12 h-12 rounded-xl bg-gradient-to-br from-gray-50 to-gray-100 border border-gray-100 flex items-center justify-center">
                 <span v-if="item.type === 'blog'" class="i-tabler:article text-purple-500 text-xl" />
                 <span v-else-if="item.type === 'dev-logs'" class="i-tabler:code text-blue-500 text-xl" />
                 <span v-else class="i-tabler:book text-green-500 text-xl" />
               </div>
               <div class="min-w-0">
-                <span class="badge-related" :class="TYPE_CONFIG[item.type]?.color ?? 'bg-gray-100 text-gray-700'">
+                <span
+                  class="inline-block px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide mb-1.5"
+                  :class="TYPE_CONFIG[item.type]?.color ?? 'bg-gray-100 text-gray-700'"
+                >
                   {{ TYPE_CONFIG[item.type]?.label ?? item.type }}
                 </span>
                 <h3 class="font-semibold text-gray-900 group-hover:text-indigo-600 transition-colors line-clamp-1 mb-1">

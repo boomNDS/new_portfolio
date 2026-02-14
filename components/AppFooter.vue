@@ -24,9 +24,9 @@ const socialLinks = [
 
 // Quick links
 const quickLinks = [
-  { name: "Experience", href: "#experience" },
-  { name: "Tech Stack", href: "#tech_stack" },
-  { name: "Showcase", href: "#showcase" },
+  { name: "Experience", to: { path: "/", hash: "#experience" } },
+  { name: "Tech Stack", to: { path: "/", hash: "#tech_stack" } },
+  { name: "Showcase", to: { path: "/", hash: "#showcase" } },
 ];
 </script>
 
@@ -90,12 +90,12 @@ const quickLinks = [
         <nav aria-label="Footer navigation" class="hidden sm:block">
           <ul class="footer-nav flex items-center gap-6 list-none">
             <li v-for="link in quickLinks" :key="link.name">
-              <a
-                :href="link.href"
+              <NuxtLink
+                :to="link.to"
                 class="cursor-pointer text-sm text-[var(--color-text)] hover:text-[var(--color-primary)] transition-colors duration-200"
               >
                 {{ link.name }}
-              </a>
+              </NuxtLink>
             </li>
           </ul>
         </nav>

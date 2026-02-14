@@ -60,8 +60,20 @@ let sectionObserver: IntersectionObserver | null = null;
 // Computed
 const menuAriaLabel = computed(() => (isMenuOpen.value ? "Close menu" : "Open menu"));
 
+// Router
+const router = useRouter();
+const route = useRoute();
+
 // Methods
 const scrollToSection = (item: MenuItem | "Intro") => {
+  // If not on home page, navigate to home with section hash
+  if (route.path !== "/") {
+    router.push({
+      path: "/",
+      hash: `#${SECTION_MAP[item]}`,
+    });
+    return;
+  }
   emit("scroll-to-section", SECTION_MAP[item]);
 };
 
@@ -127,7 +139,6 @@ const handleMenuSelect = (item: MenuItem) => {
   }
 };
 
-const route = useRoute();
 const isWritingPage = () =>
   route.path.startsWith("/writing") ||
   route.path.startsWith("/blog") ||
