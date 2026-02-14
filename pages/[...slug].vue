@@ -1,6 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
-const slug = Array.isArray(route.params.slug) ? route.params.slug.join("/") : (route.params.slug ?? "");
+const slug = Array.isArray(route.params.slug)
+  ? route.params.slug.join("/")
+  : (route.params.slug ?? "");
 
 // Content body types
 interface ContentNode {
