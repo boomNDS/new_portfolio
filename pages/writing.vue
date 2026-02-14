@@ -59,15 +59,15 @@ const activeFilter = ref("all");
 
 // Fetch content from all collections
 const { data: blogPosts, pending: pendingBlog } = await useAsyncData("blog-posts", () =>
-  queryCollection("blog").where("published", "!=", false).order("date", "DESC").all(),
+  queryCollection("blog").order("date", "DESC").all(),
 );
 
 const { data: devLogs, pending: pendingDev } = await useAsyncData("dev-logs-posts", () =>
-  queryCollection("devLogs").where("published", "!=", false).order("date", "DESC").all(),
+  queryCollection("devLogs").order("date", "DESC").all(),
 );
 
 const { data: learningNotes, pending: pendingLearning } = await useAsyncData("learning-posts", () =>
-  queryCollection("learning").where("published", "!=", false).order("date", "DESC").all(),
+  queryCollection("learning").order("date", "DESC").all(),
 );
 
 const pending = computed(() => pendingBlog.value || pendingDev.value || pendingLearning.value);
@@ -321,7 +321,7 @@ useSeoMeta({
               <!-- Footer -->
               <div class="flex items-center justify-between pt-4 border-t border-gray-50">
                 <div class="flex items-center gap-3 text-sm text-text">
-                  <span>{{ new Date(item.date).toLocaleDateString("en-US", { month: "short", day: "numeric" }) }}</span>
+                  <span>{{ formatDateShort(item.date) }}</span>
                   <span v-if="item.project" class="flex items-center gap-1">
                     <span class="w-1 h-1 rounded-full bg-gray-300" />
                     <span class="i-tabler:folder text-xs" />

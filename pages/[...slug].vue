@@ -17,11 +17,11 @@ const collectionMap: Record<string, string> = {
 
 // Determine which collection to query based on path
 const pathParts = slug.split("/");
-const urlPath = pathParts[0];
-const collectionName = collectionMap[urlPath];
+const urlPath = pathParts[0] ?? "";
+const collectionName = collectionMap[urlPath] || "";
 
 // Validate collection name
-const isValidCollection = !!collectionName;
+const isValidCollection = collectionName !== "";
 
 // Fetch content from the appropriate collection
 const { data: content, pending } = await useAsyncData(
@@ -29,7 +29,9 @@ const { data: content, pending } = await useAsyncData(
   async () => {
     if (!isValidCollection) return null;
     try {
-      return await queryCollection(collectionName).path(`/${slug}`).first();
+      return await queryCollection(collectionName as "blog" | "devLogs" | "learning" | "showcases")
+        .path(`/${slug}`)
+        .first();
     } catch {
       return null;
     }
@@ -43,12 +45,19 @@ const { data: content, pending } = await useAsyncData(
 // Content not found state
 const notFound = computed(() => !pending.value && !content.value);
 
-// Generate TOC from content body
+// Content body types
+interface ContentChild {
+  tag?: string;
+  children?: { value?: string }[];
+}
+
+// Generate TOC from content body (body shape from Nuxt Content / markdown AST)
 const toc = computed(() => {
-  if (!content.value?.body?.children) return [];
+  const body = content.value?.body as { children?: ContentChild[] } | undefined;
+  if (!body?.children) return [];
 
   const items: { id: string; text: string }[] = [];
-  content.value.body.children.forEach((child: any) => {
+  body.children.forEach((child) => {
     if (child.tag === "h2") {
       const text = child.children?.[0]?.value || "";
       const id = text.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -57,6 +66,16 @@ const toc = computed(() => {
   });
   return items;
 });
+
+// Content with optional collection-specific fields (for template type safety)
+type ContentWithOptionals = typeof content.value & {
+  difficulty?: string;
+  milestone?: boolean;
+  project?: string;
+  progress?: number;
+  prerequisites?: string[];
+};
+const c = computed<ContentWithOptionals | null>(() => content.value as ContentWithOptionals | null);
 
 // Type config (by URL path)
 const typeConfig: Record<string, { label: string; color: string }> = {
@@ -80,10 +99,8 @@ const { data: relatedArticles } = await useAsyncData(
   async () => {
     if (!isValidCollection || !content.value) return [];
     try {
-      return await queryCollection(collectionName)
-        .where("path", "!=", `/${slug}`)
-        .where("published", "!=", false)
-        .limit(3)
+      return await queryCollection(collectionName as "blog" | "devLogs" | "learning" | "showcases")
+        .limit(4)
         .all();
     } catch {
       return [];
@@ -95,14 +112,24 @@ const { data: relatedArticles } = await useAsyncData(
   },
 );
 
+// Related article type
+interface RelatedArticle {
+  path: string;
+  title: string;
+  description: string;
+}
+
 const relatedContent = computed(() => {
   if (!relatedArticles.value) return [];
-  return relatedArticles.value.map((item: any) => ({
-    path: item.path,
-    type: collectionName,
-    title: item.title,
-    description: item.description,
-  }));
+  return (relatedArticles.value as RelatedArticle[])
+    .filter((item) => item.path !== `/${slug}`)
+    .slice(0, 3)
+    .map((item) => ({
+      path: item.path,
+      type: collectionName || urlPath,
+      title: item.title,
+      description: item.description,
+    }));
 });
 
 // Motion animation
@@ -235,31 +262,31 @@ const scrollToSection = (id: string) => {
               <span
                 :class="[
                   'px-2.5 py-1 rounded-full text-xs font-medium border',
-                  typeConfig[urlPath]?.color ||
+                  typeConfig[urlPath as string]?.color ||
                     'bg-gray-100 text-gray-700 border-gray-200',
                 ]"
               >
-                {{ typeConfig[urlPath]?.label || urlPath }}
+                {{ typeConfig[urlPath as string]?.label || urlPath }}
               </span>
               <span
-                v-if="content.milestone"
+                v-if="c?.milestone"
                 class="px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-700 border border-yellow-200"
               >
                 🎯 Milestone
               </span>
               <span
-                v-if="content.difficulty"
+                v-if="c?.difficulty"
                 class="px-2.5 py-1 rounded-full text-xs font-medium border"
                 :class="{
                   'bg-emerald-100 text-emerald-700 border-emerald-200':
-                    content.difficulty === 'beginner',
+                    c?.difficulty === 'beginner',
                   'bg-amber-100 text-amber-700 border-amber-200':
-                    content.difficulty === 'intermediate',
+                    c?.difficulty === 'intermediate',
                   'bg-rose-100 text-rose-700 border-rose-200':
-                    content.difficulty === 'advanced',
+                    c?.difficulty === 'advanced',
                 }"
               >
-                {{ content.difficulty }}
+                {{ c?.difficulty }}
               </span>
             </div>
 
@@ -277,29 +304,29 @@ const scrollToSection = (id: string) => {
             <div data-animate-hero class="flex items-center gap-4 text-sm text-gray-500">
               <span class="flex items-center gap-1.5">
                 <span class="i-tabler:calendar" />
-                {{ new Date(content.date).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) }}
+                {{ formatDate(content.date) }}
               </span>
               <span class="flex items-center gap-1.5">
                 <span class="i-tabler:clock" />
                 {{ readTime }}
               </span>
-              <span v-if="content.project" class="flex items-center gap-1.5">
+              <span v-if="c?.project" class="flex items-center gap-1.5">
                 <span class="w-1 h-1 rounded-full bg-gray-300" />
                 <span class="i-tabler:folder" />
-                {{ content.project }}
+                {{ c?.project ?? '' }}
               </span>
             </div>
 
             <!-- Progress Bar -->
-            <div v-if="content.progress !== undefined" class="mt-6 max-w-md">
+            <div v-if="c?.progress !== undefined" class="mt-6 max-w-md">
               <div class="flex justify-between text-sm text-text mb-2">
                 <span>Project Progress</span>
-                <span class="font-medium">{{ content.progress }}%</span>
+                <span class="font-medium">{{ c?.progress }}%</span>
               </div>
               <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
                 <div
                   class="h-full bg-indigo-500 rounded-full transition-all"
-                  :style="{ width: `${content.progress}%` }"
+                  :style="{ width: `${c?.progress ?? 0}%` }"
                 />
               </div>
             </div>
@@ -314,7 +341,7 @@ const scrollToSection = (id: string) => {
           <article class="flex-1 max-w-3xl">
             <!-- Prerequisites -->
             <div
-              v-if="content.prerequisites?.length"
+              v-if="c?.prerequisites?.length"
               class="mb-8 p-6 rounded-xl border-2 border-[var(--color-border)] bg-[var(--color-card)] shadow-[4px_4px_0px_rgba(0,0,0,0.1)]"
             >
               <h3 class="font-semibold text-[var(--color-dark)] mb-3 flex items-center gap-2">
@@ -323,7 +350,7 @@ const scrollToSection = (id: string) => {
               </h3>
               <ul class="space-y-2">
                 <li
-                  v-for="prereq in content.prerequisites"
+                  v-for="prereq in (c?.prerequisites ?? [])"
                   :key="prereq"
                   class="text-[var(--color-text)] text-sm flex items-center gap-2"
                 >
