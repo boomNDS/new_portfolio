@@ -61,6 +61,33 @@ export default defineNuxtConfig({
       // Use built-in Node sqlite to avoid native bindings like better-sqlite3.
       sqliteConnector: "native",
     },
+    highlight: {
+      theme: {
+        default: "github-light",
+        dark: "github-dark",
+      },
+      langs: [
+        "javascript",
+        "typescript",
+        "vue",
+        "vue-html",
+        "css",
+        "scss",
+        "html",
+        "json",
+        "yaml",
+        "markdown",
+        "md",
+        "bash",
+        "shell",
+        "dockerfile",
+        "python",
+        "rust",
+        "go",
+        "sql",
+        "prisma",
+      ],
+    },
   },
 
   runtimeConfig: {

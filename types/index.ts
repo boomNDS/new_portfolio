@@ -66,8 +66,8 @@ export type MotionPreference = "no-preference" | "reduce";
 // Navigation Types
 // ============================================
 
-export type SectionId = "intro" | "experience" | "tech_stack" | "showcase";
-export type MenuItem = "Experience" | "Tech stack" | "Showcase";
+export type SectionId = "intro" | "experience" | "tech_stack" | "showcase" | "writing";
+export type MenuItem = "Experience" | "Tech stack" | "Showcase" | "Writing";
 
 // ============================================
 // Component Prop Types

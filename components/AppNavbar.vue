@@ -13,13 +13,22 @@ const emit = defineEmits<{
 }>();
 
 // Constants
-const MENU_ITEMS = ["Experience", "Tech stack", "Showcase"] as const satisfies readonly MenuItem[];
+const MENU_ITEMS = ["Experience", "Tech stack", "Showcase", "Writing"] as const satisfies readonly MenuItem[];
 const SECTION_MAP: Record<MenuItem | "Intro", SectionId> = {
   Intro: "intro",
   Experience: "experience",
   "Tech stack": "tech_stack",
   Showcase: "showcase",
+  Writing: "writing",
 };
+
+// Content submenu items
+const WRITING_ITEMS = [
+  { label: "Overview", path: "/writing", icon: "i-tabler:pencil" },
+  { label: "Dev Logs", path: "/dev-logs", icon: "i-tabler:code" },
+  { label: "Learning", path: "/learning", icon: "i-tabler:book" },
+  { label: "Blog", path: "/blog", icon: "i-tabler:article" },
+] as const;
 
 // Composables
 const reducedMotion = useMotionPreference();
@@ -37,6 +46,8 @@ const activeSection = ref<SectionId>("intro");
 const navItemsAnimated = ref(false);
 const isDrawerVisible = ref(false);
 const drawerRef = ref<HTMLElement | null>(null);
+const isWritingMenuOpen = ref(false);
+const writingMenuRef = ref<HTMLElement | null>(null);
 
 // Intersection Observer for active section
 let sectionObserver: IntersectionObserver | null = null;
@@ -95,6 +106,7 @@ const handleMenuToggle = () => {
 };
 
 const handleMenuSelect = (item: MenuItem) => {
+  if (item === "Writing") return;
   if (!isLargeScreen.value) {
     const activeEl = document.activeElement as HTMLElement | null;
     if (activeEl && activeEl.classList.contains("nav-drawer-item")) {
@@ -110,7 +122,13 @@ const handleMenuSelect = (item: MenuItem) => {
   }
 };
 
-const isActiveSection = (item: MenuItem) => activeSection.value === SECTION_MAP[item];
+const route = useRoute();
+const isWritingPage = () => route.path.startsWith('/writing') || route.path.startsWith('/blog') || route.path.startsWith('/dev-logs') || route.path.startsWith('/learning');
+
+const isActiveSection = (item: MenuItem) => {
+  if (item === "Writing") return isWritingPage();
+  return activeSection.value === SECTION_MAP[item];
+};
 
 // Animations
 const animateNavItems = () => {
@@ -181,6 +199,14 @@ onBeforeUnmount(() => {
 useEventListener("keydown", (e: KeyboardEvent) => {
   if (e.key === "Escape") {
     closeMenu();
+    isWritingMenuOpen.value = false;
+  }
+});
+
+useEventListener("click", (e: MouseEvent) => {
+  const target = e.target as HTMLElement;
+  if (!writingMenuRef.value?.contains(target)) {
+    isWritingMenuOpen.value = false;
   }
 });
 
@@ -222,17 +248,74 @@ watch(navInView, (inView) => {
         class="nav-list hidden md:flex items-center justify-center gap-8 lg:gap-10 list-none flex-1 min-w-0"
         role="menubar"
       >
-        <li v-for="item in MENU_ITEMS" :key="item" role="none">
-          <button
-            data-nav-item
-            type="button"
-            role="menuitem"
-            class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-full bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
-            :class="{ 'text-[var(--color-dark)]': isActiveSection(item) }"
-            @click="handleMenuSelect(item)"
-          >
-            {{ item }}
-          </button>
+        <li v-for="item in MENU_ITEMS" :key="item" role="none" class="relative">
+          <template v-if="item === 'Writing'">
+            <div ref="writingMenuRef" class="relative">
+              <NuxtLink
+                to="/writing"
+                data-nav-item
+                role="menuitem"
+                class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-full bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)] inline-flex items-center gap-1"
+                :class="{ 'text-[var(--color-dark)]': isActiveSection(item) }"
+                @mouseenter="isWritingMenuOpen = true"
+                aria-haspopup="true"
+                :aria-expanded="isWritingMenuOpen"
+              >
+                {{ item }}
+                <button
+                  type="button"
+                  class="p-0.5 -mr-1 hover:bg-[var(--color-light)] rounded"
+                  @click.prevent="isWritingMenuOpen = !isWritingMenuOpen"
+                >
+                  <span 
+                    class="text-sm transition-transform duration-200" 
+                    :class="[isWritingMenuOpen ? 'i-tabler:chevron-up' : 'i-tabler:chevron-down']"
+                    aria-hidden="true"
+                  />
+                </button>
+              </NuxtLink>
+              <!-- Writing Dropdown -->
+              <Transition
+                enter-active-class="transition-all duration-200 ease-out"
+                enter-from-class="opacity-0 translate-y-2"
+                enter-to-class="opacity-100 translate-y-0"
+                leave-active-class="transition-all duration-150 ease-in"
+                leave-from-class="opacity-100 translate-y-0"
+                leave-to-class="opacity-0 translate-y-2"
+              >
+                <ul
+                  v-show="isWritingMenuOpen"
+                  @mouseleave="isWritingMenuOpen = false"
+                  class="absolute top-full left-1/2 -translate-x-1/2 mt-2 py-2 px-1 min-w-44 rounded-xl border border-[var(--color-border)] bg-[var(--color-card)] shadow-lg z-50"
+                  role="menu"
+                >
+                  <li v-for="subItem in WRITING_ITEMS" :key="subItem.path" role="none">
+                    <NuxtLink
+                      :to="subItem.path"
+                      role="menuitem"
+                      class="writing-dropdown-link flex items-center gap-2 px-3 py-2.5 rounded-lg text-sm text-[var(--color-text)] transition-colors"
+                      @click="isWritingMenuOpen = false"
+                    >
+                      <span :class="subItem.icon" />
+                      {{ subItem.label }}
+                    </NuxtLink>
+                  </li>
+                </ul>
+              </Transition>
+            </div>
+          </template>
+          <template v-else>
+            <button
+              data-nav-item
+              type="button"
+              role="menuitem"
+              class="nav-link-btn cursor-pointer relative text-sm font-semibold px-2 py-1 rounded-full bg-transparent border-0 transition-colors duration-200 focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)]"
+              :class="{ 'text-[var(--color-dark)]': isActiveSection(item) }"
+              @click="handleMenuSelect(item)"
+            >
+              {{ item }}
+            </button>
+          </template>
         </li>
       </ul>
 
@@ -283,17 +366,38 @@ watch(navInView, (inView) => {
       />
       <div ref="drawerRef" class="nav-drawer-panel">
         <ul class="nav-drawer-list" role="menu">
-          <li v-for="item in MENU_ITEMS" :key="item" role="none">
-            <button
-              type="button"
-              role="menuitem"
-              class="nav-drawer-item cursor-pointer"
-              :class="{ 'is-active': isActiveSection(item) }"
-              @click="handleMenuSelect(item)"
-            >
-              <span class="nav-drawer-label">{{ item }}</span>
-            </button>
-          </li>
+          <template v-for="item in MENU_ITEMS" :key="item">
+            <li v-if="item === 'Writing'" role="none">
+              <div class="px-3 py-2 text-xs font-semibold text-[var(--color-text-muted)] uppercase tracking-wider">
+                Writing
+              </div>
+              <ul class="pl-2 space-y-1">
+                <li v-for="subItem in WRITING_ITEMS" :key="subItem.path" role="none">
+                  <NuxtLink
+                    :to="subItem.path"
+                    role="menuitem"
+                    class="nav-drawer-item"
+                    :class="{ 'is-active': $route.path.startsWith(subItem.path) }"
+                    @click="closeMenu"
+                  >
+                    <span :class="subItem.icon" class="mr-2" />
+                    <span class="nav-drawer-label">{{ subItem.label }}</span>
+                  </NuxtLink>
+                </li>
+              </ul>
+            </li>
+            <li v-else role="none">
+              <button
+                type="button"
+                role="menuitem"
+                class="nav-drawer-item cursor-pointer"
+                :class="{ 'is-active': isActiveSection(item) }"
+                @click="handleMenuSelect(item)"
+              >
+                <span class="nav-drawer-label">{{ item }}</span>
+              </button>
+            </li>
+          </template>
         </ul>
         <div class="nav-drawer-footer">
           <span class="nav-drawer-chip">Tap to jump</span>
@@ -366,6 +470,23 @@ watch(navInView, (inView) => {
 .nav-link-btn:hover::after,
 .nav-link-btn.text-\[var\(--color-dark\)\]::after {
   width: 70%;
+}
+
+/* Writing dropdown: neutral hover and active (no purple-on-purple) */
+.writing-dropdown-link:hover {
+  background: var(--color-light);
+  color: var(--color-dark);
+}
+
+.writing-dropdown-link.router-link-active {
+  background: var(--color-light);
+  color: var(--color-dark);
+  font-weight: 600;
+}
+
+.writing-dropdown-link.router-link-active:hover {
+  background: color-mix(in srgb, var(--color-light) 85%, var(--color-border));
+  color: var(--color-dark);
 }
 
 /* Oval button with subtle diffused shadow (light theme) */
