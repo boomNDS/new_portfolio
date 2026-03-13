@@ -42,7 +42,25 @@ export default defineNuxtConfig({
 
   router: {
     options: {
-      scrollBehaviorType: "smooth",
+      scrollBehavior(to, from, savedPosition) {
+        // If there's a saved position (browser back/forward), use it
+        if (savedPosition) {
+          return savedPosition;
+        }
+        // If the route has a hash, scroll to the element
+        if (to.hash) {
+          return {
+            el: to.hash,
+            behavior: "smooth",
+          };
+        }
+        // If only query params changed (like ?page=4), stay at current position
+        if (from && to && from.path === to.path) {
+          return false;
+        }
+        // Default: scroll to top
+        return { top: 0, behavior: "smooth" };
+      },
     },
   },
 

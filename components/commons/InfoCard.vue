@@ -120,7 +120,7 @@ const onMediaError = () => {
       <!-- Hover Overlay -->
       <div
         v-if="primaryLink"
-        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50"
+        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/50 pointer-events-none group-hover:pointer-events-auto"
       >
         <NuxtLink
           :to="primaryLink.url"

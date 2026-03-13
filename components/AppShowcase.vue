@@ -85,15 +85,32 @@ const animateGrid = () => {
   gridAnimated.value = true;
 };
 
-// URL sync
+// URL sync - use replaceState to avoid scroll behavior
+const updateUrl = (filter: ProjectCategory, pageNum: number) => {
+  const query: Record<string, string> = {};
+  if (filter !== "all") query.filter = filter;
+  if (pageNum > 1) query.page = String(pageNum);
+
+  const url = new URL(window.location.href);
+  url.search = new URLSearchParams(query).toString();
+  window.history.replaceState({}, "", url);
+};
+
+const scrollToShowcase = () => {
+  const showcaseEl = document.getElementById("showcase");
+  if (showcaseEl) {
+    showcaseEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+};
+
 watch(
   [selected, page],
-  ([newFilter, newPage]) => {
-    const query: Record<string, string> = {};
-    if (newFilter !== "all") query.filter = newFilter;
-    if (newPage > 1) query.page = String(newPage);
-
-    router.replace({ query: Object.keys(query).length ? query : undefined });
+  ([newFilter, newPage], [oldFilter, oldPage]) => {
+    updateUrl(newFilter, newPage);
+    // Scroll to showcase when page or filter changes
+    if (newPage !== oldPage || newFilter !== oldFilter) {
+      nextTick(scrollToShowcase);
+    }
   },
   { flush: "post" },
 );

@@ -51,7 +51,6 @@
     "name": "SayonStream",
     "detail": "Preview your donation message in the streamer's TTS voice before you send it, so your shoutout sounds right the first time.",
     "meta": "Product + Frontend · 2024",
-    "result": "Live demo",
     "inactive": true,
     "links": [
       {

@@ -116,6 +116,21 @@ const typeStyle = computed(
     },
 );
 
+// Back button destination based on content type
+const backLink = computed(() => {
+  if (urlPath.value === "showcases") {
+    return { path: "/", hash: "#showcase" };
+  }
+  return { path: "/writing" };
+});
+
+const backLabel = computed(() => {
+  if (urlPath.value === "showcases") {
+    return "Back to Showcase";
+  }
+  return "Back to Writing";
+});
+
 const difficultyClass = computed(
   () =>
     ({
@@ -227,9 +242,9 @@ const scrollToSection = (id: string) => {
         <span class="i-tabler:file-x text-6xl text-gray-300 mb-4 block mx-auto" />
         <h1 class="text-3xl font-bold text-gray-900 mb-2">Article Not Found</h1>
         <p class="text-gray-600 mb-6">The article you're looking for doesn't exist or has been moved.</p>
-        <NuxtLink to="/writing" class="btn-primary">
+        <NuxtLink :to="backLink" class="btn-primary">
           <span class="i-tabler:arrow-left" />
-          Back to Writing
+          {{ backLabel }}
         </NuxtLink>
       </div>
     </div>
@@ -252,9 +267,9 @@ const scrollToSection = (id: string) => {
       <!-- Sticky Header -->
       <header class="sticky top-16 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-100">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 py-3">
-          <NuxtLink to="/writing" class="btn-back">
+          <NuxtLink :to="backLink" class="btn-back">
             <span class="i-tabler:arrow-left" />
-            Back to Writing
+            {{ backLabel }}
           </NuxtLink>
         </div>
       </header>
