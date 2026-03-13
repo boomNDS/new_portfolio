@@ -16,7 +16,7 @@ const experiences = ref<Experience[]>([
     title: "Buddy.ninja",
     subtitle: "Software Engineer, Jul 2025 - Present (Part-Time) · Remote",
     description:
-      "Building cross-platform Flutter apps for pet wearables and the backend systems that power them. Set up CI/CD and core engineering practices.",
+      "Early-stage startup building pet wearables. Part-time role working on cross-platform Flutter apps and backend systems while maintaining full-time position elsewhere.",
     listItems: [
       "Shipped Flutter apps (iOS/Android) with a clean, parent-friendly UX",
       "Implemented backend services for wearable telemetry and real-time sync",
@@ -280,7 +280,7 @@ watch(sectionInView, (inView) => {
                       </h3>
                       <span
                         v-if="exp.isCurrent"
-                        class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)]/10 text-[var(--color-primary)] border border-[var(--color-primary)]/20"
+                        class="px-2 py-0.5 rounded-full text-[10px] sm:text-xs font-semibold bg-[var(--color-primary)] text-white border border-[var(--color-primary)]"
                       >
                         Current
                       </span>
