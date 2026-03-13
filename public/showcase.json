@@ -1,5 +1,20 @@
 [
   {
+    "name": "Punjaicraft",
+    "detail": "Demo website for a handmade 3D-printed keychain business. Customers can explore color collections, choose parts, and preview designs before ordering.",
+    "meta": "Frontend · 2026",
+    "result": "Live demo",
+    "links": [
+      {
+        "type": "link",
+        "url": "https://punjaicraft-builder.vercel.app"
+      }
+    ],
+    "img": "punjaicraft.jpeg",
+    "tags": ["Vite", "React", "3D Printing", "Small Business"],
+    "category": ["frontend"]
+  },
+  {
     "name": "SoupNotify",
     "detail": "Discord bot for SOOP (formerly AfreecaTV) live stream notifications. Automatically notifies your Discord server when your favorite streamers go live.",
     "meta": "Backend · 2025",
@@ -21,7 +36,15 @@
       }
     ],
     "img": "staykha.webp",
-    "tags": ["Vite", "React", "Elysia", "PostgreSQL", "Fly.io", "Vercel", "Supabase"],
+    "tags": [
+      "Vite",
+      "React",
+      "Elysia",
+      "PostgreSQL",
+      "Fly.io",
+      "Vercel",
+      "Supabase"
+    ],
     "category": ["frontend", "backend"]
   },
   {
