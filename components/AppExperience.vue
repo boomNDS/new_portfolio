@@ -14,7 +14,8 @@ const experiences = ref<Experience[]>([
     logoSrc: "/img/company/buddy_ninja_logo.jpeg",
     logoAlt: "Buddy.ninja logo",
     title: "IoT Wearable Platform",
-    subtitle: "Startup Project · Cross-platform mobile + backend system for real-time pet tracking and telemetry",
+    subtitle:
+      "Startup Project · Cross-platform mobile + backend system for real-time pet tracking and telemetry",
     description:
       "Worked on an early-stage IoT wearable platform, building both mobile and backend systems to support real-time device communication and data processing.",
     listItems: [
