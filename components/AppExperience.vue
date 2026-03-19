@@ -13,15 +13,16 @@ const experiences = ref<Experience[]>([
   {
     logoSrc: "/img/company/buddy_ninja_logo.jpeg",
     logoAlt: "Buddy.ninja logo",
-    title: "Buddy.ninja",
-    subtitle: "Software Engineer, Jul 2025 - Present (Part-Time) · Remote",
+    title: "IoT Wearable Platform",
+    subtitle: "Startup Project · Cross-platform mobile + backend system for real-time pet tracking and telemetry",
     description:
-      "Early-stage startup building pet wearables. Part-time role working on cross-platform Flutter apps and backend systems while maintaining full-time position elsewhere.",
+      "Worked on an early-stage IoT wearable platform, building both mobile and backend systems to support real-time device communication and data processing.",
     listItems: [
-      "Shipped Flutter apps (iOS/Android) with a clean, parent-friendly UX",
-      "Implemented backend services for wearable telemetry and real-time sync",
-      "Connected IoT devices with reliable app ↔ device communication",
-      "Introduced CI/CD and early engineering standards",
+      "Developed Flutter mobile applications (iOS/Android) for pet tracking and monitoring",
+      "Built backend services to handle telemetry data and real-time synchronization",
+      "Designed device ↔ API communication for reliable IoT connectivity",
+      "Set up CI/CD pipelines and cloud deployment workflows (AWS)",
+      "Collaborated on system architecture and product development",
     ],
   },
   {
@@ -102,7 +103,7 @@ const experiences = ref<Experience[]>([
 
 // Company logos for quick view
 const companyLogos = [
-  { src: "/img/company/buddy_ninja_logo.jpeg", alt: "Buddy.ninja" },
+  { src: "/img/company/buddy_ninja_logo.jpeg", alt: "IoT Wearable Platform" },
   { src: "/img/company/bualoi.png", alt: "BualoiTech" },
   { src: "/img/company/skuberg_logo.jpeg", alt: "Skuberg" },
   { src: "/img/company/globish_logo.png", alt: "Globish" },
@@ -113,7 +114,7 @@ const companyLogos = [
 
 // Tech stack tags for each experience
 const techStacks: Record<string, string[]> = {
-  "Buddy.ninja": ["Flutter", "IoT", "AWS", "CI/CD"],
+  "IoT Wearable Platform": ["Flutter", "IoT", "AWS", "CI/CD"],
   BualoiTech: ["Next.js", "TypeScript", "Tailwind", "FastAPI", "Hono", "Firebase", "GCP", "Docker"],
   Skuberg: ["Vue.js", "React", "Elysia.js", "Node.js", "DigitalOcean", "CapRover", "KBank APIs"],
   "Globish Academia": ["Nuxt.js", "Nest.js", "Node.js"],
